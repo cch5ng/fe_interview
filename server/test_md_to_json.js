@@ -1,9 +1,13 @@
 const fs = require('fs');
 const readline = require('readline');
 var SimpleMarkdown = require("simple-markdown");
+var mdParse = SimpleMarkdown.defaultBlockParse;
+
 //const md = require('./javascript_questions.md');
 
 let writeStream = fs.createWriteStream('clean_javascript_questions.md');
+
+let readFile = fs.readFile;
 
 async function processLineByLine() {
   const fileStream = fs.createReadStream('javascript_questions.md');
@@ -23,26 +27,85 @@ async function processLineByLine() {
   // ('\r\n') in input.txt as a single line break.
 
   rl.on('line', (line) => {
-	console.log(`Received: ${line}`);
+	//console.log(`Received: ${line}`);
 	let cleanLine = line;
 	while (cleanLine.indexOf("`") > -1) {
 		cleanLine = cleanLine.replace("`", "^");
 	}
 	cleanLine = cleanLine + '\n';
 
-	console.log(`Cleaned as: ${cleanLine}`);
+	//console.log(`Cleaned as: ${cleanLine}`);
 	writeStream.write(cleanLine, 'utf8');
   });
 
   rl.on('close', () => {
 	  writeStream.end();
+    fileToVar();
   })
 
+  //mdToJson();
 
   // for (const line of rl) { //await
   //   // Each line in input.txt will be successively available here as `line`.
   //   console.log(`Line from file: ${line}`);
   // }
+}
+
+async function fileToVar() {
+  const fileStream = fs.createReadStream('clean_javascript_questions.md');
+  let markdownVar = '';
+
+  fileStream.on('data', (chunk) => {
+    console.log(`Received ${chunk.length} bytes of data.`);
+  });
+
+  //console.log('fileStream', fileStream);
+
+  const rl = readline.createInterface({
+    input: fileStream,
+    //output: cleanStream,
+    crlfDelay: Infinity
+  });
+  // Note: we use the crlfDelay option to recognize all instances of CR LF
+  // ('\r\n') in input.txt as a single line break.
+
+  rl.on('line', (line) => {
+    //console.log(`Received: ${line}`);
+    markdownVar += `${line}\n`;
+
+  });
+
+  rl.on('close', () => {
+    console.log('finished markdownVar')
+
+    console.log('markdownVar', markdownVar);
+    mdToJson(markdownVar)
+    //writeStream.end();
+  })
+
+  //mdToJson();
+
+
+}
+
+function mdToJson(mdStr) {
+  //const markdownContent = readFile('clean_javascript_questions.md', (err, data) => {
+  //  if (err) throw err;
+//  console.log('markdownContent', markdownContent);
+  //  console.log('data', data)
+  console.log('gets here')
+  var syntaxTree = mdParse(mdStr);
+  console.log('syntaxTree', syntaxTree);
+  console.log(JSON.stringify(syntaxTree, null, 4));
+
+  //})
+//  console.log('syntaxTree', syntaxTree)
+
+//  console.log('syntaxTree[0]', syntaxTree[0])
+
+
+
+//  writeStream2.write(syntaxTree, 'utf8');
 }
 
 processLineByLine();
