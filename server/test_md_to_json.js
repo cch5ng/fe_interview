@@ -93,10 +93,36 @@ function mdToJson(mdStr) {
   //  if (err) throw err;
 //  console.log('markdownContent', markdownContent);
   //  console.log('data', data)
-  console.log('gets here')
+  //console.log('gets here')
   var syntaxTree = mdParse(mdStr);
-  console.log('syntaxTree', syntaxTree);
-  console.log(JSON.stringify(syntaxTree, null, 4));
+  //console.log('syntaxTree', syntaxTree);
+
+  let syntaxTreeStr = JSON.stringify(syntaxTree, null, 4);
+  //console.log(JSON.stringify(syntaxTree, null, 4));
+
+  //console.log('syntaxTreeStr', syntaxTreeStr);
+
+  let messyQuestions = JSON.stringify(syntaxTree[1], null, 4);
+  //console.log('messyQuestions', messyQuestions)
+
+  let questionsCount = syntaxTree[1].items.length;
+  //console.log('questionsCount', questionsCount)
+
+  let fiveQuestions = syntaxTree[1].items.slice(0, 5);
+  console.log(JSON.stringify(fiveQuestions, null, 4));
+
+  let fiveQuestionsStrAr = fiveQuestions.map(ar => {
+    let questionStr = '';
+    ar.forEach(obj => {
+      if (obj.type === 'text') {
+        questionStr += obj.content;
+      }
+    });
+    console.log('questionStr', questionStr);
+    return questionStr;
+  })
+
+  console.log('fiveQuestionsStrAr', fiveQuestionsStrAr);
 
   //})
 //  console.log('syntaxTree', syntaxTree)
