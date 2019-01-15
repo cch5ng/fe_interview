@@ -79,6 +79,7 @@ async function fileToVar() {
     console.log('finished markdownVar')
 
     console.log('markdownVar', markdownVar);
+    console.log('markdownVar', markdownVar);
     mdToJson(markdownVar)
     //writeStream.end();
   })
@@ -89,6 +90,9 @@ async function fileToVar() {
 }
 
 function mdToJson(mdStr) {
+  // dictionary of questions for this category
+  let questionDict = {};
+
   //const markdownContent = readFile('clean_javascript_questions.md', (err, data) => {
   //  if (err) throw err;
 //  console.log('markdownContent', markdownContent);
@@ -102,6 +106,8 @@ function mdToJson(mdStr) {
 
   //console.log('syntaxTreeStr', syntaxTreeStr);
 
+  // TODO get the question type
+
   let messyQuestions = JSON.stringify(syntaxTree[1], null, 4);
   //console.log('messyQuestions', messyQuestions)
 
@@ -111,18 +117,60 @@ function mdToJson(mdStr) {
   let fiveQuestions = syntaxTree[1].items.slice(0, 5);
   console.log(JSON.stringify(fiveQuestions, null, 4));
 
-  let fiveQuestionsStrAr = fiveQuestions.map(ar => {
-    let questionStr = '';
-    ar.forEach(obj => {
+  //let fiveQuestionsStrAr = 
+
+  fiveQuestions.forEach((ar, outIdx) => {
+    // TODO generate id
+    let id;
+    let questionObj = {};
+    let questionText = '';
+    let childDict = {};
+    // each array represents a high level question
+    ar.forEach((obj, inIdx) => {
       if (obj.type === 'text') {
-        questionStr += obj.content;
+        questionText += obj.content;
+      }
+      if (obj.type === 'list') {
+        console.log('outIdx: ', outIdx);
+        console.log('sublist at inIdx: ', inIdx);
+
+        let childObj = {};
+        childObj.parentId = null;
+        let childText = '';
+
+        obj.items.forEach((subItem, subIdx) => {
+          childText += subItem[0].content;
+        })
+
+        let childId = `${childText.slice(0, 11)}${childText.slice(childText.length - 11)}`;
+        childObj.id = childId;
+        childObj.text = childText;
+        childDict[childId] = childObj;
+        //childObj.parentId = ;
       }
     });
-    console.log('questionStr', questionStr);
-    return questionStr;
+
+    console.log('questionText', questionText);
+
+    console.log('childDict', childDict);
+
+    id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
+
+    Object.keys(childDict).forEach(childKey => {
+      childDict[childKey].parentId = id;
+    })
+
+    console.log('childDict', childDict);    
+
+    questionObj.id = id;
+    questionObj.text = questionText;
+    questionObj.childIdList = Object.keys(childDict);
+
+    questionDict[id] = questionObj;
+    //return questionStr;
   })
 
-  console.log('fiveQuestionsStrAr', fiveQuestionsStrAr);
+  console.log('questionDict', questionDict);
 
   //})
 //  console.log('syntaxTree', syntaxTree)
