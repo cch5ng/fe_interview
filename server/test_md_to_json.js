@@ -145,7 +145,9 @@ function mdToJson(mdStr) {
         let childText = '';
 
         obj.items.forEach((subItem, subIdx) => {
-          childText += subItem[0].content;
+          subItem.forEach((subItemSubstring, subStrIdx) => {
+            childText += subItemSubstring.content;
+          })
         })
 
         let childId = `${childText.slice(0, 11)}${childText.slice(childText.length - 11)}`;
@@ -159,7 +161,7 @@ function mdToJson(mdStr) {
 
     //console.log('questionText', questionText);
 
-    //console.log('childDict', childDict);
+    console.log('childDict', childDict);
 
     id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
 
