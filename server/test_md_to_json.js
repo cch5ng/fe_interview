@@ -177,7 +177,7 @@ function mdToJson(mdStr) {
 
     questionObj.id = id;
     questionObj.text = questionText;
-    questionDict.allChildStrings = allChildStrings;
+    questionObj.allChildStrings = allChildStrings;
     //questionObj.childIdList = Object.keys(childDict);
 
     questionDict[id] = questionObj;
