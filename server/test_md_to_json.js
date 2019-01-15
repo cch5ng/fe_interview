@@ -1,12 +1,9 @@
 const fs = require('fs');
 const readline = require('readline');
 var SimpleMarkdown = require("simple-markdown");
+
 var mdParse = SimpleMarkdown.defaultBlockParse;
-
-//const md = require('./javascript_questions.md');
-
 let writeStream = fs.createWriteStream('clean_javascript_questions.md');
-
 let readFile = fs.readFile;
 
 async function processLineByLine() {
