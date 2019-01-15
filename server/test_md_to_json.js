@@ -109,7 +109,8 @@ function mdToJson(mdStr) {
 
   // TODO get the question type
   let categoryContent = syntaxTree[0];
-  //console.log('categoryContent', categoryContent)
+  let categoryStr = parseCategoryContent(categoryContent);
+  console.log('categoryStr', categoryStr);
 
   let messyQuestions = JSON.stringify(syntaxTree[1], null, 4);
   //console.log('messyQuestions', messyQuestions)
@@ -153,6 +154,7 @@ function mdToJson(mdStr) {
         let childId = `${childText.slice(0, 11)}${childText.slice(childText.length - 11)}`;
         childObj.id = childId;
         childObj.text = childText;
+        childObj.category = categoryStr;
         childDict[childId] = childObj;
         //childObj.parentId = ;
       }
@@ -178,7 +180,7 @@ function mdToJson(mdStr) {
     //return questionStr;
   })
 
-  //console.log('questionDict', questionDict);
+  console.log('questionDict', questionDict);
 
   //})
 //  console.log('syntaxTree', syntaxTree)
@@ -208,32 +210,32 @@ function parseCategoryContent(syntaxTree) {
 
   let paraAr = longStr.split('\n');
   let categoryLongStr = paraAr[1]
-
-  console.log('categoryLongStr', categoryLongStr);
+  //console.log('categoryLongStr', categoryLongStr);
   let categoryShortStr = categoryLongStr.split('title: ')[1];
+  
   return categoryShortStr;
 }
 
-let testCategSynTree = { content: 
-   [ { content: '-', type: 'text' },
-     { content: '-', type: 'text' },
-     { content: '-\ntitle', type: 'text' },
-     { content: ': JavaScript Questions\nlayout', type: 'text' },
-     { content: ': layouts', type: 'text' },
-     { content: '/page', type: 'text' },
-     { content: '.njk\npermalink', type: 'text' },
-     { content: ': ', type: 'text' },
-     { content: '/questions', type: 'text' },
-     { content: '/javascript', type: 'text' },
-     { content: '-questions', type: 'text' },
-     { content: '/index', type: 'text' },
-     { content: '.html\n', type: 'text' },
-     { content: '-', type: 'text' },
-     { content: '-', type: 'text' },
-     { content: '-', type: 'text' } ],
-  type: 'paragraph' };
+// let testCategSynTree = { content: 
+//    [ { content: '-', type: 'text' },
+//      { content: '-', type: 'text' },
+//      { content: '-\ntitle', type: 'text' },
+//      { content: ': JavaScript Questions\nlayout', type: 'text' },
+//      { content: ': layouts', type: 'text' },
+//      { content: '/page', type: 'text' },
+//      { content: '.njk\npermalink', type: 'text' },
+//      { content: ': ', type: 'text' },
+//      { content: '/questions', type: 'text' },
+//      { content: '/javascript', type: 'text' },
+//      { content: '-questions', type: 'text' },
+//      { content: '/index', type: 'text' },
+//      { content: '.html\n', type: 'text' },
+//      { content: '-', type: 'text' },
+//      { content: '-', type: 'text' },
+//      { content: '-', type: 'text' } ],
+//   type: 'paragraph' };
 
-console.log('parseCategoryContent', parseCategoryContent(testCategSynTree));
+// console.log('parseCategoryContent', parseCategoryContent(testCategSynTree));
 
 
 // const mdContent = `
