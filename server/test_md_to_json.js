@@ -130,50 +130,55 @@ function mdToJson(mdStr) {
     let id;
     let questionObj = {};
     let questionText = '';
-    let childDict = {};
+    let allChildStrings = null;
+    //let childDict = {};
     // each array represents a high level question
     ar.forEach((obj, inIdx) => {
       if (obj.type === 'text') {
         questionText += obj.content;
       }
+      //case need to parse child questions
       if (obj.type === 'list') {
         console.log('outIdx: ', outIdx);
         console.log('sublist at inIdx: ', inIdx);
 
-        let childObj = {};
-        childObj.parentId = null;
-        let childText = '';
+        // let childObj = {};
+        // childObj.parentId = null;
+        // let childText = '';
 
-        obj.items.forEach((subItem, subIdx) => {
-          subItem.forEach((subItemSubstring, subStrIdx) => {
-            childText += subItemSubstring.content;
-          })
-        })
+        allChildStrings = parseChildQuestionsStr(obj.items);
 
-        let childId = `${childText.slice(0, 11)}${childText.slice(childText.length - 11)}`;
-        childObj.id = childId;
-        childObj.text = childText;
-        childObj.category = categoryStr;
-        childDict[childId] = childObj;
+        // obj.items.forEach((subItem, subIdx) => {
+        //   subItem.forEach((subItemSubstring, subStrIdx) => {
+        //     childText += subItemSubstring.content;
+        //   })
+        // })
+
+        // let childId = `${childText.slice(0, 11)}${childText.slice(childText.length - 11)}`;
+        // childObj.id = childId;
+        // childObj.text = childText;
+        // childObj.category = categoryStr;
+        // childDict[childId] = childObj;
         //childObj.parentId = ;
       }
     });
 
     //console.log('questionText', questionText);
 
-    console.log('childDict', childDict);
+    //console.log('childDict', childDict);
 
     id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
 
-    Object.keys(childDict).forEach(childKey => {
-      childDict[childKey].parentId = id;
-    })
+    // Object.keys(childDict).forEach(childKey => {
+    //   childDict[childKey].parentId = id;
+    // })
 
     //console.log('childDict', childDict);    
 
     questionObj.id = id;
     questionObj.text = questionText;
-    questionObj.childIdList = Object.keys(childDict);
+    questionDict.allChildStrings = allChildStrings;
+    //questionObj.childIdList = Object.keys(childDict);
 
     questionDict[id] = questionObj;
     //return questionStr;
@@ -214,3 +219,26 @@ function parseCategoryContent(syntaxTree) {
   
   return categoryShortStr;
 }
+
+// for one parent question, gets all content for its child questions (0 - many)
+// parses that into one long string, delimiter '\n' for multiple questions
+function parseChildQuestionsStr(childArray) {
+  let longChildStr = '';
+
+  childArray.forEach((subItem, subIdx) => {
+    let childQuestionStr = '';
+    subItem.forEach((subItemSubstring, subStrIdx) => {
+      childQuestionStr += subItemSubstring.content;
+    });
+    childQuestionStr += `\n`;
+    longChildStr += childQuestionStr;
+  });
+
+  return longChildStr;
+}
+
+// replaces "`" with "^"; and adds \n char
+// function reformatQuestionStr(str) {
+
+// }
+
