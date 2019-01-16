@@ -5,6 +5,7 @@ var SimpleMarkdown = require("simple-markdown");
 var mdParse = SimpleMarkdown.defaultBlockParse;
 let writeStream = fs.createWriteStream('clean_javascript_questions.md');
 let readFile = fs.readFile;
+let writeFile = fs.writeFile;
 
 async function markdownToJS() {
   const fileStream = fs.createReadStream('javascript_questions.md');
@@ -73,6 +74,11 @@ function mdToJson(mdStr) {
 
   console.log('questionDict', questionDict);
 
+  writeFile('javascriptQuestions.js', JSON.stringify(questionDict, null, 4), (err) => {
+    if (err) throw err;
+
+    console.log('javascriptQuestion.js file created');
+  })
   //TODO convert questionDict to a separate file
 }
 
@@ -119,4 +125,3 @@ function parseChildQuestionsStr(childArray) {
 // function reformatQuestionStr(str) {
 
 // }
-
