@@ -7,20 +7,20 @@ var mdParse = SimpleMarkdown.defaultBlockParse;
 let readFile = fs.readFile;
 let writeFile = fs.writeFile;
 const questionFileSrcList = [
-  'coding-questions.md',
-  'css-questions.md'//,
-  //'fun-questions.md',
-  //'general-questions.md',
-  //'html-questions.md',
-  //'javascript-questions.md',
-  //'network-questions.md',
-  //'performance-questions.md',
-  //'testing-questions.md'
+  //'javascript-questions.md'//,
+  //'coding-questions.md'//,
+  //'css-questions.md'//,
+  //'fun-questions.md'
+  //'general-questions.md'//,
+  //'html-questions.md'//,
+  //'network-questions.md'//,
+  //'performance-questions.md'//,
+  'testing-questions.md'
 ];
 
 async function markdownToJS(fileName) {
   const srcPathPrefix = `./question_src/`;
-  const fileStream = fs.createReadStream('${srcPathPrefix}${fileName}');
+  const fileStream = fs.createReadStream(`${srcPathPrefix}${fileName}`);
   let markdownVar = '';
 
   fileStream.on('data', (chunk) => {
@@ -51,7 +51,9 @@ function mdToJson(mdStr, fileName) {
   let questionDict = {};
   let questionCategory;
   var syntaxTree = mdParse(mdStr);
+
   let syntaxTreeStr = JSON.stringify(syntaxTree, null, 4);
+  console.log('syntaxTreeStr', syntaxTreeStr);
 
   let categoryContent = syntaxTree[0];
   let categoryStr = parseCategoryContent(categoryContent);
@@ -61,6 +63,7 @@ function mdToJson(mdStr, fileName) {
   const outputPathPrefix = `./question_output/`;
   const outputFileName = updateFileExtension(fileName);
 
+  console.log('fileName', fileName);
   allQuestions.forEach((ar, outIdx) => {
     let id;
     let questionObj = {};
@@ -149,5 +152,3 @@ function updateFileExtension(fileName) {
 
   return `${fileNameAr[0]}.js`;
 }
-
-
