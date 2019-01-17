@@ -3,12 +3,24 @@ const readline = require('readline');
 var SimpleMarkdown = require("simple-markdown");
 
 var mdParse = SimpleMarkdown.defaultBlockParse;
-let writeStream = fs.createWriteStream('clean_javascript_questions.md');
+//let writeStream = fs.createWriteStream('clean_javascript_questions.md');
 let readFile = fs.readFile;
 let writeFile = fs.writeFile;
+const questionFileSrcList = [
+  'coding-questions.md',
+  'css-questions.md'//,
+  //'fun-questions.md',
+  //'general-questions.md',
+  //'html-questions.md',
+  //'javascript-questions.md',
+  //'network-questions.md',
+  //'performance-questions.md',
+  //'testing-questions.md'
+];
 
-async function markdownToJS() {
-  const fileStream = fs.createReadStream('javascript_questions.md');
+async function markdownToJS(fileName) {
+  const srcPathPrefix = `./question_src/`;
+  const fileStream = fs.createReadStream('${srcPathPrefix}${fileName}');
   let markdownVar = '';
 
   fileStream.on('data', (chunk) => {
@@ -30,11 +42,11 @@ async function markdownToJS() {
   });
 
   rl.on('close', () => {
-    mdToJson(markdownVar);
+    mdToJson(markdownVar, fileName);
   })
 }
 
-function mdToJson(mdStr) {
+function mdToJson(mdStr, fileName) {
   // dictionary of questions for this category
   let questionDict = {};
   let questionCategory;
@@ -46,6 +58,8 @@ function mdToJson(mdStr) {
 
   //let messyQuestions = JSON.stringify(syntaxTree[1], null, 4);
   let allQuestions = syntaxTree[1].items;
+  const outputPathPrefix = `./question_output/`;
+  const outputFileName = updateFileExtension(fileName);
 
   allQuestions.forEach((ar, outIdx) => {
     let id;
@@ -74,15 +88,18 @@ function mdToJson(mdStr) {
 
   console.log('questionDict', questionDict);
 
-  writeFile('javascriptQuestions.js', JSON.stringify(questionDict, null, 4), (err) => {
+  writeFile(`${outputPathPrefix}${outputFileName}`, JSON.stringify(questionDict, null, 4), (err) => {
     if (err) throw err;
 
-    console.log('javascriptQuestion.js file created');
+    console.log(`${outputPathPrefix}${outputFileName} file created`);
   })
-  //TODO convert questionDict to a separate file
 }
 
-markdownToJS();
+questionFileSrcList.forEach(qFile => {
+  markdownToJS(qFile);
+})
+
+//markdownToJS();
 
 /**
  * @param {obj} khan lib syntax tree for category content
@@ -125,3 +142,12 @@ function parseChildQuestionsStr(childArray) {
 // function reformatQuestionStr(str) {
 
 // }
+
+// helper which updates original file extension from md to js
+function updateFileExtension(fileName) {
+  let fileNameAr = fileName.split('.');
+
+  return `${fileNameAr[0]}.js`;
+}
+
+
