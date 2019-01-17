@@ -7,14 +7,14 @@ var mdParse = SimpleMarkdown.defaultBlockParse;
 let readFile = fs.readFile;
 let writeFile = fs.writeFile;
 const questionFileSrcList = [
-  //'javascript-questions.md'//,
   //'coding-questions.md'//,
-  //'css-questions.md'//,
-  //'fun-questions.md'
-  //'general-questions.md'//,
-  //'html-questions.md'//,
-  //'network-questions.md'//,
-  //'performance-questions.md'//,
+  'javascript-questions.md',
+  'css-questions.md',
+  'fun-questions.md',
+  'general-questions.md',
+  'html-questions.md',
+  'network-questions.md',
+  'performance-questions.md',
   'testing-questions.md'
 ];
 
