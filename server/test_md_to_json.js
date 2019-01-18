@@ -7,18 +7,18 @@ var mdParse = SimpleMarkdown.defaultBlockParse;
 let readFile = fs.readFile;
 let writeFile = fs.writeFile;
 const questionFileSrcList = [
-  //'coding-questions.md'//,
-  'javascript-questions.md',
-  'css-questions.md',
-  'fun-questions.md',
-  'general-questions.md',
-  'html-questions.md',
-  'network-questions.md',
-  'performance-questions.md',
-  'testing-questions.md'
+  'coding-questions.md'//,
+  // 'javascript-questions.md',
+  // 'css-questions.md',
+  // 'fun-questions.md',
+  // 'general-questions.md',
+  // 'html-questions.md',
+  // 'network-questions.md',
+  // 'performance-questions.md',
+  // 'testing-questions.md'
 ];
 
-async function markdownToJS(fileName) {
+async function markdownToStr(fileName) {
   const srcPathPrefix = `./question_src/`;
   const fileStream = fs.createReadStream(`${srcPathPrefix}${fileName}`);
   let markdownVar = '';
@@ -42,13 +42,13 @@ async function markdownToJS(fileName) {
   });
 
   rl.on('close', () => {
-    mdToJson(markdownVar, fileName);
+    strToJson(markdownVar, fileName);
   })
 }
 
-function mdToJson(mdStr, fileName) {
+function strToJson(mdStr, fileName) {
   // dictionary of questions for this category
-  let questionDict = {};
+  let questionDict; // = {};
   let questionCategory;
   var syntaxTree = mdParse(mdStr);
 
@@ -58,36 +58,17 @@ function mdToJson(mdStr, fileName) {
   let categoryContent = syntaxTree[0];
   let categoryStr = parseCategoryContent(categoryContent);
 
-  //let messyQuestions = JSON.stringify(syntaxTree[1], null, 4);
-  let allQuestions = syntaxTree[1].items;
   const outputPathPrefix = `./question_output/`;
   const outputFileName = updateFileExtension(fileName);
 
-  console.log('fileName', fileName);
-  allQuestions.forEach((ar, outIdx) => {
-    let id;
-    let questionObj = {};
-    let questionText = '';
-    let allChildStrings = null;
-    // each array represents a high level question
-    ar.forEach((obj, inIdx) => {
-      if (obj.type === 'text') {
-        questionText += obj.content;
-      }
-      //case need to parse child questions
-      if (obj.type === 'list') {
-        allChildStrings = parseChildQuestionsStr(obj.items);
-      }
-    });
+  //TODO starting here to around line 82, branch coding questions vs remaining questions
+  //let messyQuestions = JSON.stringify(syntaxTree[1], null, 4);
 
-    id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
-    questionObj.id = id;
-    questionObj.text = questionText;
-    questionObj.allChildStrings = allChildStrings;
-    questionObj.category = categoryStr;
-
-    questionDict[id] = questionObj;
-  })
+  if (categoryStr === 'Coding Questions') {
+    questionDict = parseCodingQuestions(syntaxTree, categoryStr);
+  } else {
+    questionDict = parseGeneralQuestions(syntaxTree, categoryStr);
+  }
 
   console.log('questionDict', questionDict);
 
@@ -99,7 +80,7 @@ function mdToJson(mdStr, fileName) {
 }
 
 questionFileSrcList.forEach(qFile => {
-  markdownToJS(qFile);
+  markdownToStr(qFile);
 })
 
 //markdownToJS();
@@ -152,3 +133,71 @@ function updateFileExtension(fileName) {
 
   return `${fileNameAr[0]}.js`;
 }
+
+// all questions except coding
+// input syntax tree
+// output question dict
+function parseGeneralQuestions(syntaxTree, category) {
+  let allQuestions = syntaxTree[1].items;
+  let questionDict = {};
+
+  //console.log('fileName', fileName);
+  allQuestions.forEach((ar, outIdx) => {
+    let id;
+    let questionObj = {};
+    let questionText = '';
+    let allChildStrings = null;
+    // each array represents a high level question
+    ar.forEach((obj, inIdx) => {
+      if (obj.type === 'text') {
+        questionText += obj.content;
+      }
+      //case need to parse child questions
+      if (obj.type === 'list') {
+        allChildStrings = parseChildQuestionsStr(obj.items);
+      }
+    });
+
+    id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
+    questionObj.id = id;
+    questionObj.text = questionText;
+    questionObj.allChildStrings = allChildStrings;
+    questionObj.category = categoryStr;
+
+    questionDict[id] = questionObj;
+  });
+
+  return questionDict;
+}
+
+// only coding questions
+// input syntax tree
+// output question dict
+function parseCodingQuestions(syntaxTree, category) {
+
+  let questionDict = {};
+
+  syntaxTree.forEach((qObj, idx) => {
+    let questionObj = {};
+    let id;
+    // skip category
+    if (idx !== 0) {
+      let questionText = '';
+      qObj.content.forEach(inObj => {
+        if (qObj.type === 'paragraph') {
+          questionText += inObj.content;
+        }
+      })
+    }
+
+    id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
+    questionObj.id = id;
+    questionObj.text = questionText;
+    questionObj.category = category;
+
+    questionDict[id] = questionObj;
+  });
+
+  return questionDict;
+}
+
