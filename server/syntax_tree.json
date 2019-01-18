@@ -1,0 +1,1476 @@
+[
+    {
+        "content": [
+            {
+                "content": "-",
+                "type": "text"
+            },
+            {
+                "content": "-",
+                "type": "text"
+            },
+            {
+                "content": "-\ntitle",
+                "type": "text"
+            },
+            {
+                "content": ": JavaScript Questions\nlayout",
+                "type": "text"
+            },
+            {
+                "content": ": layouts",
+                "type": "text"
+            },
+            {
+                "content": "/page",
+                "type": "text"
+            },
+            {
+                "content": ".njk\npermalink",
+                "type": "text"
+            },
+            {
+                "content": ": ",
+                "type": "text"
+            },
+            {
+                "content": "/questions",
+                "type": "text"
+            },
+            {
+                "content": "/javascript",
+                "type": "text"
+            },
+            {
+                "content": "-questions",
+                "type": "text"
+            },
+            {
+                "content": "/index",
+                "type": "text"
+            },
+            {
+                "content": ".html\n",
+                "type": "text"
+            },
+            {
+                "content": "-",
+                "type": "text"
+            },
+            {
+                "content": "-",
+                "type": "text"
+            },
+            {
+                "content": "-",
+                "type": "text"
+            }
+        ],
+        "type": "paragraph"
+    },
+    {
+        "ordered": false,
+        "items": [
+            [
+                {
+                    "content": "Explain event delegation",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Explain how ",
+                    "type": "text"
+                },
+                {
+                    "content": "^this",
+                    "type": "text"
+                },
+                {
+                    "content": "^ works in JavaScript",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Explain how prototypal inheritance works",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What do you think of AMD vs CommonJS",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Explain why the following doesn",
+                    "type": "text"
+                },
+                {
+                    "content": "'t work as an IIFE",
+                    "type": "text"
+                },
+                {
+                    "content": ": ",
+                    "type": "text"
+                },
+                {
+                    "content": "^function foo",
+                    "type": "text"
+                },
+                {
+                    "content": "(",
+                    "type": "text"
+                },
+                {
+                    "content": ")",
+                    "type": "text"
+                },
+                {
+                    "content": "{ ",
+                    "type": "text"
+                },
+                {
+                    "content": "}",
+                    "type": "text"
+                },
+                {
+                    "content": "(",
+                    "type": "text"
+                },
+                {
+                    "content": ")",
+                    "type": "text"
+                },
+                {
+                    "content": ";",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": ".\n",
+                    "type": "text"
+                },
+                {
+                    "ordered": false,
+                    "items": [
+                        [
+                            {
+                                "content": "What needs to be changed to properly make it an IIFE",
+                                "type": "text"
+                            },
+                            {
+                                "content": "?",
+                                "type": "text"
+                            }
+                        ]
+                    ],
+                    "type": "list"
+                }
+            ],
+            [
+                {
+                    "content": "What",
+                    "type": "text"
+                },
+                {
+                    "content": "'s the difference between a variable that is",
+                    "type": "text"
+                },
+                {
+                    "content": ": ",
+                    "type": "text"
+                },
+                {
+                    "content": "^null",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": ", ",
+                    "type": "text"
+                },
+                {
+                    "content": "^undefined",
+                    "type": "text"
+                },
+                {
+                    "content": "^ or undeclared",
+                    "type": "text"
+                },
+                {
+                    "content": "?\n",
+                    "type": "text"
+                },
+                {
+                    "ordered": false,
+                    "items": [
+                        [
+                            {
+                                "content": "How would you go about checking for any of these states",
+                                "type": "text"
+                            },
+                            {
+                                "content": "?",
+                                "type": "text"
+                            }
+                        ]
+                    ],
+                    "type": "list"
+                }
+            ],
+            [
+                {
+                    "content": "What is a closure",
+                    "type": "text"
+                },
+                {
+                    "content": ", and how",
+                    "type": "text"
+                },
+                {
+                    "content": "/why would you use one",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Can you describe the main difference between a ",
+                    "type": "text"
+                },
+                {
+                    "content": "^forEach",
+                    "type": "text"
+                },
+                {
+                    "content": "^ loop and a ",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": ".map",
+                    "type": "text"
+                },
+                {
+                    "content": "(",
+                    "type": "text"
+                },
+                {
+                    "content": ")",
+                    "type": "text"
+                },
+                {
+                    "content": "^ loop and why you would pick one versus the other",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What",
+                    "type": "text"
+                },
+                {
+                    "content": "'s a typical use case for anonymous functions",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "How do you organize your code",
+                    "type": "text"
+                },
+                {
+                    "content": "? ",
+                    "type": "text"
+                },
+                {
+                    "content": "(module pattern",
+                    "type": "text"
+                },
+                {
+                    "content": ", classical inheritance",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                },
+                {
+                    "content": ")",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What",
+                    "type": "text"
+                },
+                {
+                    "content": "'s the difference between host objects and native objects",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Difference between",
+                    "type": "text"
+                },
+                {
+                    "content": ": ",
+                    "type": "text"
+                },
+                {
+                    "content": "^function Person",
+                    "type": "text"
+                },
+                {
+                    "content": "(",
+                    "type": "text"
+                },
+                {
+                    "content": ")",
+                    "type": "text"
+                },
+                {
+                    "content": "{",
+                    "type": "text"
+                },
+                {
+                    "content": "}",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": ", ",
+                    "type": "text"
+                },
+                {
+                    "content": "^var person ",
+                    "type": "text"
+                },
+                {
+                    "content": "= Person",
+                    "type": "text"
+                },
+                {
+                    "content": "(",
+                    "type": "text"
+                },
+                {
+                    "content": ")",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": ", and ",
+                    "type": "text"
+                },
+                {
+                    "content": "^var person ",
+                    "type": "text"
+                },
+                {
+                    "content": "= new Person",
+                    "type": "text"
+                },
+                {
+                    "content": "(",
+                    "type": "text"
+                },
+                {
+                    "content": ")",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What",
+                    "type": "text"
+                },
+                {
+                    "content": "'s the difference between ",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": ".call",
+                    "type": "text"
+                },
+                {
+                    "content": "^ and ",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": ".apply",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Explain ",
+                    "type": "text"
+                },
+                {
+                    "content": "^Function",
+                    "type": "text"
+                },
+                {
+                    "content": ".prototype",
+                    "type": "text"
+                },
+                {
+                    "content": ".bind",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": ".",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What",
+                    "type": "text"
+                },
+                {
+                    "content": "'s the difference between feature detection",
+                    "type": "text"
+                },
+                {
+                    "content": ", feature inference",
+                    "type": "text"
+                },
+                {
+                    "content": ", and using the UA string",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Explain Ajax in as much detail as possible",
+                    "type": "text"
+                },
+                {
+                    "content": ".",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What are the advantages and disadvantages of using Ajax",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Explain how JSONP works ",
+                    "type": "text"
+                },
+                {
+                    "content": "(and how it",
+                    "type": "text"
+                },
+                {
+                    "content": "'s not really Ajax",
+                    "type": "text"
+                },
+                {
+                    "content": ")",
+                    "type": "text"
+                },
+                {
+                    "content": ".",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Have you ever used JavaScript templating",
+                    "type": "text"
+                },
+                {
+                    "content": "?\n",
+                    "type": "text"
+                },
+                {
+                    "ordered": false,
+                    "items": [
+                        [
+                            {
+                                "content": "If so",
+                                "type": "text"
+                            },
+                            {
+                                "content": ", what libraries have you used",
+                                "type": "text"
+                            },
+                            {
+                                "content": "?",
+                                "type": "text"
+                            }
+                        ]
+                    ],
+                    "type": "list"
+                }
+            ],
+            [
+                {
+                    "content": "Explain ",
+                    "type": "text"
+                },
+                {
+                    "content": "\"hoisting",
+                    "type": "text"
+                },
+                {
+                    "content": "\"",
+                    "type": "text"
+                },
+                {
+                    "content": ".",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Describe event bubbling",
+                    "type": "text"
+                },
+                {
+                    "content": ".",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Describe event capturing",
+                    "type": "text"
+                },
+                {
+                    "content": ".",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What",
+                    "type": "text"
+                },
+                {
+                    "content": "'s the difference between an ",
+                    "type": "text"
+                },
+                {
+                    "content": "\"attribute",
+                    "type": "text"
+                },
+                {
+                    "content": "\" and a ",
+                    "type": "text"
+                },
+                {
+                    "content": "\"property",
+                    "type": "text"
+                },
+                {
+                    "content": "\"",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Why is extending built",
+                    "type": "text"
+                },
+                {
+                    "content": "-in JavaScript objects not a good idea",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Difference between window load event and document DOMContentLoaded event",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What is the difference between ",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "=",
+                    "type": "text"
+                },
+                {
+                    "content": "=",
+                    "type": "text"
+                },
+                {
+                    "content": "^ and ",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "=",
+                    "type": "text"
+                },
+                {
+                    "content": "=",
+                    "type": "text"
+                },
+                {
+                    "content": "=",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Explain the same",
+                    "type": "text"
+                },
+                {
+                    "content": "-origin policy with regards to JavaScript",
+                    "type": "text"
+                },
+                {
+                    "content": ".",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Make this work",
+                    "type": "text"
+                },
+                {
+                    "content": ":\n",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "^javascript\nduplicate",
+                    "type": "text"
+                },
+                {
+                    "content": "(",
+                    "type": "text"
+                },
+                {
+                    "content": "[1",
+                    "type": "text"
+                },
+                {
+                    "content": ",2",
+                    "type": "text"
+                },
+                {
+                    "content": ",3",
+                    "type": "text"
+                },
+                {
+                    "content": ",4",
+                    "type": "text"
+                },
+                {
+                    "content": ",5",
+                    "type": "text"
+                },
+                {
+                    "content": "]",
+                    "type": "text"
+                },
+                {
+                    "content": ")",
+                    "type": "text"
+                },
+                {
+                    "content": "; ",
+                    "type": "text"
+                },
+                {
+                    "content": "/",
+                    "type": "text"
+                },
+                {
+                    "content": "/ ",
+                    "type": "text"
+                },
+                {
+                    "content": "[1",
+                    "type": "text"
+                },
+                {
+                    "content": ",2",
+                    "type": "text"
+                },
+                {
+                    "content": ",3",
+                    "type": "text"
+                },
+                {
+                    "content": ",4",
+                    "type": "text"
+                },
+                {
+                    "content": ",5",
+                    "type": "text"
+                },
+                {
+                    "content": ",1",
+                    "type": "text"
+                },
+                {
+                    "content": ",2",
+                    "type": "text"
+                },
+                {
+                    "content": ",3",
+                    "type": "text"
+                },
+                {
+                    "content": ",4",
+                    "type": "text"
+                },
+                {
+                    "content": ",5",
+                    "type": "text"
+                },
+                {
+                    "content": "]\n",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Why is it called a Ternary operator",
+                    "type": "text"
+                },
+                {
+                    "content": ", what does the word ",
+                    "type": "text"
+                },
+                {
+                    "content": "\"Ternary",
+                    "type": "text"
+                },
+                {
+                    "content": "\" indicate",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What is ",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "\"use strict",
+                    "type": "text"
+                },
+                {
+                    "content": "\"",
+                    "type": "text"
+                },
+                {
+                    "content": ";",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "? what are the advantages and disadvantages to using it",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Create a for loop that iterates up to ",
+                    "type": "text"
+                },
+                {
+                    "content": "^100",
+                    "type": "text"
+                },
+                {
+                    "content": "^ while outputting ",
+                    "type": "text"
+                },
+                {
+                    "content": [
+                        {
+                            "content": "\"fizz",
+                            "type": "text"
+                        },
+                        {
+                            "content": "\"",
+                            "type": "text"
+                        }
+                    ],
+                    "type": "strong"
+                },
+                {
+                    "content": " at multiples of ",
+                    "type": "text"
+                },
+                {
+                    "content": "^3",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": ", ",
+                    "type": "text"
+                },
+                {
+                    "content": [
+                        {
+                            "content": "\"buzz",
+                            "type": "text"
+                        },
+                        {
+                            "content": "\"",
+                            "type": "text"
+                        }
+                    ],
+                    "type": "strong"
+                },
+                {
+                    "content": " at multiples of ",
+                    "type": "text"
+                },
+                {
+                    "content": "^5",
+                    "type": "text"
+                },
+                {
+                    "content": "^ and ",
+                    "type": "text"
+                },
+                {
+                    "content": [
+                        {
+                            "content": "\"fizzbuzz",
+                            "type": "text"
+                        },
+                        {
+                            "content": "\"",
+                            "type": "text"
+                        }
+                    ],
+                    "type": "strong"
+                },
+                {
+                    "content": " at multiples of ",
+                    "type": "text"
+                },
+                {
+                    "content": "^3",
+                    "type": "text"
+                },
+                {
+                    "content": "^ and ",
+                    "type": "text"
+                },
+                {
+                    "content": "^5",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Why is it",
+                    "type": "text"
+                },
+                {
+                    "content": ", in general",
+                    "type": "text"
+                },
+                {
+                    "content": ", a good idea to leave the global scope of a website as",
+                    "type": "text"
+                },
+                {
+                    "content": "-is and never touch it",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Why would you use something like the ",
+                    "type": "text"
+                },
+                {
+                    "content": "^load",
+                    "type": "text"
+                },
+                {
+                    "content": "^ event",
+                    "type": "text"
+                },
+                {
+                    "content": "? Does this event have disadvantages",
+                    "type": "text"
+                },
+                {
+                    "content": "? Do you know any alternatives",
+                    "type": "text"
+                },
+                {
+                    "content": ", and why would you use those",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Explain what a single page app is and how to make one SEO",
+                    "type": "text"
+                },
+                {
+                    "content": "-friendly",
+                    "type": "text"
+                },
+                {
+                    "content": ".",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What is the extent of your experience with Promises and",
+                    "type": "text"
+                },
+                {
+                    "content": "/or their polyfills",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What are the pros and cons of using Promises instead of callbacks",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What are some of the advantages",
+                    "type": "text"
+                },
+                {
+                    "content": "/disadvantages of writing JavaScript code in a language that compiles to JavaScript",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What tools and techniques do you use debugging JavaScript code",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What language constructions do you use for iterating over object properties and array items",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Explain the difference between mutable and immutable objects",
+                    "type": "text"
+                },
+                {
+                    "content": ".\n",
+                    "type": "text"
+                },
+                {
+                    "ordered": false,
+                    "items": [
+                        [
+                            {
+                                "content": "What is an example of an immutable object in JavaScript",
+                                "type": "text"
+                            },
+                            {
+                                "content": "?",
+                                "type": "text"
+                            }
+                        ],
+                        [
+                            {
+                                "content": "What are the pros and cons of immutability",
+                                "type": "text"
+                            },
+                            {
+                                "content": "?",
+                                "type": "text"
+                            }
+                        ],
+                        [
+                            {
+                                "content": "How can you achieve immutability in your own code",
+                                "type": "text"
+                            },
+                            {
+                                "content": "?",
+                                "type": "text"
+                            }
+                        ]
+                    ],
+                    "type": "list"
+                }
+            ],
+            [
+                {
+                    "content": "Explain the difference between synchronous and asynchronous functions",
+                    "type": "text"
+                },
+                {
+                    "content": ".",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What is event loop",
+                    "type": "text"
+                },
+                {
+                    "content": "?\n",
+                    "type": "text"
+                },
+                {
+                    "ordered": false,
+                    "items": [
+                        [
+                            {
+                                "content": "What is the difference between call stack and task queue",
+                                "type": "text"
+                            },
+                            {
+                                "content": "?",
+                                "type": "text"
+                            }
+                        ]
+                    ],
+                    "type": "list"
+                }
+            ],
+            [
+                {
+                    "content": "Explain the differences on the usage of ",
+                    "type": "text"
+                },
+                {
+                    "content": "^foo",
+                    "type": "text"
+                },
+                {
+                    "content": "^ between ",
+                    "type": "text"
+                },
+                {
+                    "content": "^function foo",
+                    "type": "text"
+                },
+                {
+                    "content": "(",
+                    "type": "text"
+                },
+                {
+                    "content": ") ",
+                    "type": "text"
+                },
+                {
+                    "content": "{",
+                    "type": "text"
+                },
+                {
+                    "content": "}",
+                    "type": "text"
+                },
+                {
+                    "content": "^ and ",
+                    "type": "text"
+                },
+                {
+                    "content": "^var foo ",
+                    "type": "text"
+                },
+                {
+                    "content": "= function",
+                    "type": "text"
+                },
+                {
+                    "content": "(",
+                    "type": "text"
+                },
+                {
+                    "content": ") ",
+                    "type": "text"
+                },
+                {
+                    "content": "{",
+                    "type": "text"
+                },
+                {
+                    "content": "}",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What are the differences between variables created using ",
+                    "type": "text"
+                },
+                {
+                    "content": "^let",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": ", ",
+                    "type": "text"
+                },
+                {
+                    "content": "^var",
+                    "type": "text"
+                },
+                {
+                    "content": "^ or ",
+                    "type": "text"
+                },
+                {
+                    "content": "^const",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What are the differences between ES6 class and ES5 function constructors",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Can you offer a use case for the new arrow ",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "=",
+                    "type": "text"
+                },
+                {
+                    "content": ">",
+                    "type": "text"
+                },
+                {
+                    "content": "^ function syntax",
+                    "type": "text"
+                },
+                {
+                    "content": "? How does this new syntax differ from other functions",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What advantage is there for using the arrow syntax for a method in a constructor",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What is the definition of a higher",
+                    "type": "text"
+                },
+                {
+                    "content": "-order function",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Can you give an example for destructuring an object or an array",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "ES6 Template Literals offer a lot of flexibility in generating strings",
+                    "type": "text"
+                },
+                {
+                    "content": ", can you give an example",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Can you give an example of a curry function and why this syntax offers an advantage",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "What are the benefits of using ",
+                    "type": "text"
+                },
+                {
+                    "content": "^spread syntax",
+                    "type": "text"
+                },
+                {
+                    "content": "^ and how is it different from ",
+                    "type": "text"
+                },
+                {
+                    "content": "^rest syntax",
+                    "type": "text"
+                },
+                {
+                    "content": "^",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "How can you share code between files",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ],
+            [
+                {
+                    "content": "Why you might want to create static class members",
+                    "type": "text"
+                },
+                {
+                    "content": "?",
+                    "type": "text"
+                }
+            ]
+        ],
+        "type": "list"
+    }
+]

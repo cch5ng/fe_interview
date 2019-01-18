@@ -1,199 +1,202 @@
 const fs = require('fs');
 const readline = require('readline');
 var SimpleMarkdown = require("simple-markdown");
-//const md = require('./javascript_questions.md');
 
-let writeStream = fs.createWriteStream('clean_javascript_questions.md');
+var mdParse = SimpleMarkdown.defaultBlockParse;
+//let writeStream = fs.createWriteStream('clean_javascript_questions.md');
+let readFile = fs.readFile;
+let writeFile = fs.writeFile;
+const questionFileSrcList = [
+  'coding-questions.md',
+  'javascript-questions.md',
+  'css-questions.md',
+  'fun-questions.md',
+  'general-questions.md',
+  'html-questions.md',
+  'network-questions.md',
+  'performance-questions.md',
+  'testing-questions.md'
+];
 
-async function processLineByLine() {
-  const fileStream = fs.createReadStream('javascript_questions.md');
+async function markdownToStr(fileName) {
+  const srcPathPrefix = `./question_src/`;
+  const fileStream = fs.createReadStream(`${srcPathPrefix}${fileName}`);
+  let markdownVar = '';
 
   fileStream.on('data', (chunk) => {
-  	console.log(`Received ${chunk.length} bytes of data.`);
+    console.log(`Received ${chunk.length} bytes of data.`);
   });
-
-  //console.log('fileStream', fileStream);
 
   const rl = readline.createInterface({
     input: fileStream,
-    //output: cleanStream,
     crlfDelay: Infinity
   });
-  // Note: we use the crlfDelay option to recognize all instances of CR LF
-  // ('\r\n') in input.txt as a single line break.
 
   rl.on('line', (line) => {
-	console.log(`Received: ${line}`);
-	let cleanLine = line;
-	while (cleanLine.indexOf("`") > -1) {
-		cleanLine = cleanLine.replace("`", "^");
-	}
-	cleanLine = cleanLine + '\n';
-
-	console.log(`Cleaned as: ${cleanLine}`);
-	writeStream.write(cleanLine, 'utf8');
+    let cleanLine = line;
+    while (cleanLine.indexOf("`") > -1) {
+      cleanLine = cleanLine.replace("`", "^");
+    }
+    cleanLine = cleanLine + '\n';
+    markdownVar += `${cleanLine}`;
   });
 
   rl.on('close', () => {
-	  writeStream.end();
+    strToJson(markdownVar, fileName);
   })
-
-
-  // for (const line of rl) { //await
-  //   // Each line in input.txt will be successively available here as `line`.
-  //   console.log(`Line from file: ${line}`);
-  // }
 }
 
-processLineByLine();
+function strToJson(mdStr, fileName) {
+  // dictionary of questions for this category
+  let questionDict; // = {};
+  let questionCategory;
+  var syntaxTree = mdParse(mdStr);
 
-const mdContent = `
-* Explain event delegation
-* Explain how 'this' works in JavaScript
-* Explain how prototypal inheritance works
-* What do you think of AMD vs CommonJS?
-* Explain why the following doesn't work as an IIFE: 'function foo(){ }();'.
-  * What needs to be changed to properly make it an IIFE?
-* What's the difference between a variable that is: 'null', 'undefined' or undeclared?
-  * How would you go about checking for any of these states?
-* What is a closure, and how/why would you use one?
-* Can you describe the main difference between a 'forEach' loop and a '.map()' loop and why you would pick one versus the other?
-* What's a typical use case for anonymous functions?
-* How do you organize your code? (module pattern, classical inheritance?)
-* What's the difference between host objects and native objects?
-* Difference between: 'function Person(){}', 'var person = Person()', and 'var person = new Person()'?
-* What's the difference between '.call' and '.apply'?
-* Explain 'Function.prototype.bind'.
-* What's the difference between feature detection, feature inference, and using the UA string?
-* Explain Ajax in as much detail as possible.
-* What are the advantages and disadvantages of using Ajax?
-* Explain how JSONP works (and how it's not really Ajax).
-* Have you ever used JavaScript templating?
-  * If so, what libraries have you used?
-* Explain "hoisting".
-* Describe event bubbling.
-* Describe event capturing.
-* What's the difference between an "attribute" and a "property"?
-* Why is extending built-in JavaScript objects not a good idea?
-* Difference between window load event and document DOMContentLoaded event?
-* What is the difference between '==' and '==='?
-* Explain the same-origin policy with regards to JavaScript.
-* Make this work:
-'javascript
-duplicate([1,2,3,4,5]); // [1,2,3,4,5,1,2,3,4,5]
-''
-* Why is it called a Ternary operator, what does the word "Ternary" indicate?
-* What is '"use strict";'? what are the advantages and disadvantages to using it?
-* Create a for loop that iterates up to '100' while outputting **"fizz"** at multiples of '3', **"buzz"** at multiples of '5' and **"fizzbuzz"** at multiples of '3' and '5'
-* Why is it, in general, a good idea to leave the global scope of a website as-is and never touch it?
-* Why would you use something like the 'load' event? Does this event have disadvantages? Do you know any alternatives, and why would you use those?
-* Explain what a single page app is and how to make one SEO-friendly.
-* What is the extent of your experience with Promises and/or their polyfills?
-* What are the pros and cons of using Promises instead of callbacks?
-* What are some of the advantages/disadvantages of writing JavaScript code in a language that compiles to JavaScript?
-* What tools and techniques do you use debugging JavaScript code?
-* What language constructions do you use for iterating over object properties and array items?
-* Explain the difference between mutable and immutable objects.
-  * What is an example of an immutable object in JavaScript?
-  * What are the pros and cons of immutability?
-  * How can you achieve immutability in your own code?
-* Explain the difference between synchronous and asynchronous functions.
-* What is event loop?
-  * What is the difference between call stack and task queue?
-* Explain the differences on the usage of 'foo' between 'function foo() {}' and 'var foo = function() {}'
-* What are the differences between variables created using 'let', 'var' or 'const'?
-* What are the differences between ES6 class and ES5 function constructors?
-* Can you offer a use case for the new arrow '=>' function syntax? How does this new syntax differ from other functions?
-* What advantage is there for using the arrow syntax for a method in a constructor?
-* What is the definition of a higher-order function?
-* Can you give an example for destructuring an object or an array?
-* ES6 Template Literals offer a lot of flexibility in generating strings, can you give an example?
-* Can you give an example of a curry function and why this syntax offers an advantage?
-* What are the benefits of using 'spread syntax' and how is it different from 'rest syntax'?
-* How can you share code between files?
-* Why you might want to create static class members?
-`;
+  let syntaxTreeStr = JSON.stringify(syntaxTree, null, 4);
+  console.log('syntaxTreeStr', syntaxTreeStr);
 
-const mdContent2 = `
----
-title: JavaScript Questions
-layout: layouts/page.njk
-permalink: /questions/javascript-questions/index.html
----
+  let categoryContent = syntaxTree[0];
+  let categoryStr = parseCategoryContent(categoryContent);
 
-* Explain event delegation
-* Explain how \`this\` works in JavaScript
-* Explain how prototypal inheritance works
-* What do you think of AMD vs CommonJS?
-* Explain why the following doesn't work as an IIFE: \`function foo(){ }();\`.
-  * What needs to be changed to properly make it an IIFE?
-* What's the difference between a variable that is: \`null\`, \`undefined\` or undeclared?
-  * How would you go about checking for any of these states?
-* What is a closure, and how/why would you use one?
-* Can you describe the main difference between a \`forEach\` loop and a \`.map()\` loop and why you would pick one versus the other?
-* What's a typical use case for anonymous functions?
-* How do you organize your code? (module pattern, classical inheritance?)
-* What's the difference between host objects and native objects?
-* Difference between: \`function Person(){}\`, \`var person = Person()\`, and \`var person = new Person()\`?
-* What's the difference between \`.call\` and \`.apply\`?
-* Explain \`Function.prototype.bind\`.
-* What's the difference between feature detection, feature inference, and using the UA string?
-* Explain Ajax in as much detail as possible.
-* What are the advantages and disadvantages of using Ajax?
-* Explain how JSONP works (and how it's not really Ajax).
-* Have you ever used JavaScript templating?
-  * If so, what libraries have you used?
-* Explain 'hoisting'.
-* Describe event bubbling.
-* Describe event capturing.
-* What's the difference between an 'attribute' and a 'property'?
-* Why is extending built-in JavaScript objects not a good idea?
-* Difference between window load event and document DOMContentLoaded event?
-* What is the difference between \`==\` and \`===\`?
-* Explain the same-origin policy with regards to JavaScript.
-* Make this work:
-\`\`\`javascript
-duplicate([1,2,3,4,5]); // [1,2,3,4,5,1,2,3,4,5]
-\`\`\`
-* Why is it called a Ternary operator, what does the word 'Ternary' indicate?
-* What is \`'use strict';\`? what are the advantages and disadvantages to using it?
-* Create a for loop that iterates up to \`100\` while outputting **'fizz'** at multiples of \`3\`, **'buzz'** at multiples of \`5\` and **'fizzbuzz'** at multiples of \`3\` and \`5\`
-* Why is it, in general, a good idea to leave the global scope of a website as-is and never touch it?
-* Why would you use something like the \`load\` event? Does this event have disadvantages? Do you know any alternatives, and why would you use those?
-* Explain what a single page app is and how to make one SEO-friendly.
-* What is the extent of your experience with Promises and/or their polyfills?
-* What are the pros and cons of using Promises instead of callbacks?
-* What are some of the advantages/disadvantages of writing JavaScript code in a language that compiles to JavaScript?
-* What tools and techniques do you use debugging JavaScript code?
-* What language constructions do you use for iterating over object properties and array items?
-* Explain the difference between mutable and immutable objects.
-  * What is an example of an immutable object in JavaScript?
-  * What are the pros and cons of immutability?
-  * How can you achieve immutability in your own code?
-* Explain the difference between synchronous and asynchronous functions.
-* What is event loop?
-  * What is the difference between call stack and task queue?
-* Explain the differences on the usage of \`foo\` between \`function foo() {}\` and \`var foo = function() {}\`
-* What are the differences between variables created using \`let\`, \`var\` or \`const\`?
-* What are the differences between ES6 class and ES5 function constructors?
-* Can you offer a use case for the new arrow \`=>\` function syntax? How does this new syntax differ from other functions?
-* What advantage is there for using the arrow syntax for a method in a constructor?
-* What is the definition of a higher-order function?
-* Can you give an example for destructuring an object or an array?
-* ES6 Template Literals offer a lot of flexibility in generating strings, can you give an example?
-* Can you give an example of a curry function and why this syntax offers an advantage?
-* What are the benefits of using \`spread syntax\` and how is it different from \`rest syntax\`?
-* How can you share code between files?
-* Why you might want to create static class members?
+  const outputPathPrefix = `./question_output/`;
+  const outputFileName = updateFileExtension(fileName);
 
-`;
+  //TODO starting here to around line 82, branch coding questions vs remaining questions
+  //let messyQuestions = JSON.stringify(syntaxTree[1], null, 4);
 
-//var mdParse = SimpleMarkdown.defaultBlockParse;
-//var mdOutput = SimpleMarkdown.defaultOutput;
+  if (categoryStr === 'Coding Questions') {
+    questionDict = parseCodingQuestions(syntaxTree, categoryStr);
+  } else {
+    questionDict = parseGeneralQuestions(syntaxTree, categoryStr);
+  }
 
-//var syntaxTree = mdParse("* Explain event delegation");
-//console.log(JSON.stringify(syntaxTree, null, 4));
+  console.log('questionDict', questionDict);
 
-//var syntaxTree = mdParse(mdContent2);
-//console.log(JSON.stringify(syntaxTree, null, 4));
+  writeFile(`${outputPathPrefix}${outputFileName}`, JSON.stringify(questionDict, null, 4), (err) => {
+    if (err) throw err;
+
+    console.log(`${outputPathPrefix}${outputFileName} file created`);
+  })
+}
+
+questionFileSrcList.forEach(qFile => {
+  markdownToStr(qFile);
+})
+
+//markdownToJS();
+
+/**
+ * @param {obj} khan lib syntax tree for category content
+ * @return {str} string version of current questions category
+ *
+ */
+function parseCategoryContent(syntaxTree) {
+  let longStr = '';
+  syntaxTree.content.forEach(cObj => {
+    if (cObj.type === 'text') {
+      longStr += cObj.content;
+    }
+  });
+
+  let paraAr = longStr.split('\n');
+  let categoryLongStr = paraAr[1]
+  let categoryShortStr = categoryLongStr.split('title: ')[1];
+  
+  return categoryShortStr;
+}
+
+// for one parent question, gets all content for its child questions (0 - many)
+// parses that into one long string, delimiter '\n' for multiple questions
+function parseChildQuestionsStr(childArray) {
+  let longChildStr = '';
+
+  childArray.forEach((subItem, subIdx) => {
+    let childQuestionStr = '';
+    subItem.forEach((subItemSubstring, subStrIdx) => {
+      childQuestionStr += subItemSubstring.content;
+    });
+    childQuestionStr += `\n`;
+    longChildStr += childQuestionStr;
+  });
+
+  return longChildStr;
+}
+
+// replaces "`" with "^"; and adds \n char
+// function reformatQuestionStr(str) {
+
+// }
+
+// helper which updates original file extension from md to js
+function updateFileExtension(fileName) {
+  let fileNameAr = fileName.split('.');
+
+  return `${fileNameAr[0]}.js`;
+}
+
+// all questions except coding
+// input syntax tree
+// output question dict
+function parseGeneralQuestions(syntaxTree, category) {
+  let allQuestions = syntaxTree[1].items;
+  let questionDict = {};
+
+  //console.log('fileName', fileName);
+  allQuestions.forEach((ar, outIdx) => {
+    let id;
+    let questionObj = {};
+    let questionText = '';
+    let allChildStrings = null;
+    // each array represents a high level question
+    ar.forEach((obj, inIdx) => {
+      if (obj.type === 'text') {
+        questionText += obj.content;
+      }
+      //case need to parse child questions
+      if (obj.type === 'list') {
+        allChildStrings = parseChildQuestionsStr(obj.items);
+      }
+    });
+
+    id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
+    questionObj.id = id;
+    questionObj.text = questionText;
+    questionObj.allChildStrings = allChildStrings;
+    questionObj.category = category;
+
+    questionDict[id] = questionObj;
+  });
+
+  return questionDict;
+}
+
+// only coding questions
+// input syntax tree
+// output question dict
+function parseCodingQuestions(syntaxTree, category) {
+
+  let questionDict = {};
+
+  syntaxTree.forEach((qObj, idx) => {
+    let questionObj = {};
+    let id;
+    let questionText = '';
+    // skip category
+    if (idx !== 0) {
+      qObj.content.forEach(inObj => {
+        if (qObj.type === 'paragraph') {
+          questionText += inObj.content;
+        }
+      })
+      id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
+      questionObj.id = id;
+      questionObj.text = questionText;
+      questionObj.category = category;
+
+      questionDict[id] = questionObj;
+    }
+  });
+
+  return questionDict;
+}
 
