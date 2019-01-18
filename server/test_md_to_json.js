@@ -7,15 +7,15 @@ var mdParse = SimpleMarkdown.defaultBlockParse;
 let readFile = fs.readFile;
 let writeFile = fs.writeFile;
 const questionFileSrcList = [
-  'coding-questions.md'//,
-  // 'javascript-questions.md',
-  // 'css-questions.md',
-  // 'fun-questions.md',
-  // 'general-questions.md',
-  // 'html-questions.md',
-  // 'network-questions.md',
-  // 'performance-questions.md',
-  // 'testing-questions.md'
+  'coding-questions.md',
+  'javascript-questions.md',
+  'css-questions.md',
+  'fun-questions.md',
+  'general-questions.md',
+  'html-questions.md',
+  'network-questions.md',
+  'performance-questions.md',
+  'testing-questions.md'
 ];
 
 async function markdownToStr(fileName) {
@@ -162,7 +162,7 @@ function parseGeneralQuestions(syntaxTree, category) {
     questionObj.id = id;
     questionObj.text = questionText;
     questionObj.allChildStrings = allChildStrings;
-    questionObj.category = categoryStr;
+    questionObj.category = category;
 
     questionDict[id] = questionObj;
   });
