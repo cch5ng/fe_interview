@@ -180,22 +180,21 @@ function parseCodingQuestions(syntaxTree, category) {
   syntaxTree.forEach((qObj, idx) => {
     let questionObj = {};
     let id;
+    let questionText = '';
     // skip category
     if (idx !== 0) {
-      let questionText = '';
       qObj.content.forEach(inObj => {
         if (qObj.type === 'paragraph') {
           questionText += inObj.content;
         }
       })
+      id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
+      questionObj.id = id;
+      questionObj.text = questionText;
+      questionObj.category = category;
+
+      questionDict[id] = questionObj;
     }
-
-    id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
-    questionObj.id = id;
-    questionObj.text = questionText;
-    questionObj.category = category;
-
-    questionDict[id] = questionObj;
   });
 
   return questionDict;
