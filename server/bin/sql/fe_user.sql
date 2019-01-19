@@ -1,4 +1,4 @@
-CREATE TABLE user(
+CREATE TABLE fe_user(
 	id				SERIAL PRIMARY KEY,
 	email 		VARCHAR(64),
 	password 	VARCHAR(64),
