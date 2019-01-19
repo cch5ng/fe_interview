@@ -1,13 +1,13 @@
 #!/bin/bash
 
-echo 'Configuring front_end_interview'
+echo 'Configuring fe_interview_db'
 
-dropdb front_end_interview
-createdb front_end_interview
+dropdb fe_interview_db
+createdb fe_interview_db
 
-psql front_end_interview < ./bin/sql/user.sql
-psql front_end_interview < ./bin/sql/question.sql
-psql front_end_interview < ./bin/sql/question_list_custom.sql
-psql front_end_interview < ./bin/sql/question_list_custom_question.sql
+psql fe_interview_db < ./bin/sql/user.sql
+psql fe_interview_db < ./bin/sql/question.sql
+psql fe_interview_db < ./bin/sql/question_list_custom.sql
+psql fe_interview_db < ./bin/sql/question_list_custom_question.sql
 
-echo 'front_end_interview configured'
+echo 'fe_interview_db configured'
