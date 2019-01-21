@@ -1,38 +1,44 @@
 {
     "Traditionale domains?": {
         "id": "Traditionale domains?",
-        "text": "Traditionally, why has it been better to serve site assets from multiple domains?",
-        "allChildStrings": null,
-        "category": "Network Questions"
+        "content": "Traditionally, why has it been better to serve site assets from multiple domains?",
+        "child_content": null,
+        "category": "Network Questions",
+        "sort_order": 0
     },
     "Do your beour screen.": {
         "id": "Do your beour screen.",
-        "text": "Do your best to describe the process from the time you type in a website's URL to it finishing loading on your screen.",
-        "allChildStrings": null,
-        "category": "Network Questions"
+        "content": "Do your best to describe the process from the time you type in a website's URL to it finishing loading on your screen.",
+        "child_content": null,
+        "category": "Network Questions",
+        "sort_order": 1
     },
     "What are tent Events?": {
         "id": "What are tent Events?",
-        "text": "What are the differences between Long-Polling, Websockets and Server-Sent Events?",
-        "allChildStrings": null,
-        "category": "Network Questions"
+        "content": "What are the differences between Long-Polling, Websockets and Server-Sent Events?",
+        "child_content": null,
+        "category": "Network Questions",
+        "sort_order": 2
     },
     "Explain the headers:\n": {
         "id": "Explain the headers:\n",
-        "text": "Explain the following request and response headers:\n",
-        "allChildStrings": "Diff. between Expires, Date, Age and If-Modified-...\nDo Not Track\nCache-Control\nTransfer-Encoding\nETag\nX-Frame-Options\n",
-        "category": "Network Questions"
+        "content": "Explain the following request and response headers:\n",
+        "child_content": "Diff. between Expires, Date, Age and If-Modified-...\nDo Not Track\nCache-Control\nTransfer-Encoding\nETag\nX-Frame-Options\n",
+        "category": "Network Questions",
+        "sort_order": 3
     },
     "What are Hplain them.": {
         "id": "What are Hplain them.",
-        "text": "What are HTTP methods? List all HTTP methods that you know, and explain them.",
-        "allChildStrings": null,
-        "category": "Network Questions"
+        "content": "What are HTTP methods? List all HTTP methods that you know, and explain them.",
+        "child_content": null,
+        "category": "Network Questions",
+        "sort_order": 4
     },
     "What is doerformance?": {
         "id": "What is doerformance?",
-        "text": "What is domain pre-fetching and how does it help with performance?",
-        "allChildStrings": null,
-        "category": "Network Questions"
+        "content": "What is domain pre-fetching and how does it help with performance?",
+        "child_content": null,
+        "category": "Network Questions",
+        "sort_order": 5
     }
 }
