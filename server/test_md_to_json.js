@@ -72,7 +72,10 @@ function strToJson(mdStr, fileName) {
 
   console.log('questionDict', questionDict);
 
-  writeFile(`${outputPathPrefix}${outputFileName}`, JSON.stringify(questionDict, null, 4), (err) => {
+  let fileStr = JSON.stringify(questionDict, null, 4);
+  fileStr = `module.exports = ${fileStr}`
+
+  writeFile(`${outputPathPrefix}${outputFileName}`, fileStr, (err) => {
     if (err) throw err;
 
     console.log(`${outputPathPrefix}${outputFileName} file created`);
