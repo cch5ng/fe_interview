@@ -160,9 +160,13 @@ function parseGeneralQuestions(syntaxTree, category) {
 
     id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
     questionObj.id = id;
-    questionObj.text = questionText;
-    questionObj.allChildStrings = allChildStrings;
+    questionObj.content = questionText;
+    questionObj.child_content = allChildStrings;
     questionObj.category = category;
+    questionObj.sort_order = outIdx;
+
+    console.log('question content', questionText);
+    console.log('question sort_order', outIdx);
 
     questionDict[id] = questionObj;
   });
