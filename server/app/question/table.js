@@ -7,13 +7,13 @@ const pool = require('../../databasePool');
 
 class QuestionTable {
 	static storeQuestion(question) {
-		const { content, child_content, sort_order } = question; //id, 
+		const { content, child_content, sort_order, category } = question; //id, 
 
 		return new Promise((resolve, reject) => {
 			pool.query( ////id,
-				`INSERT INTO question(content, child_content, sort_order) 
-					VALUES($1, $2, $3) RETURNING id`, //, $4
-				[content, child_content, sort_order], //id, 
+				`INSERT INTO question(content, child_content, sort_order, category) 
+					VALUES($1, $2, $3, $4) RETURNING id`, //, $4
+				[content, child_content, sort_order, category], //id, 
 				(err, resp) => {
 					if (err) return reject(err);
 
