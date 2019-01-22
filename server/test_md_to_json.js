@@ -53,7 +53,7 @@ function strToJson(mdStr, fileName) {
   var syntaxTree = mdParse(mdStr);
 
   let syntaxTreeStr = JSON.stringify(syntaxTree, null, 4);
-  console.log('syntaxTreeStr', syntaxTreeStr);
+  //console.log('syntaxTreeStr', syntaxTreeStr);
 
   let categoryContent = syntaxTree[0];
   let categoryStr = parseCategoryContent(categoryContent);
@@ -70,7 +70,7 @@ function strToJson(mdStr, fileName) {
     questionDict = parseGeneralQuestions(syntaxTree, categoryStr);
   }
 
-  console.log('questionDict', questionDict);
+  //console.log('questionDict', questionDict);
 
   let fileStr = JSON.stringify(questionDict, null, 4);
   fileStr = `module.exports = ${fileStr}`
@@ -144,7 +144,6 @@ function parseGeneralQuestions(syntaxTree, category) {
   let allQuestions = syntaxTree[1].items;
   let questionDict = {};
 
-  //console.log('fileName', fileName);
   allQuestions.forEach((ar, outIdx) => {
     let id;
     let questionObj = {};
@@ -167,10 +166,6 @@ function parseGeneralQuestions(syntaxTree, category) {
     questionObj.child_content = allChildStrings;
     questionObj.category = category;
     questionObj.sort_order = outIdx;
-
-    console.log('question content', questionText);
-    console.log('question sort_order', outIdx);
-
     questionDict[id] = questionObj;
   });
 
