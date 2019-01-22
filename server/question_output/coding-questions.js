@@ -1,4 +1,4 @@
-{
+module.exports = {
     "Question: + '20';\n^^^": {
         "id": "Question: + '20';\n^^^",
         "text": "Question: What is the value of ^foo^?\n^^^javascript\nvar foo = 10 + '20';\n^^^",
