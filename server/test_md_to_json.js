@@ -161,7 +161,7 @@ function parseGeneralQuestions(syntaxTree, category) {
       }
     });
 
-    id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
+    id = `${category}${outIdx}`;
     questionObj.id = id;
     questionObj.content = questionText;
     questionObj.child_content = allChildStrings;
