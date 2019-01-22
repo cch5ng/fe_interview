@@ -53,6 +53,7 @@ function strToJson(mdStr, fileName) {
   var syntaxTree = mdParse(mdStr);
 
   let syntaxTreeStr = JSON.stringify(syntaxTree, null, 4);
+  
   //console.log('syntaxTreeStr', syntaxTreeStr);
 
   let categoryContent = syntaxTree[0];
@@ -190,10 +191,12 @@ function parseCodingQuestions(syntaxTree, category) {
           questionText += inObj.content;
         }
       })
-      id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
+      id = `${category}${idx}`;
+      //id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
       questionObj.id = id;
-      questionObj.text = questionText;
+      questionObj.content = questionText;
       questionObj.category = category;
+      questionObj.sort_order = idx;
 
       questionDict[id] = questionObj;
     }
