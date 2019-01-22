@@ -11,33 +11,26 @@ const PerformanceQuestions = require('./question_output/performance-questions');
 const TestingQuestions = require('./question_output/testing-questions');
 
 const outputObjects = [
-	//CodingQuestions,
-	//JavaScriptQuestions,
-	CssQuestions//,
-	//FunQuestions,
-	//GeneralQuestions,
-	//HtmlQuestions,
-	//NetworkQuestions,
-	//PerformanceQuestions,
-	//TestingQuestions
+	CodingQuestions,
+	JavaScriptQuestions,
+	CssQuestions,
+	FunQuestions,
+	GeneralQuestions,
+	HtmlQuestions,
+	NetworkQuestions,
+	PerformanceQuestions,
+	TestingQuestions
 ];
 
 outputObjects.forEach(qObj => {
-	Object.keys(qObj).forEach(id => {
+	Object.keys(qObj).forEach((id, idx) => {
 		let question = qObj[id];
-		QuestionTable.storeQuestion(question);
+		QuestionTable.storeQuestion(question)
+			.then(({ questionId }) => {
+				console.log('questionId', questionId);
+			})
+				.catch(err => console.error('error', err))				
 	});
 });
 
 console.log('database seeded');
-
-// console.log('coding-questions es6 import', CodingQuestions);
-
-// console.log('file javascript-questions.js')
-// console.log(Object.keys(`./question_output/javascript-questions.js`).length)
-
-// console.log('file general-questions.js')
-// console.log(Object.keys('./question_output/general-questions.js').length)
-// console.log('keys general-questions', Object.keys('./question_output/general-questions.js'))
-
-// console.log('keys general-questions', './question_output/general-questions.js'[0])
