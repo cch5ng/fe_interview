@@ -1,38 +1,44 @@
-{
-    "What's a c worked on?": {
-        "id": "What's a c worked on?",
-        "text": "What's a cool project that you've recently worked on?",
-        "allChildStrings": null,
-        "category": "Fun Questions"
+module.exports = {
+    "Fun Questions0": {
+        "id": "Fun Questions0",
+        "content": "What's a cool project that you've recently worked on?",
+        "child_content": null,
+        "category": "Fun Questions",
+        "sort_order": 0
     },
-    "What are sls you use?": {
-        "id": "What are sls you use?",
-        "text": "What are some things you like about the developer tools you use?",
-        "allChildStrings": null,
-        "category": "Fun Questions"
+    "Fun Questions1": {
+        "id": "Fun Questions1",
+        "content": "What are some things you like about the developer tools you use?",
+        "child_content": null,
+        "category": "Fun Questions",
+        "sort_order": 1
     },
-    "Who inspir community?": {
-        "id": "Who inspir community?",
-        "text": "Who inspires you in the front-end community?",
-        "allChildStrings": null,
-        "category": "Fun Questions"
+    "Fun Questions2": {
+        "id": "Fun Questions2",
+        "content": "Who inspires you in the front-end community?",
+        "child_content": null,
+        "category": "Fun Questions",
+        "sort_order": 2
     },
-    "Do you hav What kind?": {
-        "id": "Do you hav What kind?",
-        "text": "Do you have any pet projects? What kind?",
-        "allChildStrings": null,
-        "category": "Fun Questions"
+    "Fun Questions3": {
+        "id": "Fun Questions3",
+        "content": "Do you have any pet projects? What kind?",
+        "child_content": null,
+        "category": "Fun Questions",
+        "sort_order": 3
     },
-    "What's yout Explorer?": {
-        "id": "What's yout Explorer?",
-        "text": "What's your favorite feature of Internet Explorer?",
-        "allChildStrings": null,
-        "category": "Fun Questions"
+    "Fun Questions4": {
+        "id": "Fun Questions4",
+        "content": "What's your favorite feature of Internet Explorer?",
+        "child_content": null,
+        "category": "Fun Questions",
+        "sort_order": 4
     },
-    "How do youour coffee?": {
-        "id": "How do youour coffee?",
-        "text": "How do you like your coffee?",
-        "allChildStrings": null,
-        "category": "Fun Questions"
+    "Fun Questions5": {
+        "id": "Fun Questions5",
+        "content": "How do you like your coffee?",
+        "child_content": null,
+        "category": "Fun Questions",
+        "sort_order": 5
     }
 }

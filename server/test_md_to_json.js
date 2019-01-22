@@ -53,7 +53,8 @@ function strToJson(mdStr, fileName) {
   var syntaxTree = mdParse(mdStr);
 
   let syntaxTreeStr = JSON.stringify(syntaxTree, null, 4);
-  console.log('syntaxTreeStr', syntaxTreeStr);
+  
+  //console.log('syntaxTreeStr', syntaxTreeStr);
 
   let categoryContent = syntaxTree[0];
   let categoryStr = parseCategoryContent(categoryContent);
@@ -70,9 +71,12 @@ function strToJson(mdStr, fileName) {
     questionDict = parseGeneralQuestions(syntaxTree, categoryStr);
   }
 
-  console.log('questionDict', questionDict);
+  //console.log('questionDict', questionDict);
 
-  writeFile(`${outputPathPrefix}${outputFileName}`, JSON.stringify(questionDict, null, 4), (err) => {
+  let fileStr = JSON.stringify(questionDict, null, 4);
+  fileStr = `module.exports = ${fileStr}`
+
+  writeFile(`${outputPathPrefix}${outputFileName}`, fileStr, (err) => {
     if (err) throw err;
 
     console.log(`${outputPathPrefix}${outputFileName} file created`);
@@ -141,7 +145,6 @@ function parseGeneralQuestions(syntaxTree, category) {
   let allQuestions = syntaxTree[1].items;
   let questionDict = {};
 
-  //console.log('fileName', fileName);
   allQuestions.forEach((ar, outIdx) => {
     let id;
     let questionObj = {};
@@ -158,12 +161,12 @@ function parseGeneralQuestions(syntaxTree, category) {
       }
     });
 
-    id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
+    id = `${category}${outIdx}`;
     questionObj.id = id;
-    questionObj.text = questionText;
-    questionObj.allChildStrings = allChildStrings;
+    questionObj.content = questionText;
+    questionObj.child_content = allChildStrings;
     questionObj.category = category;
-
+    questionObj.sort_order = outIdx;
     questionDict[id] = questionObj;
   });
 
@@ -188,10 +191,12 @@ function parseCodingQuestions(syntaxTree, category) {
           questionText += inObj.content;
         }
       })
-      id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
+      id = `${category}${idx}`;
+      //id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
       questionObj.id = id;
-      questionObj.text = questionText;
+      questionObj.content = questionText;
       questionObj.category = category;
+      questionObj.sort_order = idx;
 
       questionDict[id] = questionObj;
     }
