@@ -62,8 +62,8 @@ class QuestionTable {
 // 	.catch(err => console.error('error', err));
 
 // test getAllQuestions
-QuestionTable.getAllQuestions()
-	.then(questions => console.log('All questions', questions))
-	.catch(err => console.error('error', err));
+// QuestionTable.getAllQuestions()
+// 	.then(questions => console.log('All questions', questions))
+// 	.catch(err => console.error('error', err));
 
 module.exports = QuestionTable;
