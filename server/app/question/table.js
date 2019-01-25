@@ -23,6 +23,25 @@ class QuestionTable {
 			)
 		})
 	}
+
+	static getQuestionsByCategory({ category }) {
+		return new Promise((resolve, reject) => {
+			pool.query(
+				`SELECT * from question
+					WHERE category = $1`,
+				[ category ],
+				(err, resp) => {
+					if (err) return reject(err);
+
+					resolve(resp.rows);
+				}
+			)
+		})
+	}
+
+	// static getAllQuestions() {
+	// }
+
 }
 
 module.exports = QuestionTable;
