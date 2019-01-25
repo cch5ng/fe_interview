@@ -24,6 +24,21 @@ class QuestionTable {
 		})
 	}
 
+	static getAllQuestions() {
+		return new Promise((resolve, reject) => {
+			pool.query(
+				`SELECT * from question
+					ORDER BY category, sort_order`,
+				[],
+				(err, resp) => {
+					if (err) return reject(err);
+
+					resolve(resp.rows);
+				}
+			)
+		})
+	}
+
 	static getQuestionsByCategory({ category }) {
 		return new Promise((resolve, reject) => {
 			pool.query(
@@ -39,9 +54,16 @@ class QuestionTable {
 		})
 	}
 
-	// static getAllQuestions() {
-	// }
-
 }
+
+// test getQuestionsByCategory
+// QuestionTable.getQuestionsByCategory({ category: 'Fun Questions'})
+// 	.then(questions => console.log('Fun questions', questions))
+// 	.catch(err => console.error('error', err));
+
+// test getAllQuestions
+QuestionTable.getAllQuestions()
+	.then(questions => console.log('All questions', questions))
+	.catch(err => console.error('error', err));
 
 module.exports = QuestionTable;
