@@ -54,6 +54,22 @@ class QuestionTable {
 		})
 	}
 
+	static getQuestionIdByContent( { content }) {
+		return new Promise((resolve, reject) => {
+			pool.query(
+				`SELECT id from question
+					WHERE content = $1`,
+				[content],
+				(err, resp) => {
+					if (err) return reject(err);
+
+					const questionId = resp.rows[0].id;
+
+					resolve(questionId);
+				}
+			)
+		})
+	}
 }
 
 // test getQuestionsByCategory
@@ -64,6 +80,11 @@ class QuestionTable {
 // test getAllQuestions
 // QuestionTable.getAllQuestions()
 // 	.then(questions => console.log('All questions', questions))
+// 	.catch(err => console.error('error', err));
+
+// test getQuestionIdByContent()
+// QuestionTable.getQuestionIdByContent({ content: 'Explain how ^this^ works in JavaScript'})
+// 	.then(id => console.log('id', id))
 // 	.catch(err => console.error('error', err));
 
 module.exports = QuestionTable;
