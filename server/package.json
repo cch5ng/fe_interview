@@ -7,7 +7,10 @@
     "node": ">=8.12.0"
   },
   "scripts": {
-    "configure": "./bin/configure_db.sh"
+    "start": "node ./bin/server",
+    "dev": "nodemon ./bin/server",
+    "configure": "./bin/configure_db.sh",
+    "configure-dev": "npm run configure && npm run dev"
   },
   "dependencies": {
     "dotenv": "^6.2.0",
