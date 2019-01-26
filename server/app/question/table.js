@@ -54,6 +54,7 @@ class QuestionTable {
 		})
 	}
 
+	// not sure how to make this work because of excess promise nesting
 	static getQuestionIdByContent( { content }) {
 		return new Promise((resolve, reject) => {
 			pool.query(
