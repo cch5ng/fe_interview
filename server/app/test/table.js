@@ -34,25 +34,54 @@ class TestTable {
 		})
 	}
 
-	// static getAllTests() {
-	// }
+	// TODO 012519
+	static getAllTests() {
+		// TODO 012619
+		return Promise.all([
+			// figure out how to get all tests
+			// figure out how to get all questions for current test
+			new Promise((resolve, reject) => {
+				pool.query(
+					`SELECT id, time_total, time_taken from test
+						INNER JOIN test_question
+						ON test_question.test_id = test.id
+						INNER JOIN question
+						ON question.id = test_question.question_id`,
+					[],
+					(err, resp) => {
+						if (err) return reject(err);
+
+						// need to do something with the resulting questions
+
+						resolve(resp.rows);
+					}
+				)
+			})
+
+		])
+	}
 
 }
 
 // test storeTest
-const test_ex = {
-	time_total: 300000,
-	questions: [
-		{	content: 'Explain how ^this^ works in JavaScript',
-			question_completed: false,
-			needs_review: true,
-			question_id: 2
-		}
-	]
-}
+// const test_ex = {
+// 	time_total: 300000,
+// 	questions: [
+// 		{	content: 'Explain how ^this^ works in JavaScript',
+// 			question_completed: false,
+// 			needs_review: true,
+// 			question_id: 2
+// 		}
+// 	]
+// }
 
-TestTable.storeTest(test_ex)
-	.then(test_id => { console.log('test_id', test_id) })
+// TestTable.storeTest(test_ex)
+// 	.then(test_id => { console.log('test_id', test_id) })
+// 	.catch(err => console.error('error', err));
+
+//test getAllTests()
+TestTable.getAllTests()
+	.then(tests => console.log('tests', tests))
 	.catch(err => console.error('error', err));
 
 module.exports = TestTable;
