@@ -36,26 +36,15 @@ class TestTable {
 
 	// TODO 012519
 	static getAllTests() {
-		// TODO 012619
-		// return Promise.all([
-		// 	// figure out how to get all tests
-		// 	// figure out how to get all questions for current test
 		return new Promise((resolve, reject) => {
 				pool.query(
 					`SELECT test.id, time_total, time_taken from test`,
-						// INNER JOIN test_question
-						// ON test_question.test_id = test.id
-						// INNER JOIN question
-						// ON question.id = test_question.question_id`,
 					[],
 					(err, resp) => {
 						if (err) return reject(err);
 
-						// need to do something with the resulting questions
 						const tests = resp.rows;
 
-						// TODO 012619
-						// here for each test_id call TestQuestionTable.getQuestionsByTestId()
 						tests.forEach((test, idx) => {
 							console.log('test', test);
 							TestQuestionTable.getQuestionsByTestId({ test_id: test.id })
@@ -71,9 +60,6 @@ class TestTable {
 					}
 				)
 			})
-		// ])
-		// 	.then(tests => console.log('tests', tests))
-		// 	.catch(err => console.error('error', err))
 	}
 
 }
@@ -115,8 +101,8 @@ class TestTable {
 // 	.catch(err => console.error('error', err));
 
 //test getAllTests()
-TestTable.getAllTests()
-	.then(tests => console.log('tests', tests))
-	.catch(err => console.error('error', err));
+// TestTable.getAllTests()
+// 	.then(tests => console.log('tests', tests))
+// 	.catch(err => console.error('error', err));
 
 module.exports = TestTable;
