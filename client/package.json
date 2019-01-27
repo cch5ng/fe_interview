@@ -4,11 +4,15 @@
   "main": "index.js",
   "author": "self",
   "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html"
+  },
   "dependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1"
