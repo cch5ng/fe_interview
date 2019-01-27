@@ -1,8 +1,10 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const testRouter = require('./api/test');
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use('/test', testRouter);
 
 app.use((err, req, res, next) => {
