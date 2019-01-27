@@ -5,7 +5,8 @@
   "author": "self",
   "license": "MIT",
   "scripts": {
-    "start": "parcel index.html"
+    "clean": "rm -rf dist .cache",
+    "start": "yarn run clean && parcel index.html"
   },
   "dependencies": {
     "react": "^16.7.0",
