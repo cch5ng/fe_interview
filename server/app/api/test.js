@@ -14,4 +14,11 @@ router.get('/all', (req, res, next) => {
 	});
 });
 
+router.post('/new', (req, res, next) => {
+	console.log('req.body', req.body);
+	TestTable.storeTest(req.body)
+		.then(testId => res.json(testId))
+		.catch(err => console.error('error', err))
+})
+
 module.exports = router;
