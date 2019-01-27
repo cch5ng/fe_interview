@@ -23,6 +23,69 @@ class QuestionTable {
 			)
 		})
 	}
+
+	static getAllQuestions() {
+		return new Promise((resolve, reject) => {
+			pool.query(
+				`SELECT * from question
+					ORDER BY category, sort_order`,
+				[],
+				(err, resp) => {
+					if (err) return reject(err);
+
+					resolve(resp.rows);
+				}
+			)
+		})
+	}
+
+	static getQuestionsByCategory({ category }) {
+		return new Promise((resolve, reject) => {
+			pool.query(
+				`SELECT * from question
+					WHERE category = $1`,
+				[ category ],
+				(err, resp) => {
+					if (err) return reject(err);
+
+					resolve(resp.rows);
+				}
+			)
+		})
+	}
+
+	// not sure how to make this work because of excess promise nesting
+	static getQuestionIdByContent( { content }) {
+		return new Promise((resolve, reject) => {
+			pool.query(
+				`SELECT id from question
+					WHERE content = $1`,
+				[content],
+				(err, resp) => {
+					if (err) return reject(err);
+
+					const questionId = resp.rows[0].id;
+
+					resolve(questionId);
+				}
+			)
+		})
+	}
 }
+
+// test getQuestionsByCategory
+// QuestionTable.getQuestionsByCategory({ category: 'Fun Questions'})
+// 	.then(questions => console.log('Fun questions', questions))
+// 	.catch(err => console.error('error', err));
+
+// test getAllQuestions
+// QuestionTable.getAllQuestions()
+// 	.then(questions => console.log('All questions', questions))
+// 	.catch(err => console.error('error', err));
+
+// test getQuestionIdByContent()
+// QuestionTable.getQuestionIdByContent({ content: 'Explain how ^this^ works in JavaScript'})
+// 	.then(id => console.log('id', id))
+// 	.catch(err => console.error('error', err));
 
 module.exports = QuestionTable;
