@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchTests } from './TestActions';
+import { getPrettyTime, getPrettyDate } from '../../../utils/helper';
 
 class Tests extends Component {
 
@@ -9,8 +10,8 @@ class Tests extends Component {
 		super(props);
 
 		this.getQuestionsMissedCount = this.getQuestionsMissedCount.bind(this);
-		this.getPrettyTime = this.getPrettyTime.bind(this);
-		this.getPrettyDate = this.getPrettyDate.bind(this);
+		//this.getPrettyTime = this.getPrettyTime.bind(this);
+		//this.getPrettyDate = this.getPrettyDate.bind(this);
 		this.getAvgTimePerQuestion = this.getAvgTimePerQuestion.bind(this);
 	}
 
@@ -30,21 +31,6 @@ class Tests extends Component {
 		return missedCount;
 	}
 
-	getPrettyTime(timeMs) {
-		let hour;
-		let minute = Math.floor(timeMs / 60000);
-		let second = (timeMs - (minute * 60000)) / 1000;
-		let prettyTimeStr = `${minute} minutes, ${second} seconds`;
-
-
-		console.log('prettyTimeStr', prettyTimeStr);
-		return prettyTimeStr;
-	}
-
-	getPrettyDate(date) {
-
-	}
-
 	getAvgTimePerQuestion(totalTime, completedQuestCount) {
 
 		if (completedQuestCount === 0) {
@@ -53,7 +39,7 @@ class Tests extends Component {
 
 		let avgTime = totalTime / completedQuestCount;
 
-		return this.getPrettyTime(avgTime);
+		return getPrettyTime(avgTime);
 	}
 
 	render() {
@@ -83,7 +69,7 @@ class Tests extends Component {
 								<li>Date {test.date_taken}</li>
 								<li>{test.questions ? test.questions.length : null} questions</li>
 								<li>{missedQuestions} questions missed</li>
-								<li>Total Time {this.getPrettyTime(test.time_total)}</li>
+								<li>Total Time {getPrettyTime(test.time_total)}</li>
 								<li>Time per question {test.questions ? this.getAvgTimePerQuestion(test.time_total, completedQuestionsCount): null}</li>
 							</ul>
 						</div>
