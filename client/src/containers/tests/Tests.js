@@ -33,7 +33,7 @@ class Tests extends Component {
 	getPrettyTime(timeMs) {
 		let hour;
 		let minute = Math.floor(timeMs / 60000);
-		let second = Math.floor(timeMs / 1000);
+		let second = (timeMs - (minute * 60000)) / 1000;
 		let prettyTimeStr = `${minute} minutes, ${second} seconds`;
 
 
@@ -83,7 +83,7 @@ class Tests extends Component {
 								<li>Date {test.date_taken}</li>
 								<li>{test.questions ? test.questions.length : null} questions</li>
 								<li>{missedQuestions} questions missed</li>
-								<li>Total Time {test.time_total}</li>
+								<li>Total Time {this.getPrettyTime(test.time_total)}</li>
 								<li>Time per question {test.questions ? this.getAvgTimePerQuestion(test.time_total, completedQuestionsCount): null}</li>
 							</ul>
 						</div>
