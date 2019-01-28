@@ -1,2 +1,2 @@
 server: nodemon ./server/bin/server
-client: parcel ./client/index.html
+client: parcel ./client/src/index.html
