@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { connect } from 'react-redux'
-//import Nav from './Nav'
-import './App.css';
+import { connect } from 'react-redux';
+import Tests from '../containers/tests/Tests';
+//import Nav from './Nav';
+//import './App.css';
 
 class App extends Component {
 
@@ -18,8 +19,14 @@ class App extends Component {
         <div className="App">
           {/* <Nav /> */}
 
+          <Route exact path="/tests" render={() => (
+            <Tests />
+          )} />
+
+         {/* 
           <Route exact path="/" render={() => (
           )} />
+        */}
 
         </div>
       </Router>
