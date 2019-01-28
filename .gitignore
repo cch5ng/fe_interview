@@ -1,3 +1,6 @@
+/node_modules
+/.cache
+/dist
 /server/node_modules
 /server/secrets
 /client/node_modules
