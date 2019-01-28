@@ -3,7 +3,7 @@ export const REQUEST_ALL_TESTS = 'REQUEST_ALL_TESTS';
 export const RECEIVE_ALL_TESTS = 'RECEIVE_ALL_TESTS';
 
 // fetch constants
-const API_GET_TESTS = 'http://localhost:3000/tests/all';
+const API_GET_TESTS = 'http://localhost:3000/test/all';
 
 export function requestAllTests() {
 	return {
@@ -28,6 +28,9 @@ export const fetchTests = () => dispatch => {
 			console.log('type init fetch resp', typeof resp)
 			return resp.json()	
 		})
-		.then(json => dispatch(receiveAllTests(json)))
+		.then(json => {
+			console.log('json', json);
+			dispatch(receiveAllTests(json));
+		})
 		.catch(err => console.error('fetch error', err))
 } 
