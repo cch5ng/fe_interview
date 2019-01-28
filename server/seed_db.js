@@ -54,20 +54,20 @@ let dummyQuestions = [
 const TestData = [
 	{	name: 'dummy test 1',
 		date_taken: dummyDate,
-		time_total: 30000,
-		time_taken: 20000,
+		time_total: 1800000,
+		time_taken: 1200000,
 		questions: dummyQuestions
 	},
 	{	name: 'dummy test 2',
 		date_taken: dummyDate,
-		time_total: 40000,
-		time_taken: 20000,
+		time_total: 2400000,
+		time_taken: 1200000,
 		questions: dummyQuestions
 	},
 	{	name: 'dummy test 3',
 		date_taken: dummyDate,
-		time_total: 25000,
-		time_taken: 20000,
+		time_total: 1500000,
+		time_taken: 1200000,
 		questions: dummyQuestions
 	}
 ];
