@@ -45,7 +45,7 @@ let dummyQuestions = [
 			question_id: 2
 		},
 		{	content: "Explain why the following doesn't work as an IIFE: ^function foo(){ }();^.",
-		question_completed: false,
+		question_completed: true,
 		needs_review: true,
 		question_id: 10
 		}
