@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "self",
   "license": "MIT",
+  "engines": {
+    "node": ">=8.12.0"
+  },
   "scripts": {
     "clean": "rm -rf dist .cache",
     "start": "yarn run clean && parcel index.html"
