@@ -9,11 +9,12 @@
   "scripts": {
     "start": "node ./bin/server",
     "dev": "nodemon ./bin/server",
-    "configure": "./bin/configure_db.sh",
-    "configure-dev": "npm run configure && npm run dev"
+    "configure": "./bin/configure_db.sh && node seed_db.js",
+    "configure-dev": "yarn run configure && yarn run dev"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "pg": "^7.8.0",
