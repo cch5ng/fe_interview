@@ -1,9 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const testRouter = require('./api/test');
 
 const app = express();
 
+app.use(cors({ 'http://localhost:1234' }));
 app.use(bodyParser.json());
 app.use('/test', testRouter);
 
