@@ -23,14 +23,7 @@ export function receiveAllTests(tests) {
 export const fetchTests = () => dispatch => {
 	dispatch(requestAllTests());
 	return fetch(API_GET_TESTS)
-		.then(resp => {
-			console.log('init fetch resp', resp)
-			console.log('type init fetch resp', typeof resp)
-			return resp.json()	
-		})
-		.then(json => {
-			console.log('json', json);
-			dispatch(receiveAllTests(json));
-		})
-		.catch(err => console.error('fetch error', err))
+		.then(resp => resp.json())
+		.then(json => dispatch(receiveAllTests(json)))
+		.catch(err => console.error('fetch error', err));
 } 
