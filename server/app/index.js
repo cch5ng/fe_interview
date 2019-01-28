@@ -5,7 +5,7 @@ const testRouter = require('./api/test');
 
 const app = express();
 
-app.use(cors({ 'http://localhost:1234' }));
+app.use(cors({ origin: 'http://localhost:1234' }));
 app.use(bodyParser.json());
 app.use('/test', testRouter);
 
