@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Tests from '../containers/tests/Tests';
 import TestForm from '../containers/tests/TestForm';
+import Questions from '../containers/questions/Questions';
 //import Nav from './Nav';
 //import './App.css';
 
@@ -19,6 +20,10 @@ class App extends Component {
       <Router>
         <div className="App">
           {/* <Nav /> */}
+
+          <Route exact path="/questions" render={() => (
+            <Questions />
+          )} />
 
           <Route exact path="/tests" render={() => (
             <Tests />

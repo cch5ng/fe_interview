@@ -6,7 +6,7 @@ export const REQUEST_ALL_QUESTIONS = 'REQUEST_ALL_QUESTIONS';
 export const RECEIVE_ALL_QUESTIONS = 'RECEIVE_ALL_QUESTIONS';
 
 // fetch constants
-const API_GET_QUESTIONS = 'http://localhost:3000/questions/all';
+const API_GET_QUESTIONS = 'http://localhost:3000/question/all';
 
 export function requestAllQuestions() {
 	return {
