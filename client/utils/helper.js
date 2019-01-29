@@ -31,11 +31,11 @@ export function	getPrettyTime(timeMs) {
 }
 
 export function	getPrettyDate(date) {
-	console.log('type date', typeof date);
 	let dateClass = new Date(date);
 	let dateStr = '';
 
 	// format like mm-dd-yyyy
+	// TODO add leading 0 if single digit month or day
 	let month = dateClass.getMonth() + 1;
 	let day = dateClass.getDate();
 	let year = dateClass.getFullYear();

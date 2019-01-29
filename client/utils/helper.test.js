@@ -1,4 +1,4 @@
-import { getPrettyTime } from './helper'; //, getPrettyDate
+import { getPrettyTime, getPrettyDate } from './helper'; 
 
 describe('helper getPrettyTime()', () => {
 
@@ -21,3 +21,5 @@ describe('helper getPrettyTime()', () => {
 	});
 
 });
+
+// TODO set of tests for getPrettyDate()
