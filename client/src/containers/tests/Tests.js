@@ -10,8 +10,6 @@ class Tests extends Component {
 		super(props);
 
 		this.getQuestionsMissedCount = this.getQuestionsMissedCount.bind(this);
-		//this.getPrettyTime = this.getPrettyTime.bind(this);
-		//this.getPrettyDate = this.getPrettyDate.bind(this);
 		this.getAvgTimePerQuestion = this.getAvgTimePerQuestion.bind(this);
 	}
 
@@ -43,7 +41,6 @@ class Tests extends Component {
 	}
 
 	render() {
-		console.log('tests', this.props.tests);
 		let { tests } = this.props;
 		let testsAr = [];
 
@@ -66,7 +63,7 @@ class Tests extends Component {
 						<div className="test" key={test.id} >
 							<ul>
 								<li>Name {test.name}</li>
-								<li>Date {test.date_taken}</li>
+								<li>Date {getPrettyDate(test.date_taken)}</li>
 								<li>{test.questions ? test.questions.length : null} questions</li>
 								<li>{missedQuestions} questions missed</li>
 								<li>Total Time {getPrettyTime(test.time_total)}</li>

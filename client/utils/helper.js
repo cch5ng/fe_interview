@@ -30,6 +30,15 @@ export function	getPrettyTime(timeMs) {
 	return prettyTimeStr;
 }
 
-// export function	getPrettyDate(date) {
+export function	getPrettyDate(date) {
+	console.log('type date', typeof date);
+	let dateClass = new Date(date);
+	let dateStr = '';
 
-// }
+	// format like mm-dd-yyyy
+	let month = dateClass.getMonth() + 1;
+	let day = dateClass.getDate();
+	let year = dateClass.getFullYear();
+
+	return `${month}-${day}-${year}`;
+}
