@@ -10,21 +10,22 @@ class TestForm extends Component {
 		this.state = {
 			inputTestName: '',
 			inputQuestionCount: 0,
-
-
+			selectTimePerQuestion: 'no limit'
 		}
 
-		this.inputChangeHandler = this.inputChangeHandler.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
 	//event handlers
 
 	// input change handler
-	inputChangeHandler(ev) {
+	handleInputChange(ev) {
+		const target = ev.target;
+		const value = target.type === 'checkbox' ? target.checked : target.value;
+		const name = target.name;
+
 		console.log('ev.target.value', ev.target.value)
-		let obj = {};
-		obj[ev.target.name] = ev.target.value;
-		this.setState(obj);
+		this.setState({ [name]: value });
 	}
 
 	// form submit handler
@@ -38,7 +39,7 @@ class TestForm extends Component {
 						<label>Name
 							<input type="text" name="inputTestName"
 								value={this.state.inputTestName}
-								onChange={this.inputChangeHandler} 
+								onChange={this.handleInputChange} 
 							/>
 
 						</label>
@@ -48,19 +49,22 @@ class TestForm extends Component {
 						<label>Number of Questions
 							<input type="number" name="inputQuestionCount" 
 								value={this.state.inputQuestionCount}
-								onChange={this.inputChangeHandler} 
+								onChange={this.handleInputChange} 
 							/>
 						</label>
 					</div>
 
 					<div>
-						<label>Time per Question</label>
-						<select id="select-time-per-question" name="select-time-per-question">
-							<option>no time limit</option>
-							<option>5 min</option>
-							<option>8 min</option>
-							<option>10 min</option>
-							<option>15 min</option>
+						<label>Time per Question (minutes)</label>
+						<select id="select-time-per-question" name="selectTimePerQuestion"
+							value={this.state.selectTimePerQuestion}
+							onChange={this.handleInputChange} 							
+						>
+							<option value="no limit">no time limit</option>
+							<option value="5">5</option>
+							<option value="8">8</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
 						</select>
 					</div>
 
