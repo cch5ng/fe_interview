@@ -72,8 +72,9 @@ class TestForm extends Component {
 		ev.preventDefault();
 
 		// do stuff, call action
-		// save initial data to redux
+		// (axn) save initial data to redux
 		// do calculations to generate a pseudo random test
+			// this.generateTest()
 		// redirect to a new view (summary view to be able to start the test)
 
 		this.resetState();
