@@ -6,11 +6,26 @@ class TestForm extends Component {
 
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			inputTestName: '',
+			inputQuestionCount: 0,
+
+
+		}
+
+		this.inputChangeHandler = this.inputChangeHandler.bind(this);
 	}
 
 	//event handlers
 
 	// input change handler
+	inputChangeHandler(ev) {
+		console.log('ev.target.value', ev.target.value)
+		let obj = {};
+		obj[ev.target.name] = ev.target.value;
+		this.setState(obj);
+	}
 
 	// form submit handler
 
@@ -21,14 +36,20 @@ class TestForm extends Component {
 
 					<div>
 						<label>Name
-							<input type="text" name="input-test-name" />
+							<input type="text" name="inputTestName"
+								value={this.state.inputTestName}
+								onChange={this.inputChangeHandler} 
+							/>
 
 						</label>
 					</div>
 
 					<div>
 						<label>Number of Questions
-							<input type="number" name="input-test-name" />
+							<input type="number" name="inputQuestionCount" 
+								value={this.state.inputQuestionCount}
+								onChange={this.inputChangeHandler} 
+							/>
 						</label>
 					</div>
 
