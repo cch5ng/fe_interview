@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import { fetchTests } from './TestActions';
+import { fetchQuestions } from '../questions/QuestionActions';
 
 const questionCategories = [
 	`Coding Questions`,
@@ -38,21 +38,26 @@ class TestForm extends Component {
 			inputTestName: '',
 			inputQuestionCount: 0,
 			selectTimePerQuestion: 'no limit',
-			CodingQuestions: false,
-			CSSQuestions: false,
-			FunQuestions: false,
-			GeneralQuestions: false,
-			HTMLQuestions: false,
-			JavaScriptQuestions: false,
-			NetworkQuestions: false,
-			PerformanceQuestions: false,
-			TestingQuestions: false
+			CodingQuestions: 0,
+			CSSQuestions: 0,
+			FunQuestions: 0,
+			GeneralQuestions: 0,
+			HTMLQuestions: 0,
+			JavaScriptQuestions: 0,
+			NetworkQuestions: 0,
+			PerformanceQuestions: 0,
+			TestingQuestions: 0
 		}
 
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.resetState = this.resetState.bind(this);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.generateTest = this.generateTest.bind(this);
+		this.getQuestionCountPerCategory = this.getQuestionCountPerCategory.bind(this);
+	}
+
+	componentDidMount() {
+		this.props.dispatch(fetchQuestions());
 	}
 
 	//event handlers
@@ -90,7 +95,38 @@ class TestForm extends Component {
 
 	}
 
+	getQuestionCountPerCategory(questions, categoriesAr) {
+		let questionCountObj = {};
+		// key is category; value is number of questions
+
+		categoriesAr.forEach(category => {
+			questionCountObj[category] = null;
+		});
+
+		questions.forEach(question => {
+			let categ = question.category;
+			if (questionCountObj[categ]) {
+				questionCountObj[categ] += 1;
+			} else {
+				questionCountObj[categ] = 1;
+			}
+		});
+
+		return questionCountObj;
+	}
+
 	render() {
+		let questionObj = this.props.questions && this.props.questions.questions ? this.props.questions.questions : null;
+		let questionsAr = [];
+		console.log('questionObj', questionObj);
+		let questionsMaxObj = {};
+
+		if (questionObj) {
+			questionsAr = Object.keys(questionObj).map(k => questionObj[k]);
+			questionsMaxObj = this.getQuestionCountPerCategory(questionsAr, questionCategories);
+			console.log('questionsMaxObj', questionsMaxObj);
+		}
+
 		return (
 			<div>
 				<form className="new-test-form">
@@ -99,16 +135,6 @@ class TestForm extends Component {
 						<label>Name
 							<input type="text" name="inputTestName"
 								value={this.state.inputTestName}
-								onChange={this.handleInputChange} 
-							/>
-
-						</label>
-					</div>
-
-					<div>
-						<label>Number of Questions
-							<input type="number" name="inputQuestionCount" 
-								value={this.state.inputQuestionCount}
 								onChange={this.handleInputChange} 
 							/>
 						</label>
@@ -129,26 +155,51 @@ class TestForm extends Component {
 					</div>
 
 					<div>
-						<h2>Question Categories</h2>
+						<h2>Number of Questions (by Category)</h2>
 
 						{questionCategories.map(category => {
 							let categoryAr = category.split(' ');
 							const categoryShort = categoryAr[0];
 							const categoryConcat = categoryAr.join('');
+							const maxQuestionCount = questionsMaxObj ? questionsMaxObj[category] : 0;
 
 							return (
 								<React.Fragment key={categoryConcat}>
-									<input type="checkbox" name={categoryConcat} checked={this.state[categoryConcat]} 
-										onChange={this.handleInputChange}
-									/>
-									<label>{categoryShort}</label>
+									<label>{categoryShort} (Max: {maxQuestionCount})
+										<input type="number" name={categoryConcat} 
+											value={this.state[categoryConcat]}
+											onChange={this.handleInputChange}
+											max={maxQuestionCount}
+											min="0"
+										/>
+									</label>
+									<br />
 								</React.Fragment>
 							)
 						})}
 
 					</div>
 
-					<button id="button-create-test" onClick={handleFormSubmit}>Create</button>
+					{/* 
+						<input type="checkbox" name={categoryConcat} checked={this.state[categoryConcat]} 
+							onChange={this.handleInputChange}
+						/>
+						<label>{categoryShort}</label>
+					*/}
+
+					{/* 
+					<div>
+						<label>Number of Questions
+							<input type="number" name="inputQuestionCount" 
+								value={this.state.inputQuestionCount}
+								onChange={this.handleInputChange} 
+							/>
+						</label>
+					</div>					
+					*/}
+
+
+					<button id="button-create-test" onClick={this.handleFormSubmit}>Create</button>
 					
 					{/* maybe more confusing than useful
 					<button id="button-cancel-test" onClick={this.resetState} >Cancel</button>
@@ -160,5 +211,12 @@ class TestForm extends Component {
 	}
 }
 
-export default TestForm;
+function mapStateToProps({ questions }) {
+	console.log('questions', questions)
+	return {
+		questions
+	}
+}
+
+export default connect(mapStateToProps)(TestForm);
 
