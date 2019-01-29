@@ -20,36 +20,35 @@ class TestForm extends Component {
 				<form className="new-test-form">
 
 					<div>
-						<label>Name</label>
-						<input type="text" name="input-test-name"></input>
+						<label>Name
+							<input type="text" name="input-test-name" />
+
+						</label>
 					</div>
 
 					<div>
-						<label>Number of Questions</label>
-						<select id="select-question-count">
-							<option></option>
-							<option></option>
-							<option></option>
-							<option></option>
-						</select>
+						<label>Number of Questions
+							<input type="number" name="input-test-name" />
+						</label>
 					</div>
 
 					<div>
 						<label>Time per Question</label>
 						<select id="select-time-per-question" name="select-time-per-question">
-							<option></option>
-							<option></option>
-							<option></option>
-							<option></option>
+							<option>no time limit</option>
+							<option>5 min</option>
+							<option>8 min</option>
+							<option>10 min</option>
+							<option>15 min</option>
 						</select>
 					</div>
 
 					<div>
 						<h2>Question Categories</h2>
 
-						<input type="checkbox" name="checkbox-question-category">category1</input>
+						<input type="checkbox" name="checkbox-question-category"></input>
 						<label></label>
-						<input type="checkbox" name="checkbox-question-category">category2</input>
+						<input type="checkbox" name="checkbox-question-category"></input>
 						<label></label>
 					</div>
 
@@ -62,7 +61,7 @@ class TestForm extends Component {
 			</div>
 		)
 	}
-
 }
 
+export default TestForm;
 
