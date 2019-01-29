@@ -1,14 +1,35 @@
 export function	getPrettyTime(timeMs) {
-	let hour;
-	let minute = Math.floor(timeMs / 60000);
-	let second = (timeMs - (minute * 60000)) / 1000;
-	let prettyTimeStr = `${minute} minutes, ${second} seconds`;
+	let curTimeMs = timeMs;
+	let hourStr = '';
+	let connectorStr = '';
+	let minuteStr = '';
 
+	let hour = Math.floor(curTimeMs / (60 * 60 * 1000));
 
-	console.log('prettyTimeStr', prettyTimeStr);
+	if (hour === 1) {
+		hourStr = `${hour} hour`;
+	} else if (hour > 1) {
+		hourStr = `${hour} hours`;
+	}
+
+	curTimeMs = curTimeMs - (hour * (60 * 60 * 1000));
+	let minute = Math.floor(curTimeMs / (60 * 1000));
+
+	if (minute === 1) {
+		minuteStr = `${minute} minute`;
+	} else if (minute > 1) {
+		minuteStr = `${minute} minutes`;
+	}
+
+	if (hour >= 1 && minute >= 1) {
+		connectorStr = `, `;
+	}
+	// TODO improve things like 0 value, singular/plural display
+	let prettyTimeStr = `${hourStr}${connectorStr}${minuteStr}`;
+
 	return prettyTimeStr;
 }
 
-export function	getPrettyDate(date) {
+// export function	getPrettyDate(date) {
 
-}
+// }
