@@ -3,6 +3,7 @@ import { getRandomlyOrderedList, getRandomArbitrary } from '../../../utils/helpe
 // fetch constants
 const API_GET_TESTS = 'http://localhost:3000/test/all';
 const API_POST_RANDOM_TEST = 'http://localhost:3000/question/random';
+const API_POST_INIT_TEST = 'http://localhost:3000/test/new'
 
 // action types
 export const REQUEST_ALL_TESTS = 'REQUEST_ALL_TESTS';
@@ -88,6 +89,44 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 			// make a whole current test object
 			dispatch(receiveRandomTest(curTestObj));
 			//dispatch async action to create a test in backend
+		})
+		.catch(err => console.error('fetch error', err));
+}
+
+// action types
+export const REQUEST_INIT_TEST = 'REQUEST_INIT_TEST';
+export const RECEIVE_INIT_TEST = 'RECEIVE_INIT_TEST';
+
+
+export function requestInitTest() {
+	return {
+		type: REQUEST_INIT_TEST,
+		retrieving: true
+	}
+}
+
+export function receiveInitTest(id) {
+	return {
+		type: RECEIVE_INIT_TEST,
+		id,
+		retrieving: false
+	}
+}
+
+export const fetchInitTest = (testData) => dispatch => {
+	dispatch(requestRandomTest());
+	return fetch(API_POST_INIT_TEST,
+			{	method: 'POST',
+				headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testData),
+			}
+		)
+		.then(resp => resp.json())
+		.then(json => {
+			//TODO
+
 		})
 		.catch(err => console.error('fetch error', err));
 }
