@@ -59,7 +59,6 @@ class TestForm extends Component {
 		const value = target.type === 'checkbox' ? target.checked : target.value;
 		const name = target.name;
 
-		console.log('ev.target.value', ev.target.value)
 		this.setState({ [name]: value });
 	}
 
@@ -159,13 +158,11 @@ class TestForm extends Component {
 	render() {
 		let questionObj = this.props.questions && this.props.questions.questions ? this.props.questions.questions : null;
 		let questionsAr = [];
-		console.log('questionObj', questionObj);
 		let questionsMaxObj = {};
 
 		if (questionObj) {
 			questionsAr = Object.keys(questionObj).map(k => questionObj[k]);
 			questionsMaxObj = this.getQuestionCountPerCategory(questionsAr, questionCategories);
-			console.log('questionsMaxObj', questionsMaxObj);
 		}
 
 		return (
