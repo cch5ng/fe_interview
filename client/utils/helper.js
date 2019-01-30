@@ -42,3 +42,26 @@ export function	getPrettyDate(date) {
 
 	return `${month}-${day}-${year}`;
 }
+
+// not inclusive of max
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+export function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+export function getRandomlyOrderedList(ar) {
+	let randomAr = [];
+	let randomIdxAr = [];
+	let listLen = ar.length;
+
+	// make sure don't create repeats
+	while (randomAr.length < ar.length) {
+		let randomIdx = getRandomArbitrary(0, listLen);
+		while (randomAr.indexOf(ar[randomIdx]) > -1) {
+			randomIdx = getRandomArbitrary(0, listLen);
+		}
+		randomAr.push(ar[randomIdx]);
+	}
+
+	return randomAr;
+}
