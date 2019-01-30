@@ -54,6 +54,29 @@ class QuestionTable {
 		})
 	}
 
+//TODO test this 012919
+	static getRandomQuestionsByCategoryCounts(categoryCountsObj) {
+
+		// TODO check if the nesting works; feel like there are too many resolve/rejects here
+		return Promise.all(Object.keys(categoryCountsObj).map(category => {
+			return new Promise((resolve, reject) => {
+				pool.query(
+					`SELECT * 
+						FROM question
+						WHERE category = $1
+						ORDER BY random()
+						LIMIT $2;`,
+					[category, categoryCountsObj[category]],
+					(err, resp) => {
+						if (err) return reject(err);
+
+						resolve(resp.rows)
+					}
+				)
+			})
+		}))			
+	}
+
 	// not sure how to make this work because of excess promise nesting
 	static getQuestionIdByContent( { content }) {
 		return new Promise((resolve, reject) => {
@@ -86,6 +109,11 @@ class QuestionTable {
 // test getQuestionIdByContent()
 // QuestionTable.getQuestionIdByContent({ content: 'Explain how ^this^ works in JavaScript'})
 // 	.then(id => console.log('id', id))
+// 	.catch(err => console.error('error', err));
+
+// test getRandomQuestionsByCategoryCounts
+// QuestionTable.getRandomQuestionsByCategoryCounts({"JavaScript Questions": 5, "Fun Questions": 3})
+// 	.then(questions => console.log('random questions', questions))
 // 	.catch(err => console.error('error', err));
 
 module.exports = QuestionTable;
