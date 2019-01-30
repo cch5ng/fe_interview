@@ -54,6 +54,8 @@ class TestForm extends Component {
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.generateTest = this.generateTest.bind(this);
 		this.getQuestionCountPerCategory = this.getQuestionCountPerCategory.bind(this);
+		this.getQuestionsObjFromAr = this.getQuestionsObjFromAr.bind(this);
+		this.getRandomArbitrary = this.getRandomArbitrary.bind(this);
 	}
 
 	componentDidMount() {
@@ -76,6 +78,9 @@ class TestForm extends Component {
 	handleFormSubmit(ev) {
 		ev.preventDefault();
 
+		let questionCountsObj = this.getQuestionsObjFromAr(questionCategories);
+		let questionIds = this.generateTest(questionCountsObj, questionsAr);
+
 		// do stuff, call action
 		// (axn) save initial data to redux
 		// do calculations to generate a pseudo random test
@@ -91,8 +96,15 @@ class TestForm extends Component {
 		this.setState(initState);
 	}
 
-	generateTest(numQuestions, categoriesAr, questions) {
+	// questionCountsObj {"category": num questions to get}
+	generateTest(questionCountsObj, questions) {
+		// return a list of question id's (in random order)
+		let questionIds = [];
 
+		//for each category, need to know the start index and end index
+
+		console.log('questionIds', questionIds);
+		return questionIds;
 	}
 
 	getQuestionCountPerCategory(questions, categoriesAr) {
@@ -113,6 +125,24 @@ class TestForm extends Component {
 		});
 
 		return questionCountObj;
+	}
+
+	getQuestionsObjFromAr(categoriesAr) {
+		let questObj = {};
+
+		categoriesAr.forEach(category => {
+			let categoryConcat = category.split(' ').join('');
+			questObj[categoryConcat] = this.state[categoryConcat];
+		});
+
+		console.log('questObj', questObj);
+		return questObj;
+	}
+
+	// not inclusive of max
+	getRandomArbitrary(min, max) {
+		//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+	  return Math.random() * (max - min) + min;
 	}
 
 	render() {
