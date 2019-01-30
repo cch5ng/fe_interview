@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchQuestions } from '../questions/QuestionActions';
+import { fetchRandomTest } from '../tests/TestActions';
 
 const questionCategories = [
 	`Coding Questions`,
@@ -18,15 +19,15 @@ const initState = {
 	inputTestName: '',
 	inputQuestionCount: 0,
 	selectTimePerQuestion: 'no limit',
-	CodingQuestions: false,
-	CSSQuestions: false,
-	FunQuestions: false,
-	GeneralQuestions: false,
-	HTMLQuestions: false,
-	JavaScriptQuestions: false,
-	NetworkQuestions: false,
-	PerformanceQuestions: false,
-	TestingQuestions: false
+	"Coding Questions": 0,
+	"CSS Questions": 0,
+	"Fun Questions": 0,
+	"General Questions": 0,
+	"HTML Questions": 0,
+	"JavaScript Questions": 0,
+	"Network Questions": 0,
+	"Performance Questions": 0,
+	"Testing Questions": 0
 }
 
 class TestForm extends Component {
@@ -34,28 +35,16 @@ class TestForm extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			inputTestName: '',
-			inputQuestionCount: 0,
-			selectTimePerQuestion: 'no limit',
-			CodingQuestions: 0,
-			CSSQuestions: 0,
-			FunQuestions: 0,
-			GeneralQuestions: 0,
-			HTMLQuestions: 0,
-			JavaScriptQuestions: 0,
-			NetworkQuestions: 0,
-			PerformanceQuestions: 0,
-			TestingQuestions: 0
-		}
+		this.state = initState;
 
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.resetState = this.resetState.bind(this);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
-		this.generateTest = this.generateTest.bind(this);
+		//this.generateTest = this.generateTest.bind(this);
 		this.getQuestionCountPerCategory = this.getQuestionCountPerCategory.bind(this);
 		this.getQuestionsObjFromAr = this.getQuestionsObjFromAr.bind(this);
-		this.getRandomArbitrary = this.getRandomArbitrary.bind(this);
+		//this.getRandomArbitrary = this.getRandomArbitrary.bind(this);
+		this.getTotalTestTime = this.getTotalTestTime.bind(this);
 	}
 
 	componentDidMount() {
@@ -78,35 +67,50 @@ class TestForm extends Component {
 	handleFormSubmit(ev) {
 		ev.preventDefault();
 
+		let testData = {};
+
+		// build questionsData
 		let questionCountsObj = this.getQuestionsObjFromAr(questionCategories);
-		let questionIds = this.generateTest(questionCountsObj, questionsAr);
+		console.log('questionCountsObj', questionCountsObj);
+		//let questionIds = this.generateTest(questionCountsObj, questionsAr);
 
 		// do stuff, call action
+
+		// build testData
+		testData.name = this.state.inputTestName;
+		testData.time_total = this.getTotalTestTime(); //TODO need to calculat this;
+		testData.date_taken = null;
+
 		// (axn) save initial data to redux
-		// do calculations to generate a pseudo random test
-			// this.generateTest()
+		this.props.dispatch(fetchRandomTest(questionCountsObj, testData));
+
 		// redirect to a new view (summary view to be able to start the test)
 
 		this.resetState();
 	}
 
 	// reset state
-	resetState(ev) {
-		ev.preventDefault();
+	resetState() {
+		//ev.preventDefault();
 		this.setState(initState);
 	}
 
 	// questionCountsObj {"category": num questions to get}
-	generateTest(questionCountsObj, questions) {
-		// return a list of question id's (in random order)
-		let questionIds = [];
+	// generateTest(questionCountsObj, questions) {
+	// 	// return a list of question id's (in random order)
+	// 	let questionIds = [];
+	// 	this.props.dispatch()
 
-		//for each category, need to know the start index and end index
+	// 	//TODO 013019, verify that the category format is long string, not concat string
+	// 	// then can make the action call
+	// 	// probably want to concat all questions into flat list
+	// 	// probably want to randomize the order of questions (so it is not sorted by category)
 
-		console.log('questionIds', questionIds);
-		return questionIds;
-	}
+	// 	console.log('questionIds', questionIds);
+	// 	return questionIds;
+	// }
 
+	// used to get the max potential questions requested by category
 	getQuestionCountPerCategory(questions, categoriesAr) {
 		let questionCountObj = {};
 		// key is category; value is number of questions
@@ -127,22 +131,29 @@ class TestForm extends Component {
 		return questionCountObj;
 	}
 
+	// used to get the current user requested questions count by category
 	getQuestionsObjFromAr(categoriesAr) {
 		let questObj = {};
 
 		categoriesAr.forEach(category => {
-			let categoryConcat = category.split(' ').join('');
-			questObj[categoryConcat] = this.state[categoryConcat];
+			//let categoryConcat = category.split(' ').join('');
+			questObj[category] = this.state[category];
+			//questObj[categoryConcat] = this.state[categoryConcat];
 		});
 
 		console.log('questObj', questObj);
 		return questObj;
 	}
 
-	// not inclusive of max
-	getRandomArbitrary(min, max) {
-		//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-	  return Math.random() * (max - min) + min;
+	// helper
+	getTotalTestTime() {
+		let totalTime = 0;
+
+		questionCategories.forEach(category => {
+			totalTime += this.state[category];
+		});
+
+		return totalTime;
 	}
 
 	render() {
@@ -190,14 +201,13 @@ class TestForm extends Component {
 						{questionCategories.map(category => {
 							let categoryAr = category.split(' ');
 							const categoryShort = categoryAr[0];
-							const categoryConcat = categoryAr.join('');
 							const maxQuestionCount = questionsMaxObj ? questionsMaxObj[category] : 0;
 
 							return (
-								<React.Fragment key={categoryConcat}>
+								<React.Fragment key={category}>
 									<label>{categoryShort} (Max: {maxQuestionCount})
-										<input type="number" name={categoryConcat} 
-											value={this.state[categoryConcat]}
+										<input type="number" name={category} 
+											value={this.state[category]}
 											onChange={this.handleInputChange}
 											max={maxQuestionCount}
 											min="0"
