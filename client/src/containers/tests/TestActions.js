@@ -1,4 +1,4 @@
-import { getRandomlyOrderedList } from '../../../utils/helper';
+import { getRandomlyOrderedList, getRandomArbitrary } from '../../../utils/helper';
 
 // fetch constants
 const API_GET_TESTS = 'http://localhost:3000/test/all';
@@ -43,6 +43,7 @@ export function requestRandomTest() {
 }
 
 export function receiveRandomTest(curTest) {
+	console.log('curTest', curTest);
 	return {
 		type: RECEIVE_RANDOM_TEST,
 		curTest,
@@ -73,6 +74,7 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 				})
 			})
 			console.log('flatQuestionsAr', flatQuestionsAr);
+			console.log('testData', testData);
 
 			// generate a randomized order of the flat list
 			randomizedQuestions = getRandomlyOrderedList(flatQuestionsAr);
@@ -83,9 +85,8 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 			curTestObj.date_taken = null;
 			curTestObj.time_total = testData.time_total;
 
-
 			// make a whole current test object
-			dispatch(receiveRandomTest(json))
+			dispatch(receiveRandomTest(curTestObj));
 			//dispatch async action to create a test in backend
 		})
 		.catch(err => console.error('fetch error', err));
