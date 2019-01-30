@@ -1,4 +1,4 @@
-import { getPrettyTime, getPrettyDate } from './helper'; 
+import { getPrettyTime, getPrettyDate, getRandomlyOrderedList } from './helper'; 
 
 describe('helper getPrettyTime()', () => {
 
@@ -23,3 +23,13 @@ describe('helper getPrettyTime()', () => {
 });
 
 // TODO set of tests for getPrettyDate()
+
+
+describe('helper getRandomlyOrderedList()', () => {
+
+	it('should return a different list', () => {
+		const origList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+		expect(getRandomlyOrderedList(origList)).not.toEqual(origList);
+
+	})
+})

@@ -46,7 +46,7 @@ export function	getPrettyDate(date) {
 // not inclusive of max
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 export function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 export function getRandomlyOrderedList(ar) {
@@ -63,5 +63,6 @@ export function getRandomlyOrderedList(ar) {
 		randomAr.push(ar[randomIdx]);
 	}
 
+	console.log('randomAr', randomAr);
 	return randomAr;
 }
