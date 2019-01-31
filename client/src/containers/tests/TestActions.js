@@ -85,6 +85,7 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 			curTestObj.questions = randomizedQuestions;
 			curTestObj.date_taken = null;
 			curTestObj.time_total = testData.time_total;
+			curTestObj.status = 'initialized';
 
 			// make a whole current test object
 			dispatch(receiveRandomTest(curTestObj));
