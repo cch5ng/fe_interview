@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchQuestions } from '../questions/QuestionActions';
 import { fetchRandomTest } from '../tests/TestActions';
@@ -16,6 +17,7 @@ const questionCategories = [
 ];
 
 const initState = {
+	formSubmitted: false,
 	inputTestName: '',
 	inputQuestionCount: 0,
 	selectTimePerQuestion: 'no limit',
@@ -91,7 +93,7 @@ class TestForm extends Component {
 	// reset state
 	resetState() {
 		//ev.preventDefault();
-		this.setState(initState);
+		this.setState({ ...initState, formSubmitted: true });
 	}
 
 	// questionCountsObj {"category": num questions to get}
@@ -167,6 +169,11 @@ class TestForm extends Component {
 
 		return (
 			<div>
+
+				{this.state.formSubmitted && (
+					<Redirect to="/tests/current" />
+				)}
+
 				<form className="new-test-form">
 
 					<div>
