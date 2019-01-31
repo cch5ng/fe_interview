@@ -89,6 +89,7 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 			// make a whole current test object
 			dispatch(receiveRandomTest(curTestObj));
 			//dispatch async action to create a test in backend
+			dispatch(fetchInitTest(curTestObj));
 		})
 		.catch(err => console.error('fetch error', err));
 }
@@ -105,16 +106,16 @@ export function requestInitTest() {
 	}
 }
 
-export function receiveInitTest(id) {
+export function receiveInitTest(curTest) {
 	return {
 		type: RECEIVE_INIT_TEST,
-		id,
+		curTest,
 		retrieving: false
 	}
 }
 
 export const fetchInitTest = (testData) => dispatch => {
-	dispatch(requestRandomTest());
+	dispatch(requestInitTest());
 	return fetch(API_POST_INIT_TEST,
 			{	method: 'POST',
 				headers: {
@@ -126,6 +127,11 @@ export const fetchInitTest = (testData) => dispatch => {
 		.then(resp => resp.json())
 		.then(json => {
 			//TODO
+			console.log('json', json)
+			console.log('json.testId', json.test_id)
+			let curTest = {...testData, id: json.test_id}
+			console.log('last curTest', curTest);
+			dispatch(receiveInitTest(curTest));
 
 		})
 		.catch(err => console.error('fetch error', err));

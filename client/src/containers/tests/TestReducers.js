@@ -1,10 +1,12 @@
-import { REQUEST_ALL_TESTS, RECEIVE_ALL_TESTS, REQUEST_RANDOM_TEST, RECEIVE_RANDOM_TEST } from './TestActions';
+import { REQUEST_ALL_TESTS, RECEIVE_ALL_TESTS, REQUEST_RANDOM_TEST,
+	RECEIVE_RANDOM_TEST, REQUEST_INIT_TEST, RECEIVE_INIT_TEST } from './TestActions';
 
 export function tests(state = {}, action) {
 	switch(action.type) {
 
 		case REQUEST_ALL_TESTS:
 		case REQUEST_RANDOM_TEST:
+		case REQUEST_INIT_TEST:
 			return {
 				...state,
 				retrieving: action.retrieving
@@ -21,6 +23,7 @@ export function tests(state = {}, action) {
 				retrieving: false
 			}
 		case RECEIVE_RANDOM_TEST:
+		case RECEIVE_INIT_TEST:
 			return {
 				...state,
 				curTest: action.curTest,
