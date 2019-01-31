@@ -53,6 +53,7 @@ export function getRandomlyOrderedList(ar) {
 	let randomAr = [];
 	let randomIdxAr = [];
 	let listLen = ar.length;
+	let idx = 0;
 
 	// make sure don't create repeats
 	while (randomAr.length < ar.length) {
@@ -60,7 +61,10 @@ export function getRandomlyOrderedList(ar) {
 		while (randomAr.indexOf(ar[randomIdx]) > -1) {
 			randomIdx = getRandomArbitrary(0, listLen);
 		}
+		ar[randomIdx]['sort_order'] = idx;
+		ar[randomIdx]['status'] = 'not_visited';
 		randomAr.push(ar[randomIdx]);
+		idx += 1;
 	}
 
 	console.log('randomAr', randomAr);
