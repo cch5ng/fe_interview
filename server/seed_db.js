@@ -45,7 +45,7 @@ let dummyQuestions = [
 			question_id: 2
 		},
 		{	content: "Explain why the following doesn't work as an IIFE: ^function foo(){ }();^.",
-		question_completed: false,
+		question_completed: true,
 		needs_review: true,
 		question_id: 10
 		}
@@ -54,20 +54,23 @@ let dummyQuestions = [
 const TestData = [
 	{	name: 'dummy test 1',
 		date_taken: dummyDate,
-		time_total: 30000,
-		time_taken: 20000,
+		time_total: 1800000,
+		time_taken: 1200000,
+		status: 'completed',
 		questions: dummyQuestions
 	},
 	{	name: 'dummy test 2',
 		date_taken: dummyDate,
-		time_total: 40000,
-		time_taken: 20000,
+		time_total: 2400000,
+		time_taken: 1200000,
+		status: 'completed',
 		questions: dummyQuestions
 	},
 	{	name: 'dummy test 3',
 		date_taken: dummyDate,
-		time_total: 25000,
-		time_taken: 20000,
+		time_total: 1500000,
+		time_taken: 1200000,
+		status: 'completed',
 		questions: dummyQuestions
 	}
 ];

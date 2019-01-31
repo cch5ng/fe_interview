@@ -9,7 +9,8 @@
   },
   "scripts": {
     "clean": "rm -rf dist .cache",
-    "start": "yarn run clean && parcel src/index.html"
+    "start": "yarn run clean && parcel src/index.html",
+    "test": "jest"
   },
   "dependencies": {
     "react": ">=15",
@@ -24,6 +25,8 @@
     "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/plugin-syntax-jsx": "^7.2.0",
     "@babel/plugin-syntax-object-rest-spread": "^7.2.0",
-    "@babel/preset-env": "^7.3.1"
+    "@babel/preset-env": "^7.3.1",
+    "babel-jest": "^24.0.0",
+    "jest": "^24.0.0"
   }
 }

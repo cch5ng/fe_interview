@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchTests } from './TestActions';
+import { getPrettyTime, getPrettyDate } from '../../../utils/helper';
 
 class Tests extends Component {
 
@@ -9,8 +10,6 @@ class Tests extends Component {
 		super(props);
 
 		this.getQuestionsMissedCount = this.getQuestionsMissedCount.bind(this);
-		this.getPrettyTime = this.getPrettyTime.bind(this);
-		this.getPrettyDate = this.getPrettyDate.bind(this);
 		this.getAvgTimePerQuestion = this.getAvgTimePerQuestion.bind(this);
 	}
 
@@ -19,23 +18,29 @@ class Tests extends Component {
 	}
 
 	getQuestionsMissedCount(questionsAr) {
+		let missedCount = 0;
+		
+		questionsAr.forEach(question => {
+			if (!question.question_completed) {
+				missedCount += 1;
+			}
+		});
 
+		return missedCount;
 	}
 
-	getPrettyTime(timeMs) {
+	getAvgTimePerQuestion(totalTime, completedQuestCount) {
 
-	}
+		if (completedQuestCount === 0) {
+			return 0;
+		}
 
-	getPrettyDate(date) {
+		let avgTime = totalTime / completedQuestCount;
 
-	}
-
-	getAvgTimePerQuestion(totalTime, missedQuestCount) {
-
+		return getPrettyTime(avgTime);
 	}
 
 	render() {
-		console.log('tests', this.props.tests);
 		let { tests } = this.props;
 		let testsAr = [];
 
@@ -43,25 +48,30 @@ class Tests extends Component {
 			testsAr = Object.keys(tests.tests).map(testKey => {
 				return this.props.tests.tests[testKey];
 			})
-
 		}
 
 		return (
 			<div>
 				<h2>All Tests</h2>
 
-				{testsAr.map(test => (
-					<div className="test" key={test.id} >
-						<ul>
-							<li>Name {test.name}</li>
-							<li>Date {test.date_taken}</li>
-							<li>{test.questions ? test.questions.length : null} questions</li>
-							<li>ZZ questions missed</li>
-							<li>Total Time {test.time_total}</li>
-							<li>Time per question ZZ</li>
-						</ul>
-					</div>
-				))}
+				{testsAr.map(test => {
+					const missedQuestions = test.questions ? this.getQuestionsMissedCount(test.questions) : null;
+					const completedQuestionsCount = test.questions ? test.questions.length - missedQuestions : null;
+
+
+					return (
+						<div className="test" key={test.id} >
+							<ul>
+								<li>Name {test.name}</li>
+								<li>Date {getPrettyDate(test.date_taken)}</li>
+								<li>{test.questions ? test.questions.length : null} questions</li>
+								<li>{missedQuestions} questions missed</li>
+								<li>Total Time {getPrettyTime(test.time_total)}</li>
+								<li>Time per question {test.questions ? this.getAvgTimePerQuestion(test.time_total, completedQuestionsCount): null}</li>
+							</ul>
+						</div>
+					)	
+				})}
 			</div>
 		)
 	}
