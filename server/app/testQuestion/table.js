@@ -2,12 +2,12 @@ const pool = require('../../databasePool');
 
 class TestQuestionTable {
 
-	static storeTestQuestion({ test_id, question_id, question_completed, needs_review }) {
+	static storeTestQuestion({ test_id, question_id, question_completed, needs_review, status, sort_order }) {
 		return new Promise((resolve, reject) => {
 			pool.query(
-				`INSERT INTO test_question(test_id, question_id, question_completed, needs_review)
-					VALUES($1, $2, $3, $4)`,
-				[test_id, question_id, question_completed, needs_review],
+				`INSERT INTO test_question(test_id, question_id, question_completed, needs_review, status, sort_order)
+					VALUES($1, $2, $3, $4, $5, $6)`,
+				[test_id, question_id, question_completed, needs_review, status, sort_order],
 				(err, resp) => {
 					if (err) return reject(err);
 

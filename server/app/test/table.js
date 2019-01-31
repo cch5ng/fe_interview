@@ -23,8 +23,8 @@ class TestTable {
 
 					// TODO rethink this section
 					Promise.all(
-						test.questions.map(({ question_id, question_completed, needs_review }) => {
-							return TestQuestionTable.storeTestQuestion({ test_id, question_id, question_completed, needs_review })
+						test.questions.map(({ id, question_completed, needs_review, status, sort_order }) => {
+							return TestQuestionTable.storeTestQuestion({ test_id, question_id: id, question_completed, needs_review, status, sort_order })
 						})
 					)
 						.then(() => resolve({ test_id }))
