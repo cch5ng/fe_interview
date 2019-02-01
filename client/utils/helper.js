@@ -70,3 +70,15 @@ export function getRandomlyOrderedList(ar) {
 	console.log('randomAr', randomAr);
 	return randomAr;
 }
+
+// return an array of objects given one object (like a set; where keys are id's and values are objects)
+export function dictToAr(objects) {
+
+}
+
+// return an object where keys are object id's and values are objects
+export function arToDict(ar) {
+
+}
+
+
