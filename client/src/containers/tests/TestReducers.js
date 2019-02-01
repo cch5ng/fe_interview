@@ -1,5 +1,5 @@
 import { REQUEST_ALL_TESTS, RECEIVE_ALL_TESTS, REQUEST_RANDOM_TEST,
-	RECEIVE_RANDOM_TEST, REQUEST_INIT_TEST, RECEIVE_INIT_TEST } from './TestActions';
+	RECEIVE_RANDOM_TEST, REQUEST_INIT_TEST, RECEIVE_INIT_TEST, START_TEST } from './TestActions';
 
 export function tests(state = {}, action) {
 	switch(action.type) {
@@ -28,6 +28,11 @@ export function tests(state = {}, action) {
 				...state,
 				curTest: action.curTest,
 				retrieving: false
+			}
+		case START_TEST:
+			return {
+				...state,
+				curTest: {...state.curTest, status: action.status},
 			}
 		default:
 			return state;

@@ -137,3 +137,14 @@ export const fetchInitTest = (testData) => dispatch => {
 		})
 		.catch(err => console.error('fetch error', err));
 }
+
+// action types
+export const START_TEST = 'START_TEST';
+
+export function startTest() {
+	return {
+		type: START_TEST,
+		status: 'active'
+	}
+}
+
