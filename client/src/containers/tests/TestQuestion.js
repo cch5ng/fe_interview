@@ -10,6 +10,8 @@ class TestQuestion extends Component {
 		// };
 
 		this.updateTest = this.updateTest.bind(this);
+		this.submitQuestion = this.submitQuestion.bind(this);
+		this.handleInputUpdate = this.handleInputUpdate.bind(this);
 	}
 
 	componentDidMount() {
@@ -17,7 +19,15 @@ class TestQuestion extends Component {
 	}
 
 	//event handlers
+	handleInputUpdate(ev) {
+
+	}
+
 	updateTest() {
+
+	}
+
+	submitQuestion() {
 
 	}
 
@@ -40,6 +50,9 @@ class TestQuestion extends Component {
 			<div>
 				<h1>Test Question</h1>
 
+				<button onClick={this.submitQuestion} >Submit</button>
+
+
 {/*
 				{curTestObj && (
 					<div>
@@ -52,7 +65,6 @@ class TestQuestion extends Component {
 				)}
 
 				{status === 'active' && (
-					<button onClick={this.submitTest} >Submit</button>
 				)}
 */}
 			</div>
