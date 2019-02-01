@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
+import { startTest } from './TestActions';
 
 class TestSummary extends Component {
 
@@ -7,10 +9,10 @@ class TestSummary extends Component {
 		super(props);
 
 		this.state = {
-			//status: initialized,
+			displayTestQuestion: false
 		};
 
-		//this.getRandomArbitrary = this.getRandomArbitrary.bind(this);
+		this.startTest = this.startTest.bind(this);
 	}
 
 	componentDidMount() {
@@ -18,10 +20,26 @@ class TestSummary extends Component {
 	}
 
 	//event handlers
+	startTest(ev) {
+		ev.preventDefault();
+		this.props.dispatch(startTest())
+		// state: remaining_time; current_question - default to sort_order 0
+		// update status in redux
+		// start countdown timer (probably need to review also cleaning up the timer when the test is done)
+		// toggle state displayTestQuestion to true (this should redirect to first question in test)
+		// automatically open the first question in the list
+
+	}
+
+	submitTest() {
+
+	}
 
 	render() {
 		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
 		let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized';
+		let firstQuestionUrl = curTestObj && curTestObj.questions ? `/tests/question/${curTestObj.questions[0].id}` : null;
+		console.log('firstQuestionUrl', firstQuestionUrl);
 		// let questionsAr = [];
 		// let questionsMaxObj = {};
 
@@ -32,24 +50,36 @@ class TestSummary extends Component {
 
 		return (
 			<div>
+				{curTestObj && status === 'active' && (
+					<Redirect to={firstQuestionUrl} />
+				)}
+
 				<h1>Test Summary</h1>
 
 				{curTestObj && (
 					<div>
-						<ul>
-							<li>Name {curTestObj.name}</li>
-							<li>Total time {curTestObj.time_total}</li>
-							<li>Num Questions {curTestObj.questions.length}</li>
-						</ul>
+						<h2>Name {curTestObj.name}</h2>
+						<p>Total time {curTestObj.time_total}</p>
+						<p>Total Questions {curTestObj.questions.length}</p>
 					</div>
 				)}
 
+				{curTestObj && curTestObj.questions.map(question => {
+					const displayOrder = question.sort_order + 1;
+					return (
+						<React.Fragment key={displayOrder}>
+							<div className="question_num">{displayOrder} (id {question.id})</div>
+							<div className="question_status">{question.status}</div>
+						</React.Fragment>
+					)
+				})}
+
 				{status === 'initialized' && (
-					<button>Start</button>
+					<button onClick={this.startTest} >Start</button>
 				)}
 
 				{status === 'active' && (
-					<button>Submit</button>
+					<button onClick={this.submitTest} >Submit</button>
 				)}
 
 			</div>
