@@ -3,6 +3,7 @@ import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startTest } from './TestActions';
+import { dictToRandomAr } from '../../../utils/helper';
 
 class TestSummary extends Component {
 
@@ -39,8 +40,10 @@ class TestSummary extends Component {
 	render() {
 		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
 		let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized';
-		let firstQuestionUrl = curTestObj && curTestObj.questions ? `/tests/question/${curTestObj.questions[0].id}` : null;
+		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
+		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
 		console.log('firstQuestionUrl', firstQuestionUrl);
+
 		// let questionsAr = [];
 		// let questionsMaxObj = {};
 
@@ -65,7 +68,7 @@ class TestSummary extends Component {
 					</div>
 				)}
 
-				{curTestObj && curTestObj.questions.map(question => {
+				{curTestObj && randomQuestAr && randomQuestAr.map(question => {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
 					return (
