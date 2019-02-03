@@ -3,7 +3,7 @@ import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startTest } from './TestActions';
-import { dictToRandomAr } from '../../../utils/helper';
+import { dictToRandomAr, getPrettyTime } from '../../../utils/helper';
 
 class TestSummary extends Component {
 
@@ -43,6 +43,7 @@ class TestSummary extends Component {
 		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
 		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
 		console.log('firstQuestionUrl', firstQuestionUrl);
+		let prettyTotalTime = curTestObj ? getPrettyTime(curTestObj.time_total) : '';
 
 		// let questionsAr = [];
 		// let questionsMaxObj = {};
@@ -63,7 +64,7 @@ class TestSummary extends Component {
 				{curTestObj && (
 					<div>
 						<h2>Name {curTestObj.name}</h2>
-						<p>Total time {curTestObj.time_total}</p>
+						<p>Total time {prettyTotalTime}</p>
 						<p>Total Questions {curTestObj.questions.length}</p>
 					</div>
 				)}

@@ -58,8 +58,12 @@ class TestForm extends Component {
 	// input change handler
 	handleInputChange(ev) {
 		const target = ev.target;
-		const value = target.type === 'checkbox' ? target.checked : target.value;
+		let value = target.type === 'checkbox' ? target.checked : target.value;
 		const name = target.name;
+
+		if (questionCategories.indexOf(name) > -1) {
+			value = parseInt(value, 10);
+		}
 
 		this.setState({ [name]: value });
 	}
@@ -148,13 +152,13 @@ class TestForm extends Component {
 
 	// helper
 	getTotalTestTime() {
-		let totalTime = 0;
+		let totalQuestions = 0;
 
 		questionCategories.forEach(category => {
-			totalTime += this.state[category];
+			totalQuestions += this.state[category];
 		});
 
-		return totalTime;
+		return totalQuestions * this.state.selectTimePerQuestion;
 	}
 
 	render() {
@@ -192,10 +196,10 @@ class TestForm extends Component {
 							onChange={this.handleInputChange} 							
 						>
 							<option value="no limit">no time limit</option>
-							<option value="5">5</option>
-							<option value="8">8</option>
-							<option value="10">10</option>
-							<option value="15">15</option>
+							<option value="300000">5</option>
+							<option value="480000">8</option>
+							<option value="600000">10</option>
+							<option value="900000">15</option>
 						</select>
 					</div>
 
