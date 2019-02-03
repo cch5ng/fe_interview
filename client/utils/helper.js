@@ -71,14 +71,54 @@ export function getRandomlyOrderedList(ar) {
 	return randomAr;
 }
 
+export function dictToRandomAr(objects) {
+	let resultAr = [];
+
+	Object.keys(objects).forEach((id, idx) => {
+		let sortOrder = objects[id].sort_order;
+		resultAr[sortOrder] = objects[id];
+	});
+
+	console.log('resultAr', resultAr);
+
+	return resultAr;
+}
+
+
 // return an array of objects given one object (like a set; where keys are id's and values are objects)
 export function dictToAr(objects) {
+	let resultAr = [];
 
+	Object.keys(objects).forEach(id => {
+		resultAr.push(objects[id]);
+	});
+
+	return resultAr;
+}
+
+export function objRandomArReducer(accum, curVal, curIdx) {
+  let id = curVal.id;
+  accum[id] = curVal;
+  accum['display_order'] = curIdx;
+  return accum;
+}
+
+// return an object where keys are object id's and values are objects
+export function randomArToDict(ar) {
+	const obj = ar.reduce(objRandomArReducer, {});
+
+	return obj;
+}
+
+export function objArReducer(accum, curVal) {
+  let id = curVal.id;
+  accum[id] = curVal;
+  return accum;
 }
 
 // return an object where keys are object id's and values are objects
 export function arToDict(ar) {
+	const obj = ar.reduce(objArReducer, {});
 
+	return obj;
 }
-
-
