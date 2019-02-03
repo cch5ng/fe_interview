@@ -1,4 +1,5 @@
-import { getRandomlyOrderedList, getRandomArbitrary } from '../../../utils/helper';
+import { getRandomlyOrderedList, getRandomArbitrary,
+	objRandomArReducer, randomArToDict } from '../../../utils/helper';
 
 // fetch constants
 const API_GET_TESTS = 'http://localhost:3000/test/all';
@@ -45,9 +46,13 @@ export function requestRandomTest() {
 
 export function receiveRandomTest(curTest) {
 	console.log('curTest', curTest);
+	let questionsDict = randomArToDict(curTest.questions);
+	let newCurTest = { ...curTest, questions: questionsDict };
+	console.log('newCurTest', newCurTest);
+
 	return {
 		type: RECEIVE_RANDOM_TEST,
-		curTest,
+		curTest: newCurTest,
 		retrieving: false
 	}
 }
@@ -74,12 +79,9 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 					flatQuestionsAr.push(quest);
 				})
 			})
-			console.log('flatQuestionsAr', flatQuestionsAr);
-			console.log('testData', testData);
 
 			// generate a randomized order of the flat list
 			randomizedQuestions = getRandomlyOrderedList(flatQuestionsAr);
-			console.log('randomizedQuestions', randomizedQuestions);
 
 			curTestObj.name = testData.name;
 			curTestObj.questions = randomizedQuestions;
@@ -127,11 +129,7 @@ export const fetchInitTest = (testData) => dispatch => {
 		)
 		.then(resp => resp.json())
 		.then(json => {
-			//TODO
-			console.log('json', json)
-			console.log('json.testId', json.test_id)
 			let curTest = {...testData, id: json.test_id}
-			console.log('last curTest', curTest);
 			dispatch(receiveInitTest(curTest));
 
 		})
