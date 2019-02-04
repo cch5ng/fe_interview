@@ -15,6 +15,7 @@ class TestSummary extends Component {
 		};
 
 		this.startTest = this.startTest.bind(this);
+		this.submitTest = this.submitTest.bind(this);
 	}
 
 	componentDidMount() {
@@ -42,7 +43,13 @@ class TestSummary extends Component {
 
 	}
 
-	submitTest() {
+	submitTest(ev) {
+		ev.preventDefault();
+
+		//this.props.dispatch();
+		// update test status
+		// stop timer (delete timer instance)
+		// make sure all changes are saved - redux and BE
 
 	}
 
@@ -50,6 +57,9 @@ class TestSummary extends Component {
 		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
 		let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized'; // 'active', 'completed'
 		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
+		
+		console.log('randomQuestAr', randomQuestAr);
+
 		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
 		console.log('firstQuestionUrl', firstQuestionUrl);
 		let prettyTotalTime = curTestObj ? getPrettyTime(curTestObj.time_total) : '';
@@ -94,7 +104,7 @@ class TestSummary extends Component {
 				})}
 
 
-				{status === 'active' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
+				{(status === 'active' || status === 'completed') && curTestObj && randomQuestAr && randomQuestAr.map(question => {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
 					return (
