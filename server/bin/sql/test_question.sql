@@ -5,6 +5,7 @@ CREATE TABLE test_question(
 	needs_review 				BOOLEAN,
 	status 							VARCHAR(64),
 	sort_order					INTEGER,
+	response						VARCHAR NULL,
 	FOREIGN KEY (test_id) REFERENCES test(id),
 	FOREIGN KEY (question_id) REFERENCES question(id)
 );
