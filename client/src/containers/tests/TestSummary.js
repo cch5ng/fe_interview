@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startTest } from './TestActions';
 import { dictToRandomAr, getPrettyTime } from '../../../utils/helper';
@@ -24,7 +24,16 @@ class TestSummary extends Component {
 	//event handlers
 	startTest(ev) {
 		ev.preventDefault();
-		this.props.dispatch(startTest())
+
+		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
+		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
+
+		this.props.dispatch(startTest());
+
+		if (firstQuestionUrl) {
+			this.props.history.push(firstQuestionUrl);
+		}
+
 		// state: remaining_time; current_question - default to sort_order 0
 		// update status in redux
 		// start countdown timer (probably need to review also cleaning up the timer when the test is done)
@@ -39,7 +48,7 @@ class TestSummary extends Component {
 
 	render() {
 		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
-		let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized';
+		let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized'; // 'active', 'completed'
 		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
 		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
 		console.log('firstQuestionUrl', firstQuestionUrl);
@@ -53,11 +62,15 @@ class TestSummary extends Component {
 		// 	questionsMaxObj = this.getQuestionCountPerCategory(questionsAr, questionCategories);
 		// }
 
-		return (
-			<div>
+/*
+				{TODO debug this because after user submits a question, cannot return to test summary as result of condition }
 				{curTestObj && status === 'active' && (
 					<Redirect to={firstQuestionUrl} />
 				)}
+*/
+
+		return (
+			<div>
 
 				<h1>Test Summary</h1>
 
@@ -69,18 +82,32 @@ class TestSummary extends Component {
 					</div>
 				)}
 
-				{curTestObj && randomQuestAr && randomQuestAr.map(question => {
+				{status === 'initialized' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
 					return (
 						<React.Fragment key={displayOrder}>
-							<Link to={curQuestionUrl}>
-								<div className="question_num">{displayOrder} (id {question.id})</div>
-								<div className="question_status">{question.status}</div>
-							</Link>
+							<div className="question_num">{displayOrder} (id {question.id})</div>
+							<div className="question_status">{question.status}</div>
 						</React.Fragment>
 					)
 				})}
+
+
+				{status === 'active' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
+					const displayOrder = question.sort_order + 1;
+					let curQuestionUrl = `/tests/question/${question.id}`;
+					return (
+						<React.Fragment key={displayOrder}>
+								<div className="question_num">{displayOrder} (id {question.id})</div>
+								<div className="question_status">{question.status}</div>
+								<Link to={curQuestionUrl}>
+									<div className="link">Go</div>
+								</Link>
+						</React.Fragment>
+					)
+				})}
+
 
 				{status === 'initialized' && (
 					<button onClick={this.startTest} >Start</button>
@@ -96,11 +123,9 @@ class TestSummary extends Component {
 }
 
 function mapStateToProps({ tests }) {
-	console.log('tests', tests)
 	return {
 		tests
 	}
 }
 
-export default connect(mapStateToProps)(TestSummary);
-
+export default withRouter(connect(mapStateToProps)(TestSummary));

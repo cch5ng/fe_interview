@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class TestQuestion extends Component {
@@ -6,8 +8,9 @@ class TestQuestion extends Component {
 	constructor(props) {
 		super(props);
 
-		// this.state = {
-		// };
+		this.state = {
+			questionSubmitted: false
+		};
 
 		this.updateTest = this.updateTest.bind(this);
 		this.submitQuestion = this.submitQuestion.bind(this);
@@ -27,8 +30,12 @@ class TestQuestion extends Component {
 
 	}
 
-	submitQuestion() {
+	submitQuestion(ev) {
+		ev.preventDefault();
+		console.log('gets to submitQuestion');
+		this.setState({ questionSubmitted: true })
 
+		this.props.history.push('/tests/current');
 	}
 
 	render() {
@@ -73,11 +80,9 @@ class TestQuestion extends Component {
 }
 
 function mapStateToProps({ tests }) {
-	console.log('tests', tests)
 	return {
 		tests
 	}
 }
 
-export default connect(mapStateToProps)(TestQuestion);
-
+export default withRouter(connect(mapStateToProps)(TestQuestion));
