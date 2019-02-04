@@ -8,11 +8,14 @@ class TestQuestion extends Component {
 	constructor(props) {
 		super(props);
 
+		let	curQuestionId = this.props.match.params.id;
+		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
+		let curQuestion = curTestObj && curQuestionId && curTestObj.questions ? curTestObj.questions[curQuestionId] : null;		
+
 		this.state = {
-			questionSubmitted: false
+			curQuestionResponse: curQuestion && curQuestion.response ? curQuestion.response : ''
 		};
 
-		this.updateTest = this.updateTest.bind(this);
 		this.submitQuestion = this.submitQuestion.bind(this);
 		this.handleInputUpdate = this.handleInputUpdate.bind(this);
 	}
@@ -23,57 +26,75 @@ class TestQuestion extends Component {
 
 	//event handlers
 	handleInputUpdate(ev) {
-
-	}
-
-	updateTest() {
+		let response = ev.target.value;
+		let name = ev.target.name;
+		this.setState({[name]: response})
 
 	}
 
 	submitQuestion(ev) {
 		ev.preventDefault();
 		console.log('gets to submitQuestion');
-		this.setState({ questionSubmitted: true })
+		//update redux (question id and response)
 
 		this.props.history.push('/tests/current');
 	}
 
 	render() {
+		//TODO question detail could also have 2 states (if parent test is active vs completed)
+		let curQuestionId;
+		
 		if (this.props.match) {
-			console.log('id', this.props.match.params.id);
+			//console.log('id', this.props.match.params.id);
+			curQuestionId = this.props.match.params.id;
 		}
 
-		// let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
-		// let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized';
-		// let questionsAr = [];
-		// let questionsMaxObj = {};
+		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
+		let curTestStatus = curTestObj && curTestObj.status ? curTestObj.status : 'initialized';
+		let curQuestion = curTestObj && curQuestionId && curTestObj.questions ? curTestObj.questions[curQuestionId] : null;
+		let curQuestionStatus = curQuestion && curQuestion.status ? curQuestion.status : 'not visited';
+		let curQuestionResponse = curQuestion && curQuestion.response ? curQuestion.response : '';
+		let curQuestionContent = curQuestion && curQuestion.content ? curQuestion.content : '';
 
-		// if (questionObj) {
-		// 	questionsAr = Object.keys(questionObj).map(k => questionObj[k]);
-		// 	questionsMaxObj = this.getQuestionCountPerCategory(questionsAr, questionCategories);
-		// }
+		console.log('curQuestion', curQuestion);
+		console.log('curQuestionContent', curQuestionContent);
 
 		return (
 			<div>
 				<h1>Test Question</h1>
 
-				<button onClick={this.submitQuestion} >Submit</button>
-
-
-{/*
-				{curTestObj && (
+				{curTestStatus === 'active' && (
 					<div>
-						<h2>Name {curTestObj.name}</h2>
-						<p>Total time {curTestObj.time_total}</p>
+						<div>Time Left: </div>
+
+						<h2>Question {curQuestionContent}</h2>
+
+						<textarea
+							name="curQuestionResponse"
+							value={this.state.curQuestionResponse}
+							onChange={this.handleInputUpdate}
+						></textarea>
+
+						<button onClick={this.submitQuestion} >Submit</button>
+
 					</div>
 				)}
-				{status === 'initialized' && (
-					<button onClick={this.startTest} >Start</button>
+
+				{curTestStatus === 'completed' && (
+					<div>
+
+						<h2>Question {curTestObj.name}</h2>
+
+						<textarea
+							name="curQuestionResponse"
+							value={this.state.curQuestionResponse}
+							readOnly="true"
+						></textarea>
+
+						<Link to="/tests/current" >Back</Link>
+					</div>
 				)}
 
-				{status === 'active' && (
-				)}
-*/}
 			</div>
 		)
 	}
