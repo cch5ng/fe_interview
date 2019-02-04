@@ -37,6 +37,28 @@ class TestQuestionTable {
 		});
 	}
 
+	static updateTestQuestion(testData) { //{ test_id, question_id, response	}
+		console.log('gets to updateTestQuestion');
+		const { test_id, question_id, response	} = testData;
+		return new Promise((resolve, reject) => {
+			pool.query(
+				`UPDATE test_question
+					SET response = $1
+					WHERE test_id = $2 AND question_id = $3
+					RETURNING question_id`,
+				[response, test_id, question_id],
+				(err, resp) => {
+					if (err) return reject(err);
+	
+					const question_id = resp.rows[0].question_id;
+					console.log('resp', resp.rows[0].question_id);
+					resolve(question_id);
+//					resolve();
+				}
+			)
+		})
+	}
+
 }
 
 module.exports = TestQuestionTable;
