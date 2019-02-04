@@ -45,14 +45,14 @@ export function requestRandomTest() {
 }
 
 export function receiveRandomTest(curTest) {
-	console.log('curTest', curTest);
-	let questionsDict = randomArToDict(curTest.questions);
-	let newCurTest = { ...curTest, questions: questionsDict };
-	console.log('newCurTest', newCurTest);
+	//console.log('curTest', curTest);
+	//let questionsDict = randomArToDict(curTest.questions);
+	//let newCurTest = { ...curTest, questions: questionsDict };
+	//console.log('newCurTest', newCurTest);
 
 	return {
 		type: RECEIVE_RANDOM_TEST,
-		curTest: newCurTest,
+		curTest: curTest,//newCurTest,
 		retrieving: false
 	}
 }
@@ -73,6 +73,7 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 			let curTestObj = {};
 			let randomizedQuestions = [];
 			// concat lists of questions into one flat list
+			let randomizedQuestionsObj = {};
 
 			json.forEach(questList => {
 				questList.forEach(quest => {
@@ -82,16 +83,26 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 
 			// generate a randomized order of the flat list
 			randomizedQuestions = getRandomlyOrderedList(flatQuestionsAr);
+			console.log('randomizedQuestions', randomizedQuestions);
+
+			randomizedQuestions.forEach(questObj => {
+				let id = questObj.id;
+				randomizedQuestionsObj[id] = questObj;
+			});
+			console.log('randomizedQuestionsObj', randomizedQuestionsObj);
 
 			curTestObj.name = testData.name;
-			curTestObj.questions = randomizedQuestions;
+			curTestObj.questions = randomizedQuestionsObj; //randomizedQuestions;
 			curTestObj.date_taken = null;
 			curTestObj.time_total = testData.time_total;
 			curTestObj.status = 'initialized';
 
 			// make a whole current test object
+			// Redux store better uses questions in object format (for updates)
 			dispatch(receiveRandomTest(curTestObj));
 			//dispatch async action to create a test in backend
+			// BE needs questions in array format
+			curTestObj.questions = randomizedQuestions;
 			dispatch(fetchInitTest(curTestObj));
 		})
 		.catch(err => console.error('fetch error', err));
@@ -130,6 +141,16 @@ export const fetchInitTest = (testData) => dispatch => {
 		.then(resp => resp.json())
 		.then(json => {
 			let curTest = {...testData, id: json.test_id}
+
+			let randomizedQuestionsObj = {};
+
+			testData.questions.forEach(questObj => {
+				let id = questObj.id;
+				randomizedQuestionsObj[id] = questObj;
+			});
+			console.log('randomizedQuestionsObj', randomizedQuestionsObj);
+			curTest = { ...curTest, questions: randomizedQuestionsObj };
+
 			dispatch(receiveInitTest(curTest));
 
 		})
@@ -146,3 +167,12 @@ export function startTest() {
 	}
 }
 
+// action types
+export const COMPLETE_TEST = 'COMPLETE_TEST';
+
+export function completeTest() {
+	return {
+		type: COMPLETE_TEST,
+		status: 'completed'
+	}
+}
