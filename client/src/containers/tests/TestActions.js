@@ -4,7 +4,8 @@ import { getRandomlyOrderedList, getRandomArbitrary,
 // fetch constants
 const API_GET_TESTS = 'http://localhost:3000/test/all';
 const API_POST_RANDOM_TEST = 'http://localhost:3000/question/random';
-const API_POST_INIT_TEST = 'http://localhost:3000/test/new'
+const API_POST_INIT_TEST = 'http://localhost:3000/test/new';
+const API_POST_UPDATE_TEST_QUESTION = 'http://localhost:3000/test/updateQuestion';
 
 // action types
 export const REQUEST_ALL_TESTS = 'REQUEST_ALL_TESTS';
@@ -176,3 +177,43 @@ export function completeTest() {
 		status: 'completed'
 	}
 }
+
+// action types
+export const REQUEST_UPDATE_TEST = 'REQUEST_UPDATE_TEST';
+export const RECEIVE_UPDATE_TEST = 'RECEIVE_UPDATE_TEST';
+
+
+export function requestUpdateTest() {
+	return {
+		type: REQUEST_UPDATE_TEST,
+		retrieving: true
+	}
+}
+
+export function receiveUpdateTest(testData) {
+	return {
+		type: RECEIVE_UPDATE_TEST,
+		testData,
+		retrieving: false
+	}
+}
+
+//should this update the BE?
+export const fetchUpdateTest = (testData) => dispatch => {
+	dispatch(requestUpdateTest());
+	return fetch(API_POST_UPDATE_TEST_QUESTION,
+			{	method: 'POST',
+				headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testData),
+			}
+		)
+		.then(resp => resp.json())
+		.then(json => {
+			console.log('updated questionId', json);
+			dispatch(receiveUpdateTest(testData));
+		})
+		.catch(err => console.error('fetch error', err));
+}
+

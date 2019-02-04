@@ -1,6 +1,6 @@
 import { REQUEST_ALL_TESTS, RECEIVE_ALL_TESTS, REQUEST_RANDOM_TEST,
 	RECEIVE_RANDOM_TEST, REQUEST_INIT_TEST, RECEIVE_INIT_TEST, START_TEST,
-	COMPLETE_TEST } from './TestActions';
+	COMPLETE_TEST, REQUEST_UPDATE_TEST, RECEIVE_UPDATE_TEST } from './TestActions';
 
 export function tests(state = {}, action) {
 	switch(action.type) {
@@ -8,6 +8,7 @@ export function tests(state = {}, action) {
 		case REQUEST_ALL_TESTS:
 		case REQUEST_RANDOM_TEST:
 		case REQUEST_INIT_TEST:
+		case REQUEST_UPDATE_TEST:
 			return {
 				...state,
 				retrieving: action.retrieving
@@ -35,6 +36,13 @@ export function tests(state = {}, action) {
 			return {
 				...state,
 				curTest: {...state.curTest, status: action.status},
+			}
+		case RECEIVE_UPDATE_TEST:
+			const { question_id, response } = action.testData;
+
+			return {
+				...state,
+				curTest: {...state.curTest, questions: { ...state.curTest.questions, [question_id]: { ...state.curTest.questions[question_id], response }} },
 			}
 		default:
 			return state;
