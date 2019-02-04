@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { fetchUpdateTest } from './TestActions';
 
 class TestQuestion extends Component {
 
@@ -34,9 +35,15 @@ class TestQuestion extends Component {
 
 	submitQuestion(ev) {
 		ev.preventDefault();
-		console.log('gets to submitQuestion');
-		//update redux (question id and response)
+		let test_id = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.id ? this.props.tests.curTest.id : null;
+		let question_id = this.props.match.params.id;
+		question_id = parseInt(question_id, 10);
+		let response = this.state.curQuestionResponse;
+		let questionData = { test_id, question_id, response };
 
+		//update redux (question id and response)
+		this.props.dispatch(fetchUpdateTest(questionData));
+	
 		this.props.history.push('/tests/current');
 	}
 
