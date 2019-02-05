@@ -4,7 +4,7 @@ CREATE TABLE test(
 	date_taken			TIMESTAMP,
 	time_total  		INTEGER NULL,
 	time_remaining 	INTEGER NULL,
-	status					VARCHAR(64),
+	status					VARCHAR(64)
 	--user_id INTEGER,
 	--FOREIGN KEY (user_id) REFERENCES fe_user(id)
 );
