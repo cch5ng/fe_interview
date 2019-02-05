@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchUpdateTest } from './TestActions';
+import { fetchUpdateTestQuestion } from './TestActions';
 import { getPrettyTime } from '../../../utils/helper';
 
 class TestQuestion extends Component {
@@ -43,7 +43,7 @@ class TestQuestion extends Component {
 		let questionData = { test_id, question_id, response };
 
 		//update redux (question id and response)
-		this.props.dispatch(fetchUpdateTest(questionData));
+		this.props.dispatch(fetchUpdateTestQuestion(questionData));
 	
 		this.props.history.push('/tests/current');
 	}
