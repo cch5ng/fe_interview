@@ -22,6 +22,14 @@ router.post('/new', (req, res, next) => {
 		.catch(err => console.error('error', err))
 })
 
+router.post('/update', (req, res, next) => {
+	console.log('req.body', req.body);
+	TestTable.updateTest(req.body)
+		//.then(() => console.log('question updated in test_question table'))
+		.then(testId => res.json(testId))
+		.catch(err => console.error('error', err))
+})
+
 router.post('/updateQuestion', (req, res, next) => {
 	console.log('req.body', req.body);
 	TestQuestionTable.updateTestQuestion(req.body)
