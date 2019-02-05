@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { startTest } from './TestActions';
+import { startTest, fetchUpdateTest } from './TestActions';
 import { dictToRandomAr, getPrettyTime } from '../../../utils/helper';
 
 class TestSummary extends Component {
@@ -49,10 +49,9 @@ class TestSummary extends Component {
 	submitTest(ev) {
 		ev.preventDefault();
 
+		const test_id = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest.id : null;
 		// stop timer (delete timer instance)
-		this.props.stopCountdownTimer();
-		//this.props.dispatch();
-		// update test status
+		this.props.stopCountdownTimer({test_id, status: 'completed'});
 		// make sure all changes are saved - redux and BE
 
 	}
