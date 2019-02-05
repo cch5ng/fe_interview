@@ -96,6 +96,7 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 			curTestObj.questions = randomizedQuestionsObj; //randomizedQuestions;
 			curTestObj.date_taken = null;
 			curTestObj.time_total = testData.time_total;
+			curTestObj.time_remaining = testData.time_total;
 			curTestObj.status = 'initialized';
 
 			// make a whole current test object
@@ -177,6 +178,16 @@ export function completeTest() {
 		status: 'completed'
 	}
 }
+
+// action types
+export const DECREMENT_TEST_TIME_REMAINING = 'DECREMENT_TEST_TIME_REMAINING';
+
+export function decrementTestTimeRemaining() {
+	return {
+		type: DECREMENT_TEST_TIME_REMAINING, 
+	}
+}
+
 
 // action types
 export const REQUEST_UPDATE_TEST = 'REQUEST_UPDATE_TEST';

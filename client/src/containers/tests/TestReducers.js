@@ -1,6 +1,7 @@
 import { REQUEST_ALL_TESTS, RECEIVE_ALL_TESTS, REQUEST_RANDOM_TEST,
 	RECEIVE_RANDOM_TEST, REQUEST_INIT_TEST, RECEIVE_INIT_TEST, START_TEST,
-	COMPLETE_TEST, REQUEST_UPDATE_TEST, RECEIVE_UPDATE_TEST } from './TestActions';
+	COMPLETE_TEST, REQUEST_UPDATE_TEST, RECEIVE_UPDATE_TEST,
+	DECREMENT_TEST_TIME_REMAINING } from './TestActions';
 
 export function tests(state = {}, action) {
 	switch(action.type) {
@@ -43,6 +44,11 @@ export function tests(state = {}, action) {
 			return {
 				...state,
 				curTest: {...state.curTest, questions: { ...state.curTest.questions, [question_id]: { ...state.curTest.questions[question_id], response }} },
+			}
+		case DECREMENT_TEST_TIME_REMAINING:
+			return {
+				...state,
+				curTest: {...state.curTest, time_remaining: state.curTest.time_remaining - 1000}
 			}
 		default:
 			return state;
