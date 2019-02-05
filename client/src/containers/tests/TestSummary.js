@@ -30,6 +30,7 @@ class TestSummary extends Component {
 		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
 
 		this.props.dispatch(startTest());
+		this.props.startCountdownTimer();
 
 		if (firstQuestionUrl) {
 			this.props.history.push(firstQuestionUrl);

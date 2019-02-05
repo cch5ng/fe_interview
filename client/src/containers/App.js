@@ -11,11 +11,39 @@ import Questions from '../containers/questions/Questions';
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.counterIntervalId;
+    this.startTime = 10000;
+
+    this.startCountdownTimer = this.startCountdownTimer.bind(this);
+    this.updateCountdownStore = this.updateCountdownStore.bind(this);
+  }
+
   // componentDidMount() {
   //   this.props.dispatch()
   // }
 
 // EVENT HANDLERS
+  startCountdownTimer() {
+    console.log('gets to startCountdownTimer');
+    // need to entire time (convert back to ms?)
+    this.counterIntervalId = window.setInterval(this.updateCountdownStore, 1000)
+
+  }
+
+  updateCountdownStore() {
+    if (this.startTime > 0) {
+      this.startTime -= 1000;
+      console.log('this.startTime', this.startTime);      
+    }
+
+    if (this.startTime === 0) {
+      window.clearInterval(this.counterIntervalId);
+      console.log('cleared interval');      
+    }
+  }
 
   render() {
     return (
@@ -36,7 +64,7 @@ class App extends Component {
           )} />
 
           <Route exact path="/tests/current" render={() => (
-            <TestSummary />
+            <TestSummary startCountdownTimer={this.startCountdownTimer} />
           )} />
 
           <Route exact path="/tests/question/:id" render={({ match }) => (
