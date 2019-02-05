@@ -89,7 +89,7 @@ class TestSummary extends Component {
 				<h1>Test Summary</h1>
 
 				{status === 'active' && (
-					<h1>Remaining Time {this.props.remainingTime} </h1> 
+					<h1>Remaining Time {getPrettyTime(this.props.remainingTime)} </h1> 
 				)}
 
 				{curTestObj && (

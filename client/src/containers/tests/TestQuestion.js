@@ -3,6 +3,7 @@ import { Redirect } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUpdateTest } from './TestActions';
+import { getPrettyTime } from '../../../utils/helper';
 
 class TestQuestion extends Component {
 
@@ -71,7 +72,7 @@ class TestQuestion extends Component {
 				<h1>Test Question</h1>
 
 				{curTestStatus === 'active' && (
-					<h1>Remaining Time {this.props.remainingTime} </h1> 
+					<h1>Remaining Time {getPrettyTime(this.props.remainingTime)} </h1> 
 				)}
 
 				{curTestStatus === 'active' && (
