@@ -40,11 +40,21 @@ export function tests(state = {}, action) {
 				curTest: {...state.curTest, status: action.status},
 			}
 		case RECEIVE_UPDATE_TEST_QUESTION:
-			const { question_id, response } = action.questionData;
+			const { question_id, response, question_status } = action.questionData;
 
 			return {
 				...state,
-				curTest: {...state.curTest, questions: { ...state.curTest.questions, [question_id]: { ...state.curTest.questions[question_id], response }} },
+				curTest: {
+					...state.curTest,
+					questions: { 
+						...state.curTest.questions,
+						[question_id]: { 
+							...state.curTest.questions[question_id],
+							response,
+							status: question_status,
+						}
+					}
+				},
 			}
 		case RECEIVE_UPDATE_TEST:
 			const { test_id, time_remaining, status } = action.testData;
