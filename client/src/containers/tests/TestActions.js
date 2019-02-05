@@ -183,6 +183,7 @@ export function completeTest() {
 export const DECREMENT_TEST_TIME_REMAINING = 'DECREMENT_TEST_TIME_REMAINING';
 
 export function decrementTestTimeRemaining() {
+	console.log('gets to decrementTestTimeRemaining');
 	return {
 		type: DECREMENT_TEST_TIME_REMAINING, 
 	}

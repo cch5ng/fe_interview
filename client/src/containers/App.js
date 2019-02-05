@@ -6,6 +6,7 @@ import TestForm from '../containers/tests/TestForm';
 import TestSummary from '../containers/tests/TestSummary';
 import TestQuestion from '../containers/tests/TestQuestion';
 import Questions from '../containers/questions/Questions';
+import { decrementTestTimeRemaining } from '../containers/tests/TestActions';
 //import Nav from './Nav';
 //import './App.css';
 
@@ -14,7 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.counterIntervalId;
+    this.counterIntervalId = 0;
     this.startTime = 10000;
 
     const tests = props.tests && props.tests.tests ? props.tests.tests : null;
@@ -34,6 +35,7 @@ class App extends Component {
   // }
 
 // EVENT HANDLERS
+/* App React state time_remaining
   startCountdownTimer(remainingTime) {
     console.log('gets to startCountdownTimer');
     // need to entire time (convert back to ms?)
@@ -54,6 +56,31 @@ class App extends Component {
     if (this.state.remainingTime <= 0) {
       window.clearInterval(this.counterIntervalId);
       console.log('cleared interval');      
+    }
+  }
+
+  stopCountdownTimer() {
+      window.clearInterval(this.counterIntervalId);
+      console.log('cleared interval');      
+  }
+*/
+
+/* Redux store time_remaining */
+  startCountdownTimer() {
+    console.log('gets to startCountdownTimer');
+    // need to entire time (convert back to ms?)
+    this.counterIntervalId = window.setInterval(this.updateCountdownStore(), 1000)
+  }
+
+  updateCountdownStore() {
+    let time_remaining = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest.time_remaining : 0;
+    console.log('time_remaining', time_remaining);
+
+    if (time_remaining > 0) {
+      this.props.dispatch(decrementTestTimeRemaining());
+      console.log('time_remaining', time_remaining);
+    } else {
+      this.stopCountdownTimer();
     }
   }
 
