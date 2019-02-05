@@ -26,11 +26,13 @@ class TestSummary extends Component {
 	startTest(ev) {
 		ev.preventDefault();
 
+		let curTest = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null ;
+		let curTestTimeTotal = curTest && curTest.time_total ? curTest.time_total : 0;
 		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
 		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
 
 		this.props.dispatch(startTest());
-		this.props.startCountdownTimer();
+		this.props.startCountdownTimer(curTestTimeTotal);
 
 		if (firstQuestionUrl) {
 			this.props.history.push(firstQuestionUrl);
@@ -47,9 +49,10 @@ class TestSummary extends Component {
 	submitTest(ev) {
 		ev.preventDefault();
 
+		// stop timer (delete timer instance)
+		this.props.stopCountdownTimer();
 		//this.props.dispatch();
 		// update test status
-		// stop timer (delete timer instance)
 		// make sure all changes are saved - redux and BE
 
 	}

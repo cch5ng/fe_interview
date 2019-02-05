@@ -17,11 +17,15 @@ class App extends Component {
     this.counterIntervalId;
     this.startTime = 10000;
 
+    const tests = props.tests && props.tests.tests ? props.tests.tests : null;
+    console.log('App tests', tests);
+
     this.state = {
-      remainingTime: 10000
+      remainingTime: tests && tests.curTest.time_total ? tests.curTest.time_total : 0 
     }
 
     this.startCountdownTimer = this.startCountdownTimer.bind(this);
+    this.stopCountdownTimer = this.stopCountdownTimer.bind(this);
     this.updateCountdownStore = this.updateCountdownStore.bind(this);
   }
 
@@ -30,9 +34,10 @@ class App extends Component {
   // }
 
 // EVENT HANDLERS
-  startCountdownTimer() {
+  startCountdownTimer(remainingTime) {
     console.log('gets to startCountdownTimer');
     // need to entire time (convert back to ms?)
+    this.setState({ remainingTime });
     this.counterIntervalId = window.setInterval(this.updateCountdownStore, 1000)
 
   }
@@ -46,11 +51,17 @@ class App extends Component {
       console.log('this.state.remainingTime', this.state.remainingTime);      
     }
 
-    if (this.state.remainingTime === 0) {
+    if (this.state.remainingTime <= 0) {
       window.clearInterval(this.counterIntervalId);
       console.log('cleared interval');      
     }
   }
+
+  stopCountdownTimer() {
+      window.clearInterval(this.counterIntervalId);
+      console.log('cleared interval');      
+  }
+
 
   render() {
     return (
@@ -73,6 +84,7 @@ class App extends Component {
           <Route exact path="/tests/current" render={() => (
             <TestSummary startCountdownTimer={this.startCountdownTimer}
               remainingTime={this.state.remainingTime}
+              stopCountdownTimer={this.stopCountdownTimer}
             />
           )} />
 
@@ -89,8 +101,9 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ }) {
+function mapStateToProps({ tests }) {
   return {
+    tests
   }
 }
 
