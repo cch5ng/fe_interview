@@ -17,6 +17,10 @@ class App extends Component {
     this.counterIntervalId;
     this.startTime = 10000;
 
+    this.state = {
+      remainingTime: 10000
+    }
+
     this.startCountdownTimer = this.startCountdownTimer.bind(this);
     this.updateCountdownStore = this.updateCountdownStore.bind(this);
   }
@@ -35,11 +39,14 @@ class App extends Component {
 
   updateCountdownStore() {
     if (this.startTime > 0) {
-      this.startTime -= 1000;
-      console.log('this.startTime', this.startTime);      
+      this.setState((curState) => {
+        return { remainingTime: curState.remainingTime - 1000 }
+      })
+      //this.startTime -= 1000;
+      console.log('this.state.remainingTime', this.state.remainingTime);      
     }
 
-    if (this.startTime === 0) {
+    if (this.state.remainingTime === 0) {
       window.clearInterval(this.counterIntervalId);
       console.log('cleared interval');      
     }
@@ -64,11 +71,15 @@ class App extends Component {
           )} />
 
           <Route exact path="/tests/current" render={() => (
-            <TestSummary startCountdownTimer={this.startCountdownTimer} />
+            <TestSummary startCountdownTimer={this.startCountdownTimer}
+              remainingTime={this.state.remainingTime}
+            />
           )} />
 
           <Route exact path="/tests/question/:id" render={({ match }) => (
-            <TestQuestion match={match} />
+            <TestQuestion match={match}
+              remainingTime={this.state.remainingTime}
+            />
           )} />
 
 
