@@ -39,14 +39,14 @@ class TestQuestionTable {
 
 	static updateTestQuestion(testData) { //{ test_id, question_id, response	}
 		console.log('gets to updateTestQuestion');
-		const { test_id, question_id, response	} = testData;
+		const { test_id, question_id, response, question_status } = testData;
 		return new Promise((resolve, reject) => {
 			pool.query(
 				`UPDATE test_question
-					SET response = $1
-					WHERE test_id = $2 AND question_id = $3
+					SET response = $1, status = $2
+					WHERE test_id = $3 AND question_id = $4
 					RETURNING question_id`,
-				[response, test_id, question_id],
+				[response, question_status, test_id, question_id],
 				(err, resp) => {
 					if (err) return reject(err);
 	
