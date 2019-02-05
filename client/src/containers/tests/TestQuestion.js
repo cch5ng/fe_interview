@@ -19,6 +19,7 @@ class TestQuestion extends Component {
 		};
 
 		this.submitQuestion = this.submitQuestion.bind(this);
+		this.skipQuestion = this.skipQuestion.bind(this);
 		this.handleInputUpdate = this.handleInputUpdate.bind(this);
 	}
 
@@ -40,11 +41,28 @@ class TestQuestion extends Component {
 		let question_id = this.props.match.params.id;
 		question_id = parseInt(question_id, 10);
 		let response = this.state.curQuestionResponse;
-		let questionData = { test_id, question_id, response };
+		let question_status = 'completed';
+		let questionData = { test_id, question_id, response, question_status };
 
 		//update redux (question id and response)
 		this.props.dispatch(fetchUpdateTestQuestion(questionData));
 	
+		this.props.history.push('/tests/current');
+	}
+
+	skipQuestion(ev) {
+		ev.preventDefault();
+
+		let test_id = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.id ? this.props.tests.curTest.id : null;
+		let question_id = this.props.match.params.id;
+		question_id = parseInt(question_id, 10);
+		let response = '';
+		let question_status = 'skipped';
+		let questionData = { test_id, question_id, response, question_status };
+
+		//update redux (question id and response)
+		this.props.dispatch(fetchUpdateTestQuestion(questionData));
+
 		this.props.history.push('/tests/current');
 	}
 
@@ -88,6 +106,7 @@ class TestQuestion extends Component {
 						></textarea>
 
 						<button onClick={this.submitQuestion} >Submit</button>
+						<button onClick={this.skipQuestion} >Skip</button>
 
 					</div>
 				)}
