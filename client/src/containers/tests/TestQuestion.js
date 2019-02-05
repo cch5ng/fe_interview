@@ -71,6 +71,10 @@ class TestQuestion extends Component {
 				<h1>Test Question</h1>
 
 				{curTestStatus === 'active' && (
+					<h1>Remaining Time {this.props.remainingTime} </h1> 
+				)}
+
+				{curTestStatus === 'active' && (
 					<div>
 						<div>Time Left: </div>
 
