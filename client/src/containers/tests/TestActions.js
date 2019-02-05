@@ -6,6 +6,7 @@ const API_GET_TESTS = 'http://localhost:3000/test/all';
 const API_POST_RANDOM_TEST = 'http://localhost:3000/question/random';
 const API_POST_INIT_TEST = 'http://localhost:3000/test/new';
 const API_POST_UPDATE_TEST_QUESTION = 'http://localhost:3000/test/updateQuestion';
+const API_POST_UPDATE_TEST = 'http://localhost:3000/test/update';
 
 // action types
 export const REQUEST_ALL_TESTS = 'REQUEST_ALL_TESTS';
@@ -179,6 +180,45 @@ export function completeTest() {
 }
 
 // action types
+export const REQUEST_UPDATE_TEST_QUESTION = 'REQUEST_UPDATE_TEST_QUESTION';
+export const RECEIVE_UPDATE_TEST_QUESTION = 'RECEIVE_UPDATE_TEST_QUESTION';
+
+
+export function requestUpdateTestQuestion() {
+	return {
+		type: REQUEST_UPDATE_TEST_QUESTION,
+		retrieving: true
+	}
+}
+
+export function receiveUpdateTestQuestion(questionData) {
+	return {
+		type: RECEIVE_UPDATE_TEST_QUESTION,
+		questionData,
+		retrieving: false
+	}
+}
+
+//should this update the BE?
+export const fetchUpdateTestQuestion = (questionData) => dispatch => {
+	dispatch(requestUpdateTestQuestion());
+	return fetch(API_POST_UPDATE_TEST_QUESTION,
+			{	method: 'POST',
+				headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(questionData),
+			}
+		)
+		.then(resp => resp.json())
+		.then(json => {
+			console.log('updated questionId', json);
+			dispatch(receiveUpdateTestQuestion(questionData));
+		})
+		.catch(err => console.error('fetch error', err));
+}
+
+// action types
 export const REQUEST_UPDATE_TEST = 'REQUEST_UPDATE_TEST';
 export const RECEIVE_UPDATE_TEST = 'RECEIVE_UPDATE_TEST';
 
@@ -201,7 +241,7 @@ export function receiveUpdateTest(testData) {
 //should this update the BE?
 export const fetchUpdateTest = (testData) => dispatch => {
 	dispatch(requestUpdateTest());
-	return fetch(API_POST_UPDATE_TEST_QUESTION,
+	return fetch(API_POST_UPDATE_TEST,
 			{	method: 'POST',
 				headers: {
             "Content-Type": "application/json",
@@ -211,9 +251,8 @@ export const fetchUpdateTest = (testData) => dispatch => {
 		)
 		.then(resp => resp.json())
 		.then(json => {
-			console.log('updated questionId', json);
+			console.log('updated testId', json);
 			dispatch(receiveUpdateTest(testData));
 		})
 		.catch(err => console.error('fetch error', err));
 }
-
