@@ -6,6 +6,7 @@ import TestForm from '../containers/tests/TestForm';
 import TestSummary from '../containers/tests/TestSummary';
 import TestQuestion from '../containers/tests/TestQuestion';
 import Questions from '../containers/questions/Questions';
+import { fetchUpdateTest } from '../containers/tests/TestActions';
 //import Nav from './Nav';
 //import './App.css';
 
@@ -57,11 +58,13 @@ class App extends Component {
     }
   }
 
-  stopCountdownTimer() {
-      window.clearInterval(this.counterIntervalId);
-      console.log('cleared interval');      
-  }
+  stopCountdownTimer({test_id, status}) {
+    window.clearInterval(this.counterIntervalId);
+    console.log('cleared interval');
 
+    const time_remaining = this.state.remainingTime;
+    this.props.dispatch(fetchUpdateTest({test_id, status, time_remaining}))
+  }
 
   render() {
     return (
