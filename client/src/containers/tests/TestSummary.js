@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { startTest } from './TestActions';
+import { startTest, decrementTestTimeRemaining } from './TestActions';
 import { dictToRandomAr, getPrettyTime } from '../../../utils/helper';
 
 class TestSummary extends Component {
@@ -10,12 +10,17 @@ class TestSummary extends Component {
 	constructor(props) {
 		super(props);
 
+		this.counterIntervalId = 0;
+
 		this.state = {
 			displayTestQuestion: false
 		};
 
 		this.startTest = this.startTest.bind(this);
 		this.submitTest = this.submitTest.bind(this);
+		this.startCountdownTimer = this.startCountdownTimer.bind(this);
+		this.stopCountdownTimer = this.stopCountdownTimer.bind(this);
+		this.updateCountdownStore = this.updateCountdownStore.bind(this);
 	}
 
 	componentDidMount() {
@@ -32,7 +37,8 @@ class TestSummary extends Component {
 		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
 
 		this.props.dispatch(startTest());
-		this.props.startCountdownTimer(curTestTimeTotal);
+		this.startCountdownTimer();
+		//this.props.startCountdownTimer(curTestTimeTotal);
 
 		if (firstQuestionUrl) {
 			this.props.history.push(firstQuestionUrl);
@@ -50,12 +56,36 @@ class TestSummary extends Component {
 		ev.preventDefault();
 
 		// stop timer (delete timer instance)
-		this.props.stopCountdownTimer();
+		//this.props.stopCountdownTimer();
+		
 		//this.props.dispatch();
 		// update test status
 		// make sure all changes are saved - redux and BE
 
 	}
+
+  startCountdownTimer() {
+    console.log('gets to startCountdownTimer');
+    // need to entire time (convert back to ms?)
+    this.counterIntervalId = window.setInterval(this.updateCountdownStore(), 1000)
+  }
+
+  updateCountdownStore() {
+  	let time_remaining = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest.time_remaining : 0;
+  	console.log('time_remaining', time_remaining);
+
+    if (time_remaining > 0) {
+    	this.props.dispatch(decrementTestTimeRemaining);
+    	console.log('time_remaining', time_remaining);
+    } else {
+    	this.stopCountdownTimer();
+    }
+  }
+
+  stopCountdownTimer() {
+      window.clearInterval(this.counterIntervalId);
+      console.log('cleared interval');      
+  }
 
 	render() {
 		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
