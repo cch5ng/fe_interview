@@ -16,6 +16,7 @@ class TestSummary extends Component {
 
 		this.startTest = this.startTest.bind(this);
 		this.submitTest = this.submitTest.bind(this);
+		this.getQuestionsCountByStatus = this.getQuestionsCountByStatus.bind(this);
 	}
 
 	componentDidMount() {
@@ -56,30 +57,42 @@ class TestSummary extends Component {
 
 	}
 
+	getQuestionsCountByStatus() {
+		let questionsCountObj = {};
+		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
+	
+		randomQuestAr.forEach(question => {
+			if (question.status !== 'completed') {
+				if (questionsCountObj.skipped) {
+					questionsCountObj.skipped += 1;
+				} else {
+					questionsCountObj.skipped = 1;
+				}
+			} else if (question.status === 'completed') {
+				if (questionsCountObj.completed) {
+					questionsCountObj.completed += 1;
+				} else {
+					questionsCountObj.completed = 1;
+				}
+			}
+		})
+
+		return questionsCountObj;
+	}
+
 	render() {
 		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
-		let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized'; // 'active', 'completed'
+		let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized';
 		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
-		
-		console.log('randomQuestAr', randomQuestAr);
-
 		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
-		console.log('firstQuestionUrl', firstQuestionUrl);
 		let prettyTotalTime = curTestObj ? getPrettyTime(curTestObj.time_total) : '';
-
-		// let questionsAr = [];
-		// let questionsMaxObj = {};
-
-		// if (questionObj) {
-		// 	questionsAr = Object.keys(questionObj).map(k => questionObj[k]);
-		// 	questionsMaxObj = this.getQuestionCountPerCategory(questionsAr, questionCategories);
-		// }
+		let timeRemaining = curTestObj && curTestObj.time_remaining ? curTestObj.time_remaining : null;
+		let timeTaken = curTestObj ? curTestObj.time_total - timeRemaining : null;
 
 /*
-				{TODO debug this because after user submits a question, cannot return to test summary as result of condition }
-				{curTestObj && status === 'active' && (
-					<Redirect to={firstQuestionUrl} />
-				)}
+	TODO
+	time taken: time_total - time_remaining => prettified
+	skipped questions: where status === 'skipped' or 'not_visited'
 */
 
 		return (
@@ -124,18 +137,12 @@ class TestSummary extends Component {
 					)
 				})}
 
-{/% 
-	TODO
-	time taken: time_total - time_remaining => prettified
-	skipped questions: where status === 'skipped' or 'not_visited'
-%/}
-
 				{curTestObj && status === 'completed' && (
 					<div>
 						<h2>Name {curTestObj.name}</h2>
-						<p>Time taken TODO (Total time {prettyTotalTime})</p>
-						<p>Skipped Questions TODO</p>
-						<p>Completed Questions TODO</p>
+						<p>Time taken {getPrettyTime(timeTaken)} (Total time {prettyTotalTime})</p>
+						<p>Skipped Questions {this.getQuestionsCountByStatus().skipped}</p>
+						<p>Completed Questions {this.getQuestionsCountByStatus().completed}</p>
 						<p>Total Questions {curTestObj.questions.length}</p>
 					</div>
 				)}
