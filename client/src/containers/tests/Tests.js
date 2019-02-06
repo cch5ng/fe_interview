@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchTests } from './TestActions';
-import { getPrettyTime, getPrettyDate } from '../../../utils/helper';
+import { getPrettyTime, getPrettyDate } from '../../utils/helper';
 
 class Tests extends Component {
 

@@ -3,7 +3,7 @@ import { Redirect } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startTest, fetchUpdateTest } from './TestActions';
-import { dictToRandomAr, getPrettyTime } from '../../../utils/helper';
+import { dictToRandomAr, getPrettyTime } from '../../utils/helper';
 
 class TestSummary extends Component {
 

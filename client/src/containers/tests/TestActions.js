@@ -1,5 +1,5 @@
 import { getRandomlyOrderedList, getRandomArbitrary,
-	objRandomArReducer, randomArToDict } from '../../../utils/helper';
+	objRandomArReducer, randomArToDict } from '../../utils/helper';
 
 // fetch constants
 const API_GET_TESTS = 'http://localhost:3000/test/all';

@@ -3,7 +3,7 @@ import { Redirect } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUpdateTestQuestion } from './TestActions';
-import { getPrettyTime } from '../../../utils/helper';
+import { getPrettyTime } from '../../utils/helper';
 
 class TestQuestion extends Component {
 
