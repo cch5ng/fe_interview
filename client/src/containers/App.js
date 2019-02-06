@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Tests from '../containers/tests/Tests';
 import TestForm from '../containers/tests/TestForm';
@@ -72,34 +72,38 @@ class App extends Component {
         <div className="App">
           {/* <Nav /> */}
 
-          <Route exact path="/questions" render={() => (
-            <Questions />
-          )} />
+          <Switch>
 
-          <Route exact path="/tests" render={() => (
-            <Tests />
-          )} />
+            <Route exact path="/questions" render={() => (
+              <Questions />
+            )} />
 
-          <Route exact path="/tests/new" render={() => (
-            <TestForm />
-          )} />
+            <Route exact path="/tests" render={() => (
+              <Tests />
+            )} />
 
-          <Route exact path="/tests/current" render={() => (
-            <TestSummary startCountdownTimer={this.startCountdownTimer}
-              remainingTime={this.state.remainingTime}
-              stopCountdownTimer={this.stopCountdownTimer}
-            />
-          )} />
+            <Route exact path="/tests/question/:id" render={({ match }) => (
+              <TestQuestion match={match}
+                remainingTime={this.state.remainingTime}
+              />
+            )} />
 
-          <Route exact path="/tests/question/:id" render={({ match }) => (
-            <TestQuestion match={match}
-              remainingTime={this.state.remainingTime}
-            />
-          )} />
- 
-          <Route exact path="/tests/:test_id" render={({ match }) => (
-            <TestSummary match={match} />
-          )} />          
+            <Route exact path="/tests/new" render={() => (
+              <TestForm />
+            )} />
+
+            <Route exact path="/tests/current" render={() => (
+              <TestSummary startCountdownTimer={this.startCountdownTimer}
+                remainingTime={this.state.remainingTime}
+                stopCountdownTimer={this.stopCountdownTimer}
+              />
+            )} />
+   
+            <Route exact path="/tests/:test_id" render={({ match }) => (
+              <TestSummary match={match} />
+            )} />
+
+          </Switch>          
 
         </div>
       </Router>
