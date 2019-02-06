@@ -23,8 +23,8 @@ class TestTable {
 
 					// TODO rethink this section
 					Promise.all(
-						test.questions.map(({ id, question_completed, needs_review, status, sort_order }) => {
-							return TestQuestionTable.storeTestQuestion({ test_id, question_id: id, question_completed, needs_review, status, sort_order })
+						test.questions.map(({ id, needs_review, status, sort_order }) => {
+							return TestQuestionTable.storeTestQuestion({ test_id, question_id: id, needs_review, status, sort_order })
 						})
 					)
 						.then(() => resolve({ test_id }))
@@ -80,46 +80,5 @@ class TestTable {
 	}
 
 }
-
-//test storeTest
-// const test_ex = {
-// 	time_total: 300000,
-// 	questions: [
-// 		{	content: 'Explain how ^this^ works in JavaScript',
-// 			question_completed: false,
-// 			needs_review: true,
-// 			question_id: 2
-// 		}
-// 	]
-// }
-
-// TestTable.storeTest(test_ex)
-// 	.then(test_id => { console.log('test_id', test_id) })
-// 	.catch(err => console.error('error', err));
-
-// const test_ex2 = {
-// 	time_total: 300000,
-// 	questions: [
-// 		{	content: 'Explain how ^this^ works in JavaScript',
-// 			question_completed: false,
-// 			needs_review: true,
-// 			question_id: 2
-// 		},
-// 		{	content: "Explain why the following doesn't work as an IIFE: ^function foo(){ }();^.",
-// 		question_completed: false,
-// 		needs_review: true,
-// 		question_id: 10
-// 		}
-// 	]
-// }
-
-// TestTable.storeTest(test_ex2)
-// 	.then(test_id => { console.log('test_id', test_id) })
-// 	.catch(err => console.error('error', err));
-
-//test getAllTests()
-// TestTable.getAllTests()
-// 	.then(tests => console.log('tests', tests))
-// 	.catch(err => console.error('error', err));
 
 module.exports = TestTable;
