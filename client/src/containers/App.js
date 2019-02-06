@@ -48,13 +48,13 @@ class App extends Component {
       this.setState((curState) => {
         return { remainingTime: curState.remainingTime - 1000 }
       })
-      //this.startTime -= 1000;
       console.log('this.state.remainingTime', this.state.remainingTime);      
     }
 
     if (this.state.remainingTime <= 0) {
-      window.clearInterval(this.counterIntervalId);
-      console.log('cleared interval');      
+      this.setState({ remainingTime: 0 }, () => {
+        this.stopCountdownTimer({test_id: this.props.tests.curTest.id, status: 'completed'});
+      });
     }
   }
 
