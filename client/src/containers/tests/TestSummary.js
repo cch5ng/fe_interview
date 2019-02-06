@@ -91,7 +91,7 @@ class TestSummary extends Component {
 					<h1>Remaining Time {getPrettyTime(this.props.remainingTime)} </h1> 
 				)}
 
-				{curTestObj && (
+				{curTestObj && (status === 'initialized' || status === 'active') && (
 					<div>
 						<h2>Name {curTestObj.name}</h2>
 						<p>Total time {prettyTotalTime}</p>
@@ -110,8 +110,7 @@ class TestSummary extends Component {
 					)
 				})}
 
-
-				{(status === 'active' || status === 'completed') && curTestObj && randomQuestAr && randomQuestAr.map(question => {
+				{status === 'active' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
 					return (
@@ -124,6 +123,37 @@ class TestSummary extends Component {
 						</React.Fragment>
 					)
 				})}
+
+{/% 
+	TODO
+	time taken: time_total - time_remaining => prettified
+	skipped questions: where status === 'skipped' or 'not_visited'
+%/}
+
+				{curTestObj && status === 'completed' && (
+					<div>
+						<h2>Name {curTestObj.name}</h2>
+						<p>Time taken TODO (Total time {prettyTotalTime})</p>
+						<p>Skipped Questions TODO</p>
+						<p>Completed Questions TODO</p>
+						<p>Total Questions {curTestObj.questions.length}</p>
+					</div>
+				)}
+
+				{status === 'completed' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
+					const displayOrder = question.sort_order + 1;
+					let curQuestionUrl = `/tests/question/${question.id}`;
+					return (
+						<React.Fragment key={displayOrder}>
+								<div className="question_num">{displayOrder} (id {question.id})</div>
+								<div className="question_status">{question.status}</div>
+								<Link to={curQuestionUrl}>
+									<div className="link">Go</div>
+								</Link>
+						</React.Fragment>
+					)
+				})}
+
 
 
 				{status === 'initialized' && (
