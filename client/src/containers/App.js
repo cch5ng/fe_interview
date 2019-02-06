@@ -96,7 +96,10 @@ class App extends Component {
               remainingTime={this.state.remainingTime}
             />
           )} />
-
+ 
+          <Route exact path="/tests/:test_id" render={({ match }) => (
+            <TestSummary match={match} />
+          )} />          
 
         </div>
       </Router>

@@ -57,18 +57,21 @@ class Tests extends Component {
 				{testsAr.map(test => {
 					const missedQuestions = test.questions ? this.getQuestionsMissedCount(test.questions) : null;
 					const completedQuestionsCount = test.questions ? test.questions.length - missedQuestions : null;
-
+					const testSummaryUrl = `tests/${test.id}`;
+					console.log('testSummaryUrl', testSummaryUrl);
 
 					return (
 						<div className="test" key={test.id} >
-							<ul>
-								<li>Name {test.name}</li>
-								<li>Date {getPrettyDate(test.date_taken)}</li>
-								<li>{test.questions ? test.questions.length : null} questions</li>
-								<li>{missedQuestions} questions missed</li>
-								<li>Total Time {getPrettyTime(test.time_total)}</li>
-								<li>Time per question {test.questions ? this.getAvgTimePerQuestion(test.time_total, completedQuestionsCount): null}</li>
-							</ul>
+							<Link to={testSummaryUrl}>
+								<ul>
+									<li>Name {test.name}</li>
+									<li>Date {getPrettyDate(test.date_taken)}</li>
+									<li>{test.questions ? test.questions.length : null} questions</li>
+									<li>{missedQuestions} questions missed</li>
+									<li>Total Time {getPrettyTime(test.time_total)}</li>
+									<li>Time per question {test.questions ? this.getAvgTimePerQuestion(test.time_total, completedQuestionsCount): null}</li>
+								</ul>
+							</Link>
 						</div>
 					)	
 				})}
