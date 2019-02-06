@@ -1,9 +1,12 @@
-import { getRandomlyOrderedList, getRandomArbitrary } from '../../../utils/helper';
+import { getRandomlyOrderedList, getRandomArbitrary,
+	objRandomArReducer, randomArToDict } from '../../utils/helper';
 
 // fetch constants
 const API_GET_TESTS = 'http://localhost:3000/test/all';
 const API_POST_RANDOM_TEST = 'http://localhost:3000/question/random';
-const API_POST_INIT_TEST = 'http://localhost:3000/test/new'
+const API_POST_INIT_TEST = 'http://localhost:3000/test/new';
+const API_POST_UPDATE_TEST_QUESTION = 'http://localhost:3000/test/updateQuestion';
+const API_POST_UPDATE_TEST = 'http://localhost:3000/test/update';
 
 // action types
 export const REQUEST_ALL_TESTS = 'REQUEST_ALL_TESTS';
@@ -44,10 +47,14 @@ export function requestRandomTest() {
 }
 
 export function receiveRandomTest(curTest) {
-	console.log('curTest', curTest);
+	//console.log('curTest', curTest);
+	//let questionsDict = randomArToDict(curTest.questions);
+	//let newCurTest = { ...curTest, questions: questionsDict };
+	//console.log('newCurTest', newCurTest);
+
 	return {
 		type: RECEIVE_RANDOM_TEST,
-		curTest,
+		curTest: curTest,//newCurTest,
 		retrieving: false
 	}
 }
@@ -68,28 +75,36 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 			let curTestObj = {};
 			let randomizedQuestions = [];
 			// concat lists of questions into one flat list
+			let randomizedQuestionsObj = {};
 
 			json.forEach(questList => {
 				questList.forEach(quest => {
 					flatQuestionsAr.push(quest);
 				})
 			})
-			console.log('flatQuestionsAr', flatQuestionsAr);
-			console.log('testData', testData);
 
 			// generate a randomized order of the flat list
 			randomizedQuestions = getRandomlyOrderedList(flatQuestionsAr);
 			console.log('randomizedQuestions', randomizedQuestions);
 
+			randomizedQuestions.forEach(questObj => {
+				let id = questObj.id;
+				randomizedQuestionsObj[id] = questObj;
+			});
+			console.log('randomizedQuestionsObj', randomizedQuestionsObj);
+
 			curTestObj.name = testData.name;
-			curTestObj.questions = randomizedQuestions;
+			curTestObj.questions = randomizedQuestionsObj; //randomizedQuestions;
 			curTestObj.date_taken = null;
 			curTestObj.time_total = testData.time_total;
 			curTestObj.status = 'initialized';
 
 			// make a whole current test object
+			// Redux store better uses questions in object format (for updates)
 			dispatch(receiveRandomTest(curTestObj));
 			//dispatch async action to create a test in backend
+			// BE needs questions in array format
+			curTestObj.questions = randomizedQuestions;
 			dispatch(fetchInitTest(curTestObj));
 		})
 		.catch(err => console.error('fetch error', err));
@@ -127,13 +142,117 @@ export const fetchInitTest = (testData) => dispatch => {
 		)
 		.then(resp => resp.json())
 		.then(json => {
-			//TODO
-			console.log('json', json)
-			console.log('json.testId', json.test_id)
 			let curTest = {...testData, id: json.test_id}
-			console.log('last curTest', curTest);
+
+			let randomizedQuestionsObj = {};
+
+			testData.questions.forEach(questObj => {
+				let id = questObj.id;
+				randomizedQuestionsObj[id] = questObj;
+			});
+			console.log('randomizedQuestionsObj', randomizedQuestionsObj);
+			curTest = { ...curTest, questions: randomizedQuestionsObj };
+
 			dispatch(receiveInitTest(curTest));
 
+		})
+		.catch(err => console.error('fetch error', err));
+}
+
+// action types
+export const START_TEST = 'START_TEST';
+
+export function startTest() {
+	return {
+		type: START_TEST,
+		status: 'active'
+	}
+}
+
+// action types
+export const COMPLETE_TEST = 'COMPLETE_TEST';
+
+export function completeTest() {
+	return {
+		type: COMPLETE_TEST,
+		status: 'completed'
+	}
+}
+
+// action types
+export const REQUEST_UPDATE_TEST_QUESTION = 'REQUEST_UPDATE_TEST_QUESTION';
+export const RECEIVE_UPDATE_TEST_QUESTION = 'RECEIVE_UPDATE_TEST_QUESTION';
+
+
+export function requestUpdateTestQuestion() {
+	return {
+		type: REQUEST_UPDATE_TEST_QUESTION,
+		retrieving: true
+	}
+}
+
+export function receiveUpdateTestQuestion(questionData) {
+	return {
+		type: RECEIVE_UPDATE_TEST_QUESTION,
+		questionData,
+		retrieving: false
+	}
+}
+
+//should this update the BE?
+export const fetchUpdateTestQuestion = (questionData) => dispatch => {
+	dispatch(requestUpdateTestQuestion());
+	return fetch(API_POST_UPDATE_TEST_QUESTION,
+			{	method: 'POST',
+				headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(questionData),
+			}
+		)
+		.then(resp => resp.json())
+		.then(json => {
+			console.log('updated questionId', json);
+			dispatch(receiveUpdateTestQuestion(questionData));
+		})
+		.catch(err => console.error('fetch error', err));
+}
+
+// action types
+export const REQUEST_UPDATE_TEST = 'REQUEST_UPDATE_TEST';
+export const RECEIVE_UPDATE_TEST = 'RECEIVE_UPDATE_TEST';
+
+
+export function requestUpdateTest() {
+	return {
+		type: REQUEST_UPDATE_TEST,
+		retrieving: true
+	}
+}
+
+export function receiveUpdateTest(testData) {
+	return {
+		type: RECEIVE_UPDATE_TEST,
+		testData,
+		retrieving: false
+	}
+}
+
+//should this update the BE?
+export const fetchUpdateTest = (testData) => dispatch => {
+	dispatch(requestUpdateTest());
+	return fetch(API_POST_UPDATE_TEST,
+			{	method: 'POST',
+				headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testData),
+			}
+		)
+		.then(resp => resp.json())
+		.then(json => {
+			console.log('updated testId', json);
+			dispatch(receiveUpdateTest(testData));
 		})
 		.catch(err => console.error('fetch error', err));
 }
