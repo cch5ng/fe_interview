@@ -21,7 +21,7 @@ class Tests extends Component {
 		let missedCount = 0;
 		
 		questionsAr.forEach(question => {
-			if (!question.question_completed) {
+			if (question.status !== 'completed') {
 				missedCount += 1;
 			}
 		});
