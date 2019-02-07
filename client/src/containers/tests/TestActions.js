@@ -1,5 +1,5 @@
 import { getRandomlyOrderedList, getRandomArbitrary,
-	objRandomArReducer, randomArToDict } from '../../utils/helper';
+	objRandomArReducer, randomArToDict, formatDateTwoChar } from '../../utils/helper';
 
 // fetch constants
 const API_GET_TESTS = 'http://localhost:3000/test/all';
@@ -134,10 +134,18 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 			});
 
 			curTestObj.name = testData.name;
-			curTestObj.questions = randomizedQuestionsObj; //randomizedQuestions;
-			curTestObj.date_taken = null;
+			curTestObj.questions = randomizedQuestionsObj;
 			curTestObj.time_total = testData.time_total;
 			curTestObj.status = 'initialized';
+
+			let curDate = new Date();
+			let curDateMonth = curDate.getMonth() + 1;
+			let curDateMonthStr = formatDateTwoChar(curDateMonth.toString());
+			let curDateDay = curDate.getDate();
+			let curDateDayStr = formatDateTwoChar(curDateDay.toString());
+			let curDateStr = `${curDate.getFullYear()}-${curDateMonthStr}-${curDateDayStr}`;
+
+			curTestObj.date_taken = curDateStr;
 
 			// make a whole current test object
 			// Redux store better uses questions in object format (for updates)

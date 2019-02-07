@@ -21,7 +21,7 @@ class Tests extends Component {
 		let missedCount = 0;
 		
 		questionsAr.forEach(question => {
-			if (!question.question_completed) {
+			if (question.status !== 'completed') {
 				missedCount += 1;
 			}
 		});
@@ -50,6 +50,9 @@ class Tests extends Component {
 			})
 		}
 
+		//TODO figure out if useful
+		//	<li>Time per question {test.questions ? this.getAvgTimePerQuestion(test.time_total, completedQuestionsCount): null}</li>
+
 		return (
 			<div>
 				<h2>All Tests</h2>
@@ -68,8 +71,8 @@ class Tests extends Component {
 									<li>Date {getPrettyDate(test.date_taken)}</li>
 									<li>{test.questions ? test.questions.length : null} questions</li>
 									<li>{missedQuestions} questions missed</li>
+									<li>Time Taken {getPrettyTime(test.time_total - test.time_remaining)}</li>
 									<li>Total Time {getPrettyTime(test.time_total)}</li>
-									<li>Time per question {test.questions ? this.getAvgTimePerQuestion(test.time_total, completedQuestionsCount): null}</li>
 								</ul>
 							</Link>
 						</div>
