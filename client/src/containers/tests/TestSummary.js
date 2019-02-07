@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { startTest, fetchUpdateTest } from './TestActions';
+import { startTest, fetchUpdateTest, fetchTestById } from './TestActions';
 import { dictToRandomAr, getPrettyTime } from '../../utils/helper';
 
 class TestSummary extends Component {
@@ -20,7 +20,12 @@ class TestSummary extends Component {
 	}
 
 	componentDidMount() {
-		//this.props.dispatch(fetchQuestions());
+		//TODO 0206
+		// determine if this came from /tests link or directly
+
+		if (this.props.match.params && this.props.match.params.test_id) {
+			this.props.dispatch(fetchTestById({ id: this.props.match.params.test_id }));
+		}
 	}
 
 	//event handlers
@@ -60,7 +65,7 @@ class TestSummary extends Component {
 	getQuestionsCountByStatus() {
 		let questionsCountObj = {};
 		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
-	
+
 		randomQuestAr.forEach(question => {
 			if (question.status !== 'completed') {
 				if (questionsCountObj.skipped) {
@@ -143,7 +148,7 @@ class TestSummary extends Component {
 						<p>Time taken {getPrettyTime(timeTaken)} (Total time {prettyTotalTime})</p>
 						<p>Skipped Questions {this.getQuestionsCountByStatus().skipped}</p>
 						<p>Completed Questions {this.getQuestionsCountByStatus().completed}</p>
-						<p>Total Questions {curTestObj.questions.length}</p>
+						<p>Total Questions {curTestObj.questions ? curTestObj.questions.length: 0}</p>
 					</div>
 				)}
 

@@ -29,8 +29,6 @@ class TestQuestionTable {
 				(err, resp) => {
 					if (err) return reject(err);
 
-					console.log('questions', resp.rows);
-
 					resolve(resp.rows);
 				}
 			);
@@ -38,7 +36,6 @@ class TestQuestionTable {
 	}
 
 	static updateTestQuestion(testData) { //{ test_id, question_id, response	}
-		console.log('gets to updateTestQuestion');
 		const { test_id, question_id, response, question_status } = testData;
 		return new Promise((resolve, reject) => {
 			pool.query(
@@ -51,9 +48,7 @@ class TestQuestionTable {
 					if (err) return reject(err);
 	
 					const question_id = resp.rows[0].question_id;
-					console.log('resp', resp.rows[0].question_id);
 					resolve(question_id);
-//					resolve();
 				}
 			)
 		})

@@ -3,6 +3,7 @@ import { getRandomlyOrderedList, getRandomArbitrary,
 
 // fetch constants
 const API_GET_TESTS = 'http://localhost:3000/test/all';
+const API_GET_TEST_DETAIL = 'http://localhost:3000/test/detail';
 const API_POST_RANDOM_TEST = 'http://localhost:3000/question/random';
 const API_POST_INIT_TEST = 'http://localhost:3000/test/new';
 const API_POST_UPDATE_TEST_QUESTION = 'http://localhost:3000/test/updateQuestion';
@@ -36,6 +37,52 @@ export const fetchTests = () => dispatch => {
 }
 
 // action types
+export const REQUEST_TEST_DETAIL = 'REQUEST_TEST_DETAIL';
+export const RECEIVE_TEST_DETAIL = 'RECEIVE_TEST_DETAIL';
+
+export function requestTestDetail() {
+	return {
+		type: REQUEST_TEST_DETAIL,
+		retrieving: true
+	}
+}
+
+export function receiveTestDetail(test) {
+
+
+	return {
+		type: RECEIVE_TEST_DETAIL,
+		curTest: test,
+		retrieving: false
+	}
+}
+
+export const fetchTestById = ({ id }) => dispatch => {
+	dispatch(requestTestDetail());
+	return fetch(API_GET_TEST_DETAIL,
+			{	method: 'POST',
+				headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+			}
+		)
+		.then(resp => resp.json())
+		.then(json => {
+			let randomizedQuestionsObj = {};
+
+			json.questions.forEach(question => {
+				let questionId = question.id;
+				randomizedQuestionsObj[questionId] = question;
+			})
+			json.questions = randomizedQuestionsObj;
+
+			dispatch(receiveTestDetail(json));
+		})
+		.catch(err => console.error('fetch error', err));
+}
+
+// action types
 export const REQUEST_RANDOM_TEST = 'REQUEST_RANDOM_TEST';
 export const RECEIVE_RANDOM_TEST = 'RECEIVE_RANDOM_TEST';
 
@@ -47,14 +94,9 @@ export function requestRandomTest() {
 }
 
 export function receiveRandomTest(curTest) {
-	//console.log('curTest', curTest);
-	//let questionsDict = randomArToDict(curTest.questions);
-	//let newCurTest = { ...curTest, questions: questionsDict };
-	//console.log('newCurTest', newCurTest);
-
 	return {
 		type: RECEIVE_RANDOM_TEST,
-		curTest: curTest,//newCurTest,
+		curTest: curTest,
 		retrieving: false
 	}
 }
@@ -85,13 +127,11 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 
 			// generate a randomized order of the flat list
 			randomizedQuestions = getRandomlyOrderedList(flatQuestionsAr);
-			console.log('randomizedQuestions', randomizedQuestions);
 
 			randomizedQuestions.forEach(questObj => {
 				let id = questObj.id;
 				randomizedQuestionsObj[id] = questObj;
 			});
-			console.log('randomizedQuestionsObj', randomizedQuestionsObj);
 
 			curTestObj.name = testData.name;
 			curTestObj.questions = randomizedQuestionsObj; //randomizedQuestions;
@@ -150,7 +190,6 @@ export const fetchInitTest = (testData) => dispatch => {
 				let id = questObj.id;
 				randomizedQuestionsObj[id] = questObj;
 			});
-			console.log('randomizedQuestionsObj', randomizedQuestionsObj);
 			curTest = { ...curTest, questions: randomizedQuestionsObj };
 
 			dispatch(receiveInitTest(curTest));
@@ -212,7 +251,6 @@ export const fetchUpdateTestQuestion = (questionData) => dispatch => {
 		)
 		.then(resp => resp.json())
 		.then(json => {
-			console.log('updated questionId', json);
 			dispatch(receiveUpdateTestQuestion(questionData));
 		})
 		.catch(err => console.error('fetch error', err));
@@ -251,7 +289,6 @@ export const fetchUpdateTest = (testData) => dispatch => {
 		)
 		.then(resp => resp.json())
 		.then(json => {
-			console.log('updated testId', json);
 			dispatch(receiveUpdateTest(testData));
 		})
 		.catch(err => console.error('fetch error', err));

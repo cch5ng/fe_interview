@@ -8,9 +8,6 @@ class TestTable {
 		const { name, date_taken, time_total, time_remaining, questions, status } = test; //user_id
 
 		return new Promise((resolve, reject) => {
-			// QuestionTable.getIdFromContent({ content })
-				//.then(({ id }) => {
-
 			pool.query(
 				`INSERT INTO test(name, date_taken, time_total, time_remaining, status)
 					VALUES($1, $2, $3, $4, $5)
@@ -59,6 +56,44 @@ class TestTable {
 				}
 			)
 		})
+	}
+
+	static getTestById( {id }) {
+		let idNum = parseInt(id, 10);
+		return Promise.all([
+			new Promise((resolve, reject) => {
+				pool.query(
+					`SELECT test.name, test.date_taken, test.time_total, test.time_remaining, test.status from test
+						WHERE id = $1
+					`,
+					[idNum],
+					(err, resp) => {
+						if (err) return reject(err);
+
+						const test = resp.rows[0];
+						resolve(test);
+					}
+				)
+			}),
+
+			new Promise((resolve, reject) => {
+				pool.query(
+					`SELECT test_question.needs_review, test_question.status, test_question.sort_order, test_question.response,
+						question.id, question.content, question.child_content, question.category
+						FROM test_question
+						INNER JOIN question on test_question.question_id = question.id 
+						WHERE test_question.test_id = $1
+					`,
+					[idNum],
+					(err, resp) => {
+						if (err) return reject(err);
+
+						const questions = resp.rows;
+						resolve(questions);
+					}
+				)
+			})
+		])
 	}
 
 	static updateTest({time_remaining, status, test_id}) {

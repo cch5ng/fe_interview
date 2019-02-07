@@ -57,7 +57,7 @@ class Tests extends Component {
 				{testsAr.map(test => {
 					const missedQuestions = test.questions ? this.getQuestionsMissedCount(test.questions) : null;
 					const completedQuestionsCount = test.questions ? test.questions.length - missedQuestions : null;
-					const testSummaryUrl = `tests/${test.id}`;
+					const testSummaryUrl = `/tests/${test.id}`;
 					console.log('testSummaryUrl', testSummaryUrl);
 
 					return (
