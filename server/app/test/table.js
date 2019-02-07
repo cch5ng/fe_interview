@@ -41,18 +41,16 @@ class TestTable {
 
 					const tests = resp.rows;
 
-					tests.forEach((test, idx) => {
-						console.log('test', test);
-						TestQuestionTable.getQuestionsByTestId({ test_id: test.id })
-							.then(questions => {
-								test.questions = questions;
-								if (idx === tests.length - 1) {
-									resolve(tests);
-								}
+					Promise.all(
+						tests.map(test => TestQuestionTable.getQuestionsByTestId({ test_id: test.id }))
+					)
+						.then(questions => {
+							tests.forEach((test, idx) => {
+								test.questions = questions[idx];
 							})
-							.catch(err => console.error('error', err))
-					})
-
+							resolve(tests);
+						})
+						.catch(err => console.error('error', err))
 				}
 			)
 		})
