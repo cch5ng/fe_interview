@@ -21,7 +21,7 @@ class TestQuestionTable {
 	static getQuestionsByTestId({ test_id }) {
 		return new Promise((resolve, reject) => {
 			pool.query(
-				`SELECT question.id, question.content, test_question.needs_review from test_question
+				`SELECT question.id, question.content, test_question.status, test_question.sort_order, test_question.response  from test_question
 					INNER JOIN question 
 					ON question.id = test_question.question_id
 					WHERE test_question.test_id = $1`,
