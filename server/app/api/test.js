@@ -15,6 +15,17 @@ router.get('/all', (req, res, next) => {
 	});
 });
 
+router.post('/detail', (req, res, next) => {
+	TestTable.getTestById(req.body)
+		.then(result => {
+			let newTest = result[0];
+			let testQuestions = result[1];
+			newTest.questions = testQuestions;
+			res.json(newTest);
+		})
+		.catch(err => console.error('error', err))
+})
+
 router.post('/new', (req, res, next) => {
 	console.log('req.body', req.body);
 	TestTable.storeTest(req.body)
