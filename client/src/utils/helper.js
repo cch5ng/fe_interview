@@ -81,7 +81,6 @@ export function getRandomlyOrderedList(ar) {
 		idx += 1;
 	}
 
-	console.log('randomAr', randomAr);
 	return randomAr;
 }
 
@@ -92,8 +91,6 @@ export function dictToRandomAr(objects) {
 		let sortOrder = objects[id].sort_order;
 		resultAr[sortOrder] = objects[id];
 	});
-
-	console.log('resultAr', resultAr);
 
 	return resultAr;
 }
