@@ -2,7 +2,7 @@ const pool = require('../../databasePool');
 
 class FEUserTable {
 
-	static storeFEUser(user) {
+	static storeUser(user) {
 		const { email, password} = user;
 		return new Promise((resolve, reject) => {
 			pool.query(
@@ -22,7 +22,7 @@ class FEUserTable {
 
 	}
 
-	static findByUserName(email) {
+	static findByEmail(email) {
 		return new Promise((resolve, reject) => {
 			pool.query(
 				`SELECT id
@@ -43,6 +43,9 @@ class FEUserTable {
 
 // test FEUserTable
 
-FEUserTable.findByUserName()
+const em = 'c@c.com'
+FEUserTable.findByEmail(em)
+	.then(userId => console.log('userId', userId))
+	.catch(err => console.error('error', err));
 
 module.exports = FEUserTable;
