@@ -1,31 +1,37 @@
 const pool = require('../../databasePool');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 class FEUserTable {
 
 	static storeUser(user) {
 		const { email, password} = user;
+
 		return new Promise((resolve, reject) => {
-			pool.query(
-				`INSERT INTO fe_user(email, password)
-					VALUES($1, $2)
-					RETURNING id
-				`,
-				[email, password],
-				(err, resp) => {
-					if (err) return reject(err);
 
-					const userId = resp.rows[0].id;
-					resolve({ userId });
-				}
-			)
+			bcrypt.hash(password, saltRounds).then(function(hash) {
+
+				pool.query(
+					`INSERT INTO fe_user(email, password)
+						VALUES($1, $2)
+						RETURNING id
+					`,
+					[email, hash],
+					(err, resp) => {
+						if (err) return reject(err);
+
+						const userId = resp.rows[0].id;
+						resolve({ userId });
+					}
+				)
+			})
 		})
-
 	}
 
-	static findByEmail(email) {
+	static findByEmail({email, password}) {
 		return new Promise((resolve, reject) => {
 			pool.query(
-				`SELECT id
+				`SELECT id, password
 					FROM fe_user
 					WHERE email = $1`,
 				[email],
@@ -33,19 +39,30 @@ class FEUserTable {
 					if (err) return reject(err);
 
 					// TODO handle when user_id returns no results
-					const user_id = resp.rows[0];
-					resolve(user_id);
+					const user = resp.rows[0];
+					let hash;
+
+					if (user) {
+						hash = user.password;
+
+						bcrypt.compare(password, hash)
+							.then(result => {
+								if (!result) {resolve({})}
+								if (result) { resolve({userId: user.id})}
+							})
+							.catch(berr => console.error('bcrypt err', berr))
+					} else {
+						resolve({});
+					}
 				}
 			)
 		})
 	}
 }
 
-// test FEUserTable
-
-const em = 'c@c.com'
-FEUserTable.findByEmail(em)
+FEUserTable.findByEmail({email: emBad, password: 'pwd'})
 	.then(userId => console.log('userId', userId))
 	.catch(err => console.error('error', err));
+
 
 module.exports = FEUserTable;
