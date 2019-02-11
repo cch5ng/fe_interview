@@ -28,6 +28,7 @@ class FEUserTable {
 		})
 	}
 
+	//verifies email and password
 	static findByEmail({email, password}) {
 		return new Promise((resolve, reject) => {
 			pool.query(
@@ -60,9 +61,9 @@ class FEUserTable {
 	}
 }
 
-FEUserTable.findByEmail({email: emBad, password: 'pwd'})
-	.then(userId => console.log('userId', userId))
-	.catch(err => console.error('error', err));
+// FEUserTable.findByEmail({email: emBad, password: 'pwd'})
+// 	.then(userId => console.log('userId', userId))
+// 	.catch(err => console.error('error', err));
 
 
 module.exports = FEUserTable;
