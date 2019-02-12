@@ -48,12 +48,12 @@ class FEUserTable {
 
 						bcrypt.compare(password, hash)
 							.then(result => {
-								if (!result) {resolve({})}
+								if (!result) {resolve({error: 'invalid login'})}
 								if (result) { resolve({userId: user.id})}
 							})
 							.catch(berr => console.error('bcrypt err', berr))
 					} else {
-						resolve({});
+						resolve({error: 'invalid login'});
 					}
 				}
 			)
