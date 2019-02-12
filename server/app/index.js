@@ -1,17 +1,22 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').load();
-}
-
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
+const dotenv = require('dotenv');
 const testRouter = require('./api/test');
 const questionRouter = require('./api/question');
 const authRouter = require('./api/auth');
 const FEUserTable = require('./fe_user/table');
+
+if (process.env.NODE_ENV !== 'production') {
+	const result = dotenv.config()
+ 
+	if (result.error) {
+  	throw result.error
+	}
+}
 
 // passport auth configure
 var opts = {}
