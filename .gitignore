@@ -3,6 +3,7 @@
 /dist
 /server/node_modules
 /server/secrets
+/server/.env
 /client/node_modules
 /client/.cache
 /client/dist
