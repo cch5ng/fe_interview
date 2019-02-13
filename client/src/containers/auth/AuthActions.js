@@ -77,6 +77,7 @@ export function receiveLogin(result) {
 }
 
 export const fetchLogin = (login) => dispatch => {
+	console.log('calls fetchLogin');
 	dispatch(requestLogin());
 	return fetch(API_POST_LOGIN,
 			{	method: 'POST',
