@@ -14,14 +14,15 @@ export function auth(state = { userRegistered: false }, action) {
 			return {
 				...state,
 				retrieving: action.retrieving,
-				userRegistered: action.userRegistered	
+				userRegistered: action.userRegistered,
+				registrationError: action.registrationError
 			}
 		case RECEIVE_LOGIN:
 			return {
 				...state,
 				retrieving: action.retrieving,
 				jwt: action.jwt,
-				error: action.error
+				loginError: action.loginError
 			}
 		default:
 			return state;
