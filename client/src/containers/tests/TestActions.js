@@ -29,8 +29,19 @@ export function receiveAllTests(tests) {
 }
 
 export const fetchTests = () => dispatch => {
+	let jwt = localStorage.getItem('fe_interview_session');
+	jwt = "bearer " + jwt;
+
 	dispatch(requestAllTests());
-	return fetch(API_GET_TESTS)
+	return fetch(API_GET_TESTS,
+			{	method: 'POST',
+				headers: {
+            "Content-Type": "application/json",
+            "Authorization": jwt
+        }
+			}
+		)
+	//return fetch(API_GET_TESTS)
 		.then(resp => resp.json())
 		.then(json => dispatch(receiveAllTests(json)))
 		.catch(err => console.error('fetch error', err));
