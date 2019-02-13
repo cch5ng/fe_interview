@@ -5,6 +5,6 @@ CREATE TABLE test(
 	time_total  			INTEGER NULL,
 	time_remaining 		INTEGER NULL,
 	status						VARCHAR(64),
-	user_id 					INTEGER
+	user_id 					INTEGER,
 	FOREIGN KEY (user_id) REFERENCES fe_user(id)
 );
