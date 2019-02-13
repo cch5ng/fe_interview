@@ -87,9 +87,4 @@ class FEUserTable {
 	}
 }
 
-// FEUserTable.findByEmail({email: emBad, password: 'pwd'})
-// 	.then(userId => console.log('userId', userId))
-// 	.catch(err => console.error('error', err));
-
-
 module.exports = FEUserTable;
