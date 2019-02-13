@@ -61,6 +61,30 @@ class FEUserTable {
 	}
 }
 
+	//verifies id in jwt
+	static findById({ userId }) {
+		return new Promise((resolve, reject) => {
+			pool.query(
+				`SELECT email
+					FROM fe_user
+					WHERE id = $1`,
+				[userId],
+				(err, resp) => {
+					if (err) return reject(err);
+
+					// TODO handle when user_id returns no results
+					const email = resp.rows[0].email;
+
+					resolve({email})
+					} else {
+						resolve({error: 'invalid jwt'});
+					}
+				}
+			)
+		})
+	}
+}
+
 // FEUserTable.findByEmail({email: emBad, password: 'pwd'})
 // 	.then(userId => console.log('userId', userId))
 // 	.catch(err => console.error('error', err));
