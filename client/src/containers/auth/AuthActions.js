@@ -14,14 +14,23 @@ export function requestRegistration() {
 }
 
 export function receiveRegistration(result) {
+	console.log('result', result)
+
 	let userRegistered = false;
+	let registrationError = '';
 	if (result.userId) {
 		userRegistered = true;
+	}
+
+	if (result.error) {
+		console.log('gets here')
+		registrationError = result.error;
 	}
 
 	return {
 		type: RECEIVE_REGISTRATION,
 		userRegistered,
+		registrationError,
 		retrieving: false
 	}
 }
@@ -54,7 +63,7 @@ export function requestLogin() {
 
 export function receiveLogin(result) {
 	let jwt = '';
-	let error = '';
+	let loginError = '';
 
 	if (result.jwt) {
 		jwt = result.jwt;
@@ -65,13 +74,13 @@ export function receiveLogin(result) {
 	}
 
 	if (result.error) {
-		error = result.error;
+		loginError = result.error;
 	}
 
 	return {
 		type: RECEIVE_LOGIN,
 		jwt,
-		error,
+		loginError,
 		retrieving: false
 	}
 }
