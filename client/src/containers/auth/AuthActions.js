@@ -59,6 +59,10 @@ export function receiveLogin(result) {
 
 	if (result.jwt) {
 		jwt = result.jwt;
+
+
+		// save jwt to localstorage
+		localStorage.setItem('fe_interview_session', jwt);
 	}
 
 	if (result.error) {
