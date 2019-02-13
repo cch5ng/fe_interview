@@ -16,7 +16,6 @@ export function requestRegistration() {
 export function receiveRegistration(result) {
 	let userRegistered = false;
 	if (result.userId) {
-		console.log('result', result.userId)
 		userRegistered = true;
 	}
 
