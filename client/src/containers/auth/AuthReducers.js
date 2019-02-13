@@ -14,7 +14,7 @@ export function auth(state = { userRegistered: false }, action) {
 			return {
 				...state,
 				retrieving: action.retrieving,
-				userLoggedIn: action.userLoggedIn	
+				userRegistered: action.userRegistered	
 			}
 		case RECEIVE_LOGIN:
 			return {
