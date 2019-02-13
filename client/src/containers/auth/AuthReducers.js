@@ -22,7 +22,7 @@ export function auth(state = { userRegistered: false }, action) {
 				...state,
 				retrieving: action.retrieving,
 				jwt: action.jwt,
-				email: action.email,
+				user_id: action.user_id,
 				loginError: action.loginError
 			}
 		default:
