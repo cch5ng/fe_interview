@@ -5,14 +5,14 @@ const QuestionTable = require ('../question/table');
 class TestTable {
 
 	static storeTest(test) {
-		const { name, date_taken, time_total, time_remaining, questions, status } = test; //user_id
+		const { name, date_taken, time_total, time_remaining, questions, status, user_id } = test; //user_id
 
 		return new Promise((resolve, reject) => {
 			pool.query(
-				`INSERT INTO test(name, date_taken, time_total, time_remaining, status)
-					VALUES($1, $2, $3, $4, $5)
+				`INSERT INTO test(name, date_taken, time_total, time_remaining, status, user_id)
+					VALUES($1, $2, $3, $4, $5, $6)
 					RETURNING id`,
-				[name, date_taken, time_total, time_remaining, status],
+				[name, date_taken, time_total, time_remaining, status, user_id],
 				(err, resp) => {
 					if (err) return reject(err);
 
@@ -31,7 +31,7 @@ class TestTable {
 		})
 	}
 
-	static getAllTests(user_id) {
+	static getAllTests({ user_id }) {
 		return new Promise((resolve, reject) => {
 			pool.query(
 				`SELECT test.id, time_total, time_remaining, name, date_taken, status from test
