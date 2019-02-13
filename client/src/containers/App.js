@@ -6,6 +6,8 @@ import TestForm from '../containers/tests/TestForm';
 import TestSummary from '../containers/tests/TestSummary';
 import TestQuestion from '../containers/tests/TestQuestion';
 import Questions from '../containers/questions/Questions';
+import Registration from '../containers/auth/Registration';
+import Login from '../containers/auth/Login';
 import { fetchUpdateTest } from '../containers/tests/TestActions';
 //import Nav from './Nav';
 //import './App.css';
@@ -102,6 +104,15 @@ class App extends Component {
             <Route exact path="/tests/:test_id" render={({ match }) => (
               <TestSummary match={match} />
             )} />
+
+            <Route exact path="/register" render={() => (
+              <Registration />
+            )} />
+
+            <Route exact path="/login" render={() => (
+              <Login />
+            )} />
+
 
           </Switch>          
 
