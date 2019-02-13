@@ -21,27 +21,23 @@ if (process.env.NODE_ENV !== 'production') {
 // passport auth configure
 var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-//TODO store secret, figure out other options
 opts.secretOrKey = process.env.JWT_SECRET;
-//opts.issuer = 'accounts.examplesoft.com';
-opts.audience = 'http://localhost:1234';
-passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    //TODO how to verify the jwt for the user
+opts.passReqToCallback = true;
+passport.use(new JwtStrategy(opts, function(req, jwt_payload, done) {
+  let userId = jwt_payload.userId;
 
-    let userId = jwt_payload.sub;
-
-    FEUserTable.findById({ userId })
-    	.then(email => {
-    		if (email) { 
-    			return done(null, email);
-    		} else {
-    			return done(null, false);
-    		}
-    	})
-    	.catch(err => {
-    		console.error('error', err);
-    		return done(err, false);
-    	})
+  FEUserTable.findById({ userId })
+  	.then(email => {
+  		if (email) { 
+  			return done(null, email);
+  		} else {
+  			return done(null, false);
+  		}
+  	})
+  	.catch(err => {
+  		console.error('error', err);
+  		return done(err, false);
+  	})
 }));
 
 const app = express();
