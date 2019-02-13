@@ -59,7 +59,6 @@ class FEUserTable {
 			)
 		})
 	}
-}
 
 	//verifies id in jwt
 	static findById({ userId }) {
@@ -70,12 +69,15 @@ class FEUserTable {
 					WHERE id = $1`,
 				[userId],
 				(err, resp) => {
-					if (err) return reject(err);
+					if (err) {
+						return reject(err)
+					}
 
-					// TODO handle when user_id returns no results
-					const email = resp.rows[0].email;
+					if (resp) {
+						// TODO handle when user_id returns no results
+						const email = resp.rows[0].email;
 
-					resolve({email})
+						resolve({email})	
 					} else {
 						resolve({error: 'invalid jwt'});
 					}
