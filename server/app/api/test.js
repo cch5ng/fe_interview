@@ -1,10 +1,14 @@
 const { Router } = require('express');
+const passport = require('passport');
 const TestTable = require('../test/table');
 const TestQuestionTable = require('../testQuestion/table');
 
 const router = Router();
 
-router.get('/all', (req, res, next) => {
+router.get('/all',
+	passport.authenticate('jwt', { session: false }),
+
+	(req, res, next) => {
 	TestTable.getAllTests()
 	.then(tests => {
 		res.json(tests);
