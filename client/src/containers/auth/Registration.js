@@ -34,8 +34,6 @@ class Registration extends Component {
 	submitForm(ev) {
 		ev.preventDefault();
 
-		console.log('button clicked')
-
 		let login = {email: this.state.email, password: this.state.password};
 
 		//call action to send to BE
@@ -53,7 +51,6 @@ class Registration extends Component {
 	render() {
 
 		let authentication = this.props.auth;
-		console.log('authentication', authentication)
 
 			// { authentication.userRegistered && (
 			// 	<Link to="/tests" />
