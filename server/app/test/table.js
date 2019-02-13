@@ -31,11 +31,12 @@ class TestTable {
 		})
 	}
 
-	static getAllTests() {
+	static getAllTests(user_id) {
 		return new Promise((resolve, reject) => {
 			pool.query(
-				`SELECT test.id, time_total, time_remaining, name, date_taken, status from test`,
-				[],
+				`SELECT test.id, time_total, time_remaining, name, date_taken, status from test
+					WHERE user_id = $1`,
+				[user_id],
 				(err, resp) => {
 					if (err) return reject(err);
 
