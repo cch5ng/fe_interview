@@ -14,14 +14,23 @@ export function requestRegistration() {
 }
 
 export function receiveRegistration(result) {
+	console.log('result', result)
+
 	let userRegistered = false;
+	let registrationError = '';
 	if (result.userId) {
 		userRegistered = true;
+	}
+
+	if (result.error) {
+		console.log('gets here')
+		registrationError = result.error;
 	}
 
 	return {
 		type: RECEIVE_REGISTRATION,
 		userRegistered,
+		registrationError,
 		retrieving: false
 	}
 }
@@ -54,7 +63,8 @@ export function requestLogin() {
 
 export function receiveLogin(result) {
 	let jwt = '';
-	let error = '';
+	let loginError = '';
+	let user_id = null;
 
 	if (result.jwt) {
 		jwt = result.jwt;
@@ -64,19 +74,25 @@ export function receiveLogin(result) {
 		localStorage.setItem('fe_interview_session', jwt);
 	}
 
+	if (result.user_id) {
+		user_id = result.user_id;
+	}
+
 	if (result.error) {
-		error = result.error;
+		loginError = result.error;
 	}
 
 	return {
 		type: RECEIVE_LOGIN,
 		jwt,
-		error,
+		user_id,
+		loginError,
 		retrieving: false
 	}
 }
 
 export const fetchLogin = (login) => dispatch => {
+	console.log('calls fetchLogin');
 	dispatch(requestLogin());
 	return fetch(API_POST_LOGIN,
 			{	method: 'POST',

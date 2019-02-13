@@ -20,9 +20,6 @@ class TestSummary extends Component {
 	}
 
 	componentDidMount() {
-		//TODO 0206
-		// determine if this came from /tests link or directly
-
 		if (this.props.match.params && this.props.match.params.test_id) {
 			this.props.dispatch(fetchTestById({ id: this.props.match.params.test_id }));
 		}
@@ -43,13 +40,6 @@ class TestSummary extends Component {
 		if (firstQuestionUrl) {
 			this.props.history.push(firstQuestionUrl);
 		}
-
-		// state: remaining_time; current_question - default to sort_order 0
-		// update status in redux
-		// start countdown timer (probably need to review also cleaning up the timer when the test is done)
-		// toggle state displayTestQuestion to true (this should redirect to first question in test)
-		// automatically open the first question in the list
-
 	}
 
 	submitTest(ev) {

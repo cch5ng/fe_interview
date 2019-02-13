@@ -1,6 +1,3 @@
-// note a lot of actions look similar except for the function name, and action type
-// maybe create generic actions? or was that the entire point?
-
 // action types
 export const REQUEST_ALL_QUESTIONS = 'REQUEST_ALL_QUESTIONS';
 export const RECEIVE_ALL_QUESTIONS = 'RECEIVE_ALL_QUESTIONS';

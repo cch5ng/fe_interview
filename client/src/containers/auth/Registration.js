@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchRegister } from './AuthActions';
 
@@ -49,15 +50,13 @@ class Registration extends Component {
 	}
 
 	render() {
+		let userIsRegistered = this.props.auth && this.props.auth.userRegistered ? true : false;
 
-		let authentication = this.props.auth;
-
-			// { authentication.userRegistered && (
-			// 	<Link to="/tests" />
-			// )}
-
-			// {auth && auth.userRegistered === false && (
-			// )}
+		if (userIsRegistered) {
+			return (
+				<Redirect to="/login" />
+			)
+		}
 
 
 		return (
@@ -68,7 +67,7 @@ class Registration extends Component {
 					<form>
 						<div>
 							<label>
-								Email
+								New Account Email
 
 								<input type="email" name="email"
 									value={this.state.email}
@@ -95,10 +94,9 @@ class Registration extends Component {
 
 }
 
-
-function mapStateToProps({ auth }) {
+function mapStateToProps(state) {
 	return {
-		auth
+		auth: state.auth
 	}
 }
 

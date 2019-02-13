@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchLogin } from './AuthActions';
 
@@ -7,7 +8,6 @@ const initState = {
 	email: '',
 	password: ''
 }
-
 
 class Login extends Component {
 
@@ -35,14 +35,11 @@ class Login extends Component {
 	submitForm(ev) {
 		ev.preventDefault();
 
-		let login = {email: this.state.email, password: this.state.password};
-
-		//call action to send to BE
-		this.props.dispatch(fetchLogin(login));
-		this.resetState();
-
-		// probably want to redirect
-
+		if (this.state.email.length && this.state.password.length) {
+			let login = {email: this.state.email, password: this.state.password};
+			this.props.dispatch(fetchLogin(login));
+			this.resetState();			
+		}
 	}
 
 	resetState() {
@@ -50,6 +47,13 @@ class Login extends Component {
 	}
 
 	render() {
+		let hasToken = this.props.auth && this.props.auth.jwt ? true : false;
+
+		if (hasToken) {
+			return (
+				<Redirect to="/questions" />
+			)
+		}
 
 		return (
 			<div>
@@ -86,9 +90,9 @@ class Login extends Component {
 
 }
 
-function mapStateToProps({ auth }) {
+function mapStateToProps(state) {
 	return {
-		auth
+		auth: state.auth
 	}
 }
 

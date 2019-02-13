@@ -73,18 +73,16 @@ class TestForm extends Component {
 		ev.preventDefault();
 
 		let testData = {};
+		let user_id = this.props.auth && this.props.auth.user_id ? this.props.auth.user_id : null;
 
 		// build questionsData
 		let questionCountsObj = this.getQuestionsObjFromAr(questionCategories);
-		console.log('questionCountsObj', questionCountsObj);
-		//let questionIds = this.generateTest(questionCountsObj, questionsAr);
-
-		// do stuff, call action
 
 		// build testData
 		testData.name = this.state.inputTestName;
 		testData.time_total = this.getTotalTestTime(); //TODO need to calculat this;
 		testData.date_taken = null;
+		testData.user_id = user_id;
 
 		// (axn) save initial data to redux
 		this.props.dispatch(fetchRandomTest(questionCountsObj, testData));
@@ -99,21 +97,6 @@ class TestForm extends Component {
 		//ev.preventDefault();
 		this.setState({ ...initState, formSubmitted: true });
 	}
-
-	// questionCountsObj {"category": num questions to get}
-	// generateTest(questionCountsObj, questions) {
-	// 	// return a list of question id's (in random order)
-	// 	let questionIds = [];
-	// 	this.props.dispatch()
-
-	// 	//TODO 013019, verify that the category format is long string, not concat string
-	// 	// then can make the action call
-	// 	// probably want to concat all questions into flat list
-	// 	// probably want to randomize the order of questions (so it is not sorted by category)
-
-	// 	console.log('questionIds', questionIds);
-	// 	return questionIds;
-	// }
 
 	// used to get the max potential questions requested by category
 	getQuestionCountPerCategory(questions, categoriesAr) {
@@ -259,10 +242,10 @@ class TestForm extends Component {
 	}
 }
 
-function mapStateToProps({ questions }) {
-	console.log('questions', questions)
+function mapStateToProps(state) {
 	return {
-		questions
+		questions: state.questions,
+		auth: state.auth,
 	}
 }
 
