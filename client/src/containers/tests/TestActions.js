@@ -69,11 +69,15 @@ export function receiveTestDetail(test) {
 }
 
 export const fetchTestById = ({ id }) => dispatch => {
+	let jwt = localStorage.getItem('fe_interview_session');
+	jwt = "bearer " + jwt;
+
 	dispatch(requestTestDetail());
 	return fetch(API_GET_TEST_DETAIL,
 			{	method: 'POST',
 				headers: {
             "Content-Type": "application/json",
+            "Authorization": jwt
         },
         body: JSON.stringify({ id }),
 			}
@@ -190,11 +194,15 @@ export function receiveInitTest(curTest) {
 }
 
 export const fetchInitTest = (testData) => dispatch => {
+	let jwt = localStorage.getItem('fe_interview_session');
+	jwt = "bearer " + jwt;
+
 	dispatch(requestInitTest());
 	return fetch(API_POST_INIT_TEST,
 			{	method: 'POST',
 				headers: {
             "Content-Type": "application/json",
+            "Authorization": jwt
         },
         body: JSON.stringify(testData),
 			}
@@ -259,11 +267,15 @@ export function receiveUpdateTestQuestion(questionData) {
 
 //should this update the BE?
 export const fetchUpdateTestQuestion = (questionData) => dispatch => {
+	let jwt = localStorage.getItem('fe_interview_session');
+	jwt = "bearer " + jwt;
+
 	dispatch(requestUpdateTestQuestion());
 	return fetch(API_POST_UPDATE_TEST_QUESTION,
 			{	method: 'POST',
 				headers: {
             "Content-Type": "application/json",
+            "Authorization": jwt
         },
         body: JSON.stringify(questionData),
 			}
@@ -297,11 +309,15 @@ export function receiveUpdateTest(testData) {
 
 //should this update the BE?
 export const fetchUpdateTest = (testData) => dispatch => {
+	let jwt = localStorage.getItem('fe_interview_session');
+	jwt = "bearer " + jwt;
+
 	dispatch(requestUpdateTest());
 	return fetch(API_POST_UPDATE_TEST,
 			{	method: 'POST',
 				headers: {
             "Content-Type": "application/json",
+            "Authorization": jwt
         },
         body: JSON.stringify(testData),
 			}
