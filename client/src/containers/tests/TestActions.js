@@ -156,6 +156,7 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 			curTestObj.questions = randomizedQuestionsObj;
 			curTestObj.time_total = testData.time_total;
 			curTestObj.status = 'initialized';
+			curTestObj.user_id = testData.user_id;
 
 			let curDate = new Date();
 			let curDateMonth = curDate.getMonth() + 1;
