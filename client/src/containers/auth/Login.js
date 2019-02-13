@@ -35,16 +35,14 @@ class Login extends Component {
 	submitForm(ev) {
 		ev.preventDefault();
 
-		console.log('button clicked')
-
 		let login = {email: this.state.email, password: this.state.password};
 
 		//call action to send to BE
 		this.props.dispatch(fetchLogin(login));
 		this.resetState();
 
-		//TODO see if alt way to do this
-		//this.props.history.push('/login');
+		// probably want to redirect
+
 	}
 
 	resetState() {
