@@ -5,18 +5,18 @@ const TestQuestionTable = require('../testQuestion/table');
 
 const router = Router();
 
-router.get('/all',
+router.post('/all',
 	passport.authenticate('jwt', { session: false }),
 
 	(req, res, next) => {
-	TestTable.getAllTests()
-	.then(tests => {
-		res.json(tests);
-	})
-	.catch(err => {
-		//console.error('error', err);
-		next(err);	
-	});
+		TestTable.getAllTests()
+			.then(tests => {
+				res.json(tests);
+			})
+			.catch(err => {
+				//console.error('error', err);
+				next(err);	
+			});
 });
 
 router.post('/detail', (req, res, next) => {
