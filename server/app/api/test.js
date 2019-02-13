@@ -8,7 +8,7 @@ const router = Router();
 router.post('/all',
 	passport.authenticate('jwt', { session: false }),
 	(req, res, next) => {
-		TestTable.getAllTests()
+		TestTable.getAllTests(req.body)
 			.then(tests => {
 				res.json(tests);
 			})
