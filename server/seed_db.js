@@ -58,21 +58,24 @@ const TestData = [
 		time_total: 1800000,
 		time_remaining: 1200000,
 		status: 'completed',
-		questions: dummyQuestions
+		questions: dummyQuestions,
+		user_id: 1,
 	},
 	{	name: 'dummy test 2',
 		date_taken: dummyDate,
 		time_total: 2400000,
 		time_remaining: 1200000,
 		status: 'completed',
-		questions: dummyQuestions
+		questions: dummyQuestions,
+		user_id: 1,
 	},
 	{	name: 'dummy test 3',
 		date_taken: dummyDate,
 		time_total: 1500000,
 		time_remaining: 1200000,
 		status: 'completed',
-		questions: dummyQuestions
+		questions: dummyQuestions,
+		user_id: 2,
 	}
 ];
 
