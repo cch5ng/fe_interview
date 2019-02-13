@@ -46,7 +46,6 @@ router.post('/update',
 	passport.authenticate('jwt', { session: false }),
 	(req, res, next) => {
 		TestTable.updateTest(req.body)
-			//.then(() => console.log('question updated in test_question table'))
 			.then(testId => res.json(testId))
 			.catch(err => console.error('error', err))
 })
@@ -55,7 +54,6 @@ router.post('/updateQuestion',
 	passport.authenticate('jwt', { session: false }),
 	(req, res, next) => {
 	TestQuestionTable.updateTestQuestion(req.body)
-		//.then(() => console.log('question updated in test_question table'))
 		.then(questionId => res.json(questionId))
 		.catch(err => console.error('error', err))
 })
