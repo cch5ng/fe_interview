@@ -117,11 +117,15 @@ export function receiveRandomTest(curTest) {
 }
 
 export const fetchRandomTest = (questionData, testData) => dispatch => {
+	let jwt = localStorage.getItem('fe_interview_session');
+	jwt = "bearer " + jwt;
+
 	dispatch(requestRandomTest());
 	return fetch(API_POST_RANDOM_TEST,
 			{	method: 'POST',
 				headers: {
             "Content-Type": "application/json",
+            "Authorization": jwt
         },
         body: JSON.stringify(questionData),
 			}
