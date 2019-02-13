@@ -1,5 +1,6 @@
 const QuestionTable = require('./app/question/table');
 const TestTable = require('./app/test/table');
+const FEUserTable = require('./app/fe_user/table');
 
 // seed questions
 const JavaScriptQuestions = require('./question_output/javascript-questions');
@@ -80,5 +81,18 @@ TestData.forEach(test => {
 		.then(testId => console.log('testId', testId))
 		.catch(err => console.error('error', err));
 })
+
+const UserData = [
+	{	email: 'c@c.com',
+		password: 'pwd'
+	}
+];
+
+UserData.forEach(user => {
+	FEUserTable.storeUser(user)
+		.then(userId => console.log('userId', userId))
+		.catch(err => console.error('error', err));
+})
+
 
 console.log('database seeded');

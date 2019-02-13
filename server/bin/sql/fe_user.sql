@@ -1,6 +1,7 @@
 CREATE TABLE fe_user(
-	id				SERIAL PRIMARY KEY,
-	email 		VARCHAR(64),
-	password 	VARCHAR(64),
-	name 			VARCHAR(64)
+	id					SERIAL PRIMARY KEY,
+	email 			VARCHAR(64) UNIQUE,
+	password 		VARCHAR(64),
+	user_name 	VARCHAR(64),
+	created_at 	TIMESTAMP NOT NULL DEFAULT NOW()
 );
