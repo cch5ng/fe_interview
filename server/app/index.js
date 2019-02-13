@@ -22,29 +22,33 @@ if (process.env.NODE_ENV !== 'production') {
 var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 //TODO store secret, figure out other options
-//opts.secretOrKey = 'secret';
+opts.secretOrKey = process.env.JWT_SECRET;
 //opts.issuer = 'accounts.examplesoft.com';
-//opts.audience = 'yoursite.net';
-//passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+opts.audience = 'http://localhost:1234';
+passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
     //TODO how to verify the jwt for the user
-    // User.findOne({id: jwt_payload.sub}, function(err, user) {
-    //     if (err) {
-    //         return done(err, false);
-    //     }
-    //     if (user) {
-    //         return done(null, user);
-    //     } else {
-    //         return done(null, false);
-    //         // or you could create a new account
-    //     }
-    // });
-//}));
+
+    let userId = jwt_payload.sub;
+
+    FEUserTable.findById({ userId })
+    	.then(email => {
+    		if (email) { 
+    			return done(null, email);
+    		} else {
+    			return done(null, false);
+    		}
+    	})
+    	.catch(err => {
+    		console.error('error', err);
+    		return done(err, false);
+    	})
+}));
 
 const app = express();
 
 app.use(cors({ origin: 'http://localhost:1234' }));
 app.use(bodyParser.json());
-//app.use(passport.initialize());
+app.use(passport.initialize());
 app.use('/test', testRouter);
 app.use('/question', questionRouter);
 app.use('/auth', authRouter);
