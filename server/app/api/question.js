@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const passport = require('passport');
 const QuestionTable = require('../question/table');
 
 const router = Router();
@@ -10,8 +11,9 @@ router.get('/all', (req, res, next) => {
 		//console.error('error', err));
 });
 
-router.post('/random', (req, res, next) => {
-	console.log('req.body', req.body);
+router.post('/random',
+	passport.authenticate('jwt', { session: false }),
+	(req, res, next) => {
 	QuestionTable.getRandomQuestionsByCategoryCounts(req.body)
 		.then(testLists => res.json(testLists))
 		.catch(err => console.error('error', err))
