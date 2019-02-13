@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Tests from '../containers/tests/Tests';
 import TestForm from '../containers/tests/TestForm';
@@ -9,8 +9,9 @@ import Questions from '../containers/questions/Questions';
 import Registration from '../containers/auth/Registration';
 import Login from '../containers/auth/Login';
 import { fetchUpdateTest } from '../containers/tests/TestActions';
+import './App.css';
+//import ('./App.css');
 //import Nav from './Nav';
-//import './App.css';
 
 class App extends Component {
 
@@ -72,7 +73,12 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          {/* <Nav /> */}
+          <header>
+            <Link to="/questions" className="nav_link">Questions</Link>
+            <Link to="/tests" className="nav_link">Tests</Link>
+            <Link to="/tests/new" className="nav_link">New Test</Link>
+            <Link to="/login" className="nav_link">Login</Link>
+          </header>
 
           <Switch>
 
@@ -118,6 +124,7 @@ class App extends Component {
 
         </div>
       </Router>
+
     );
   }
 }
