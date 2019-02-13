@@ -85,6 +85,9 @@ TestData.forEach(test => {
 const UserData = [
 	{	email: 'c@c.com',
 		password: 'pwd'
+	},
+	{	email: 'd@d.com',
+		password: 'pwd'
 	}
 ];
 
