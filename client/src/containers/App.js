@@ -75,7 +75,7 @@ class App extends Component {
   render() {
     let headerClass = cx({
       [styles.fullHeight]: this.state.mobileNavMenuDisplay
-    })
+    });
 
     let dropDownMenuClass = cx({
       [styles.dropDownMenu]: true,
@@ -86,8 +86,6 @@ class App extends Component {
       [styles.navAddTestIcon]: true,
       [styles.hidden2]: this.state.mobileNavMenuDisplay
     });
-
-    console.log('dropDownMenuClass', dropDownMenuClass)
 
     return (
       <Router>
