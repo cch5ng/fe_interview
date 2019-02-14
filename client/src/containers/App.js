@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import classNames from 'classnames/bind';
 import Tests from '../containers/tests/Tests';
 import TestForm from '../containers/tests/TestForm';
 import TestSummary from '../containers/tests/TestSummary';
@@ -11,6 +12,8 @@ import Login from '../containers/auth/Login';
 import { fetchUpdateTest } from '../containers/tests/TestActions';
 import styles from './App.css';
 //import Nav from './Nav';
+
+let cx = classNames.bind(styles);
 
 class App extends Component {
 
@@ -30,6 +33,7 @@ class App extends Component {
     this.startCountdownTimer = this.startCountdownTimer.bind(this);
     this.stopCountdownTimer = this.stopCountdownTimer.bind(this);
     this.updateCountdownStore = this.updateCountdownStore.bind(this);
+    this.toggleNavMenuDisplay = this.toggleNavMenuDisplay.bind(this);
   }
 
 // EVENT HANDLERS
@@ -62,24 +66,45 @@ class App extends Component {
     this.props.dispatch(fetchUpdateTest({test_id, status, time_remaining}))
   }
 
+  toggleNavMenuDisplay() {
+    this.setState((state, props) => ({
+      mobileNavMenuDisplay: !state.mobileNavMenuDisplay
+    }));
+  }
+
   render() {
+    let dropDownMenuClass = cx({
+      [styles.dropDownMenu]: true,
+      [styles.hidden]: !this.state.mobileNavMenuDisplay
+    });
+
+    console.log('dropDownMenuClass', dropDownMenuClass)
+
     return (
       <Router>
         <div className="App">
           <header>
             <nav>
-              <div className={styles.hamburger}>&#9776;</div>
-              <div className={styles.logo}>
-                <Link to="/questions" className={styles.navLogo}>Front End Interview</Link>
+              <div className={styles.navRow}>
+                <div onClick={this.toggleNavMenuDisplay} className={styles.hamburger}>&#9776;</div>
+                <div className={styles.logo}>
+                  <Link to="/questions" className={styles.navLogo}>Front End Interview</Link>
+                </div>
+                <div className={styles.navLinksList}>
+                  <Link to="/questions" className={styles.navLink}>Questions</Link>
+                  <Link to="/tests" className={styles.navLink}>Tests</Link>
+                  <Link to="/tests/new" className={styles.navLink}>New Test</Link>
+                  <Link to="/login" className={styles.navLink}>Login</Link>
+                </div>
+                <div className={styles.navAddTestIcon}>
+                  <Link to="/tests/new">&#8853;</Link>
+                </div>
               </div>
-              <div className={styles.navLinksList}>
+              <div className={dropDownMenuClass}>
                 <Link to="/questions" className={styles.navLink}>Questions</Link>
                 <Link to="/tests" className={styles.navLink}>Tests</Link>
                 <Link to="/tests/new" className={styles.navLink}>New Test</Link>
                 <Link to="/login" className={styles.navLink}>Login</Link>
-              </div>
-              <div className={styles.navAddTestIcon}>
-                <Link to="/tests/new">&#8853;</Link>
               </div>
             </nav>
           </header>
