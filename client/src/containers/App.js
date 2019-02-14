@@ -73,9 +73,18 @@ class App extends Component {
   }
 
   render() {
+    let headerClass = cx({
+      [styles.fullHeight]: this.state.mobileNavMenuDisplay
+    })
+
     let dropDownMenuClass = cx({
       [styles.dropDownMenu]: true,
       [styles.hidden]: !this.state.mobileNavMenuDisplay
+    });
+
+    let navAddTestIconClass = cx({
+      [styles.navAddTestIcon]: true,
+      [styles.hidden2]: this.state.mobileNavMenuDisplay
     });
 
     console.log('dropDownMenuClass', dropDownMenuClass)
@@ -83,7 +92,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <header>
+          <header className={headerClass}>
             <nav>
               <div className={styles.navRow}>
                 <div onClick={this.toggleNavMenuDisplay} className={styles.hamburger}>&#9776;</div>
@@ -96,15 +105,31 @@ class App extends Component {
                   <Link to="/tests/new" className={styles.navLink}>New Test</Link>
                   <Link to="/login" className={styles.navLink}>Login</Link>
                 </div>
-                <div className={styles.navAddTestIcon}>
+                <div className={navAddTestIconClass}>
                   <Link to="/tests/new">&#8853;</Link>
                 </div>
               </div>
               <div className={dropDownMenuClass}>
-                <Link to="/questions" className={styles.navLink}>Questions</Link>
-                <Link to="/tests" className={styles.navLink}>Tests</Link>
-                <Link to="/tests/new" className={styles.navLink}>New Test</Link>
-                <Link to="/login" className={styles.navLink}>Login</Link>
+                <Link to="/questions"
+                  onClick={this.toggleNavMenuDisplay}
+                  className={styles.navLinkCol}>
+                    Questions
+                </Link>
+                <Link to="/tests"
+                  onClick={this.toggleNavMenuDisplay}
+                  className={styles.navLinkCol}>
+                    Tests
+                </Link>
+                <Link to="/tests/new"
+                  onClick={this.toggleNavMenuDisplay}
+                  className={styles.navLinkCol}>
+                    New Test
+                </Link>
+                <Link to="/login"
+                  onClick={this.toggleNavMenuDisplay}
+                  className={styles.navLinkCol}>
+                    Login
+                </Link>
               </div>
             </nav>
           </header>
