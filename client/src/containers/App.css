@@ -37,9 +37,11 @@ main {
 a:link,
 a:visited {
 	text-decoration: none;
+	color: #000000;
 }
 
 a:hover,
 a:active {
 	text-decoration: underline;
+	color: #000000;
 }
