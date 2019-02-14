@@ -10,7 +10,6 @@ import Registration from '../containers/auth/Registration';
 import Login from '../containers/auth/Login';
 import { fetchUpdateTest } from '../containers/tests/TestActions';
 import styles from './App.css';
-//import './App.css';
 //import Nav from './Nav';
 
 class App extends Component {
@@ -22,20 +21,16 @@ class App extends Component {
     this.startTime = 10000;
 
     const tests = props.tests && props.tests.tests ? props.tests.tests : null;
-    console.log('App tests', tests);
 
     this.state = {
-      remainingTime: tests && tests.curTest.time_total ? tests.curTest.time_total : 0 
+      remainingTime: tests && tests.curTest.time_total ? tests.curTest.time_total : 0,
+      mobileNavMenuDisplay: false,
     }
 
     this.startCountdownTimer = this.startCountdownTimer.bind(this);
     this.stopCountdownTimer = this.stopCountdownTimer.bind(this);
     this.updateCountdownStore = this.updateCountdownStore.bind(this);
   }
-
-  // componentDidMount() {
-  //   this.props.dispatch()
-  // }
 
 // EVENT HANDLERS
   startCountdownTimer(remainingTime) {
@@ -51,7 +46,6 @@ class App extends Component {
       this.setState((curState) => {
         return { remainingTime: curState.remainingTime - 1000 }
       })
-      console.log('this.state.remainingTime', this.state.remainingTime);      
     }
 
     if (this.state.remainingTime <= 0) {
@@ -63,7 +57,6 @@ class App extends Component {
 
   stopCountdownTimer({test_id, status}) {
     window.clearInterval(this.counterIntervalId);
-    console.log('cleared interval');
 
     const time_remaining = this.state.remainingTime;
     this.props.dispatch(fetchUpdateTest({test_id, status, time_remaining}))
@@ -85,7 +78,9 @@ class App extends Component {
                 <Link to="/tests/new" className={styles.navLink}>New Test</Link>
                 <Link to="/login" className={styles.navLink}>Login</Link>
               </div>
-              <div className={styles.navPlaceholder}>&#8853;</div>
+              <div className={styles.navAddTestIcon}>
+                <Link to="/tests/new">&#8853;</Link>
+              </div>
             </nav>
           </header>
 
@@ -139,9 +134,9 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ tests }) {
+function mapStateToProps(state) {
   return {
-    tests
+    tests: state.tests,
   }
 }
 
