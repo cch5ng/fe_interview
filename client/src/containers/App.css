@@ -19,14 +19,14 @@ nav {
 
 }
 
-.nav-logo {
+.navLogo {
 	font-family: 'Marvel', sans-serif;
 	/*color: ;*/
 	font-size: 1.3em;
 
 }
 
-.nav-link {
+.navLink {
 	padding: 0 8px;
 }
 

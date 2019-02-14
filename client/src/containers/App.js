@@ -9,7 +9,8 @@ import Questions from '../containers/questions/Questions';
 import Registration from '../containers/auth/Registration';
 import Login from '../containers/auth/Login';
 import { fetchUpdateTest } from '../containers/tests/TestActions';
-import './App.css';
+import styles from './App.css';
+//import './App.css';
 //import Nav from './Nav';
 
 class App extends Component {
@@ -74,11 +75,11 @@ class App extends Component {
         <div className="App">
           <header>
             <nav>
-              <Link to="/questions" className="nav-logo">Front End Interview</Link>
-              <Link to="/questions" className="nav-link">Questions</Link>
-              <Link to="/tests" className="nav-link">Tests</Link>
-              <Link to="/tests/new" className="nav-link">New Test</Link>
-              <Link to="/login" className="nav-link">Login</Link>
+              <Link to="/questions" className={styles.navLogo}>Front End Interview</Link>
+              <Link to="/questions" className={styles.navLink}>Questions</Link>
+              <Link to="/tests" className={styles.navLink}>Tests</Link>
+              <Link to="/tests/new" className={styles.navLink}>New Test</Link>
+              <Link to="/login" className={styles.navLink}>Login</Link>
             </nav>
           </header>
 
