@@ -4,6 +4,42 @@
 	box-sizing: border-box;
 }
 
-.nav_link {
+body {
+	font-family: 'Cairo', sans-serif;
+}
+
+header {
+	height: 80px;
+	background-color: #28a3a3;
+	padding: 20px 12px 12px 12px;
+
+}
+
+nav {
+
+}
+
+.nav-logo {
+	font-family: 'Marvel', sans-serif;
+	/*color: ;*/
+	font-size: 1.3em;
+
+}
+
+.nav-link {
 	padding: 0 8px;
+}
+
+main {
+	margin: 12px;
+}
+
+a:link,
+a:visited {
+	text-decoration: none;
+}
+
+a:hover,
+a:active {
+	text-decoration: underline;
 }
