@@ -9,10 +9,10 @@ body {
 }
 
 header {
-	height: 80px;
+	/*height: 80px;*/
+	
 	background-color: #28a3a3;
 	padding: 20px 12px 12px 12px;
-
 }
 
 .navRow {
@@ -45,6 +45,12 @@ header {
 	/*visibility: hidden;*/
 }
 
+.dropDownMenu {
+	display: flex;
+	flex-flow: column wrap;
+	margin-left: 16px;
+}
+
 main {
 	margin: 12px;
 }
@@ -63,6 +69,14 @@ a:active {
 
 .hidden {
 	display: none;
+}
+
+.hidden2 {
+	visibility: hidden;
+}
+
+.fullHeight {
+	height: 100vh;
 }
 
 @media (min-width: 768px) {
