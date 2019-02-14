@@ -13,6 +13,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "autoprefixer": "^9.4.7",
+    "postcss-modules": "^1.4.1",
     "react": ">=15",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
