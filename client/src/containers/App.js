@@ -75,11 +75,17 @@ class App extends Component {
         <div className="App">
           <header>
             <nav>
-              <Link to="/questions" className={styles.navLogo}>Front End Interview</Link>
-              <Link to="/questions" className={styles.navLink}>Questions</Link>
-              <Link to="/tests" className={styles.navLink}>Tests</Link>
-              <Link to="/tests/new" className={styles.navLink}>New Test</Link>
-              <Link to="/login" className={styles.navLink}>Login</Link>
+              <div className={styles.hamburger}>&#9776;</div>
+              <div className={styles.logo}>
+                <Link to="/questions" className={styles.navLogo}>Front End Interview</Link>
+              </div>
+              <div className={styles.navLinksList}>
+                <Link to="/questions" className={styles.navLink}>Questions</Link>
+                <Link to="/tests" className={styles.navLink}>Tests</Link>
+                <Link to="/tests/new" className={styles.navLink}>New Test</Link>
+                <Link to="/login" className={styles.navLink}>Login</Link>
+              </div>
+              <div className={styles.navPlaceholder}>&#8853;</div>
             </nav>
           </header>
 

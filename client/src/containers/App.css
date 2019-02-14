@@ -16,18 +16,33 @@ header {
 }
 
 nav {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
 
+.hamburger {
+
+}
+
+.navLinksList {
+	display: none;
 }
 
 .navLogo {
 	font-family: 'Marvel', sans-serif;
 	/*color: ;*/
 	font-size: 1.3em;
-
 }
 
 .navLink {
 	padding: 0 8px;
+}
+
+.navPlaceholder {
+	margin-top: -8px;
+	font-size: 1.5em;
+	/*visibility: hidden;*/
 }
 
 main {
@@ -45,3 +60,44 @@ a:active {
 	text-decoration: underline;
 	color: #000000;
 }
+
+@media (min-width: 768px) {
+
+	nav {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+	}
+
+	.hamburger {
+		display: none;
+	}
+
+	.logo {
+
+	}
+
+	.navLogo {
+		padding-right: 24px;
+	}
+
+	.navLinksList {
+		display: flex;
+	}
+
+
+	.navLink {
+		padding: 0 16px;
+	}
+
+	.navPlaceholder {
+		display: none;
+	}
+
+
+}
+
+@media (min-width: 992px) {
+
+}
+
