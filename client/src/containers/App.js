@@ -73,53 +73,57 @@ class App extends Component {
       <Router>
         <div className="App">
           <header>
-            <Link to="/questions" className="nav_link">Questions</Link>
-            <Link to="/tests" className="nav_link">Tests</Link>
-            <Link to="/tests/new" className="nav_link">New Test</Link>
-            <Link to="/login" className="nav_link">Login</Link>
+            <nav>
+              <Link to="/questions" className="nav-logo">Front End Interview</Link>
+              <Link to="/questions" className="nav-link">Questions</Link>
+              <Link to="/tests" className="nav-link">Tests</Link>
+              <Link to="/tests/new" className="nav-link">New Test</Link>
+              <Link to="/login" className="nav-link">Login</Link>
+            </nav>
           </header>
 
-          <Switch>
+          <main>
+            <Switch>
 
-            <Route exact path="/questions" render={() => (
-              <Questions />
-            )} />
+              <Route exact path="/questions" render={() => (
+                <Questions />
+              )} />
 
-            <Route exact path="/tests" render={() => (
-              <Tests />
-            )} />
+              <Route exact path="/tests" render={() => (
+                <Tests />
+              )} />
 
-            <Route exact path="/tests/question/:id" render={({ match }) => (
-              <TestQuestion match={match}
-                remainingTime={this.state.remainingTime}
-              />
-            )} />
+              <Route exact path="/tests/question/:id" render={({ match }) => (
+                <TestQuestion match={match}
+                  remainingTime={this.state.remainingTime}
+                />
+              )} />
 
-            <Route exact path="/tests/new" render={() => (
-              <TestForm />
-            )} />
+              <Route exact path="/tests/new" render={() => (
+                <TestForm />
+              )} />
 
-            <Route exact path="/tests/current" render={() => (
-              <TestSummary startCountdownTimer={this.startCountdownTimer}
-                remainingTime={this.state.remainingTime}
-                stopCountdownTimer={this.stopCountdownTimer}
-              />
-            )} />
-   
-            <Route exact path="/tests/:test_id" render={({ match }) => (
-              <TestSummary match={match} />
-            )} />
+              <Route exact path="/tests/current" render={() => (
+                <TestSummary startCountdownTimer={this.startCountdownTimer}
+                  remainingTime={this.state.remainingTime}
+                  stopCountdownTimer={this.stopCountdownTimer}
+                />
+              )} />
+     
+              <Route exact path="/tests/:test_id" render={({ match }) => (
+                <TestSummary match={match} />
+              )} />
 
-            <Route exact path="/register" render={() => (
-              <Registration />
-            )} />
+              <Route exact path="/register" render={() => (
+                <Registration />
+              )} />
 
-            <Route exact path="/login" render={() => (
-              <Login />
-            )} />
-
-
-          </Switch>          
+              <Route exact path="/login" render={() => (
+                <Login />
+              )} />
+            </Switch> 
+          </main>
+         
 
         </div>
       </Router>
