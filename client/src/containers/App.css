@@ -39,7 +39,7 @@ nav {
 	padding: 0 8px;
 }
 
-.navPlaceholder {
+.navAddTestIcon {
 	margin-top: -8px;
 	font-size: 1.5em;
 	/*visibility: hidden;*/
@@ -90,7 +90,7 @@ a:active {
 		padding: 0 16px;
 	}
 
-	.navPlaceholder {
+	.navAddTestIcon {
 		display: none;
 	}
 
