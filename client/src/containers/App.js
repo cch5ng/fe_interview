@@ -10,7 +10,6 @@ import Registration from '../containers/auth/Registration';
 import Login from '../containers/auth/Login';
 import { fetchUpdateTest } from '../containers/tests/TestActions';
 import './App.css';
-//import ('./App.css');
 //import Nav from './Nav';
 
 class App extends Component {
