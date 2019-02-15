@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Link, withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import classNames from 'classnames/bind';
 import { startTest, fetchUpdateTest, fetchTestById } from './TestActions';
 import { dictToRandomAr, getPrettyTime } from '../../utils/helper';
 import globalStyles from '../App.css';
@@ -9,6 +10,7 @@ import testStyles from './Tests.css';
 
 let styles = {};
 Object.assign(styles, globalStyles, testStyles);
+let cx = classNames.bind(styles);
 
 class TestSummary extends Component {
 
@@ -86,33 +88,29 @@ class TestSummary extends Component {
 		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
 		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
 		let prettyTotalTime = curTestObj ? getPrettyTime(curTestObj.time_total) : '';
+		// TODO is timeRemaining used?
 		let timeRemaining = curTestObj && curTestObj.time_remaining ? curTestObj.time_remaining : null;
+
 		let timeTaken = curTestObj ? curTestObj.time_total - timeRemaining : null;
 		let curTestQuestionsCount = curTestObj && curTestObj.questions ? Object.keys(curTestObj.questions).length : 0;
 
-/*
-	TODO
-	time taken: time_total - time_remaining => prettified
-	skipped questions: where status === 'skipped' or 'not_visited'
-*/
-
-/*
-						<React.Fragment key={displayOrder}>
-								<div className="question_num">{displayOrder} (id {question.id})</div>
-								<div className="question_status">{question.status}</div>
-								<Link to={curQuestionUrl}>
-									<div className="link">Go</div>
-								</Link>
-						</React.Fragment>
-*/
+    let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
 
 		return (
 			<div>
 
-				<h1>Test Summary</h1>
+				{(status === 'initialized' || status === 'completed') && (
+					<h1>Test Summary</h1>
+				)}
 
 				{status === 'active' && (
-					<h1>Remaining Time {getPrettyTime(this.props.remainingTime)} </h1> 
+					<div className={styles.testSummaryHeading}>
+						<h1>Test Summary</h1>
+						<div className={displayAlarm ? [styles.countdownDisplay, styles.countdownAlarm].join(' ') : styles.countdownDisplay}>
+							<p>{getPrettyTime(this.props.remainingTime)}</p>
+							<p>remaining</p>
+						</div> 
+					</div>
 				)}
 
 				{curTestObj && (status === 'initialized' || status === 'active') && (
