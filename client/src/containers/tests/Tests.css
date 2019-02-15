@@ -5,6 +5,22 @@
 	/*color: #4c4c4c;*/
 }
 
+.testSummaryHeading {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+
+.countdownDisplay {
+	background-color: #93d78b;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.countdownAlarm {
+	background-color: #d97f7f;
+}
+
 .question {
 	margin-top: 8px;
 	padding-top: 8px;
