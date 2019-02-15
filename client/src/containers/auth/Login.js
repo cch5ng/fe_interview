@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchLogin } from './AuthActions';
+import styles from '../App.css';
 
 const initState = {
 	email: '',
@@ -60,28 +61,33 @@ class Login extends Component {
 				<h1>Login</h1>
 
 					<form>
-						<div>
+						<div className={styles.formGroup}>
 							<label>
 								Email
-
-								<input type="email" name="email"
-									value={this.state.email}
-									onChange={this.handleInputChange} />
-
 							</label>
+							<input type="email" name="email"
+								value={this.state.email}
+								onChange={this.handleInputChange} />
 						</div>
 
-						<div>
+						<div className={styles.formGroup}>
 							<label>
 								Password
-								<input type="password" name="password"
-									value={this.state.password}
-									onChange={this.handleInputChange} />
-
 							</label>
+							<input type="password" name="password"
+								value={this.state.password}
+								onChange={this.handleInputChange} />
 						</div>
 
-						<button onClick={this.submitForm}>Register</button>
+						<div className={styles.buttonGroup}>
+							<div className={styles.leftButtonGroup}>
+								<button onClick={this.submitForm}>Login</button>
+							</div>
+							<p>Need an account? <NavLink to="/register" className={styles.linkButton}>Register</NavLink></p>
+						</div>
+
+
+						
 					</form>
 
 			</div>
