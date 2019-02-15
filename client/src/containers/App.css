@@ -5,7 +5,7 @@
 }
 
 body {
-	font-family: 'Cairo', sans-serif;
+	font-family: 'Nunito', sans-serif;
 }
 
 header {
@@ -87,6 +87,7 @@ a:active {
 	background-color: #bee3e3;
 	border-radius: 5px;
 	padding: 0 8px;
+	margin-left: 6px;
 }
 
 .linkButton:hover,
@@ -97,7 +98,16 @@ a:active {
 }
 
 h1 {
+	margin-bottom: 18px;
 	font-size: 1.5em;
+}
+
+h2 {
+	font-size: 1.2em;
+}
+
+.bold {
+	font-weight: bolder;
 }
 
 /* form styling */
