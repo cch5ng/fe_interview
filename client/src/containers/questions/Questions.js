@@ -75,7 +75,7 @@ class Questions extends Component {
 
 		return (
 			<div>
-				<h2>All Questions</h2>
+				<h1>All Questions</h1>
 
 				{categories.map(category => 
 					(<div key={category}>
