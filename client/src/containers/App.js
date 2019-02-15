@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import Tests from '../containers/tests/Tests';
@@ -11,8 +11,11 @@ import Registration from '../containers/auth/Registration';
 import Login from '../containers/auth/Login';
 import { fetchUpdateTest } from '../containers/tests/TestActions';
 import styles from './App.css';
+//import globalStyles from '../css/globalStyles.css'
 //import Nav from './Nav';
 
+// let styles = {};
+// Object.assign(styles, appStyles, globalStyles);
 let cx = classNames.bind(styles);
 
 class App extends Component {
@@ -95,39 +98,39 @@ class App extends Component {
               <div className={styles.navRow}>
                 <div onClick={this.toggleNavMenuDisplay} className={styles.hamburger}>&#9776;</div>
                 <div className={styles.logo}>
-                  <Link to="/questions" className={styles.navLogo}>Front End Interview</Link>
+                  <NavLink to="/questions" className={styles.navLogo}>Front End Interview</NavLink>
                 </div>
                 <div className={styles.navLinksList}>
-                  <Link to="/questions" className={styles.navLink}>Questions</Link>
-                  <Link to="/tests" className={styles.navLink}>Tests</Link>
-                  <Link to="/tests/new" className={styles.navLink}>New Test</Link>
-                  <Link to="/login" className={styles.navLink}>Login</Link>
+                  <NavLink to="/questions" className={styles.navLink}>Questions</NavLink>
+                  <NavLink to="/tests" className={styles.navLink}>Tests</NavLink>
+                  <NavLink to="/tests/new" className={styles.navLink}>New Test</NavLink>
+                  <NavLink to="/login" className={styles.navLink}>Login</NavLink>
                 </div>
                 <div className={navAddTestIconClass}>
-                  <Link to="/tests/new">&#8853;</Link>
+                  <NavLink to="/tests/new">&#8853;</NavLink>
                 </div>
               </div>
               <div className={dropDownMenuClass}>
-                <Link to="/questions"
+                <NavLink to="/questions"
                   onClick={this.toggleNavMenuDisplay}
                   className={styles.navLinkCol}>
                     Questions
-                </Link>
-                <Link to="/tests"
+                </NavLink>
+                <NavLink to="/tests"
                   onClick={this.toggleNavMenuDisplay}
                   className={styles.navLinkCol}>
                     Tests
-                </Link>
-                <Link to="/tests/new"
+                </NavLink>
+                <NavLink to="/tests/new"
                   onClick={this.toggleNavMenuDisplay}
                   className={styles.navLinkCol}>
                     New Test
-                </Link>
-                <Link to="/login"
+                </NavLink>
+                <NavLink to="/login"
                   onClick={this.toggleNavMenuDisplay}
                   className={styles.navLinkCol}>
                     Login
-                </Link>
+                </NavLink>
               </div>
             </nav>
           </header>
