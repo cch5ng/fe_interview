@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchRegister } from './AuthActions';
+import styles from '../App.css';
 
 const initState = {
 	email: '',
@@ -60,35 +61,36 @@ class Registration extends Component {
 
 
 		return (
+			<div>
+				<h1>Registration</h1>
 
-				<div>
-					<h1>Registration</h1>
+				<form>
+					<div className={styles.formGroup}>
+						<label>
+							New Account Email
+						</label>
+						<input type="email" name="email"
+							value={this.state.email}
+							onChange={this.handleInputChange} />
+					</div>
 
-					<form>
-						<div>
-							<label>
-								New Account Email
+					<div className={styles.formGroup}>
+						<label>
+							Password
+						</label>
+						<input type="password" name="password"
+							value={this.state.password}
+							onChange={this.handleInputChange} />
+					</div>
 
-								<input type="email" name="email"
-									value={this.state.email}
-									onChange={this.handleInputChange} />
-
-							</label>
+					<div className={styles.buttonGroup}>
+						<div className={styles.leftButtonGroup}>
+							<button onClick={this.submitForm}>Register</button>
 						</div>
-
-						<div>
-							<label>
-								Password
-								<input type="password" name="password"
-									value={this.state.password}
-									onChange={this.handleInputChange} />
-
-							</label>
-						</div>
-
-						<button onClick={this.submitForm}>Register</button>
-					</form>
-				</div>
+						<p>Already have an account? <NavLink to="/login" className={styles.linkButton}>Login</NavLink></p>
+					</div>
+				</form>
+			</div>
 		)
 	}
 
