@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startTest, fetchUpdateTest, fetchTestById } from './TestActions';
 import { dictToRandomAr, getPrettyTime } from '../../utils/helper';
+import globalStyles from '../App.css';
+import testStyles from './Tests.css';
+
+let styles = {};
+Object.assign(styles, globalStyles, testStyles);
 
 class TestSummary extends Component {
 
@@ -83,11 +88,22 @@ class TestSummary extends Component {
 		let prettyTotalTime = curTestObj ? getPrettyTime(curTestObj.time_total) : '';
 		let timeRemaining = curTestObj && curTestObj.time_remaining ? curTestObj.time_remaining : null;
 		let timeTaken = curTestObj ? curTestObj.time_total - timeRemaining : null;
+		let curTestQuestionsCount = curTestObj && curTestObj.questions ? Object.keys(curTestObj.questions).length : 0;
 
 /*
 	TODO
 	time taken: time_total - time_remaining => prettified
 	skipped questions: where status === 'skipped' or 'not_visited'
+*/
+
+/*
+						<React.Fragment key={displayOrder}>
+								<div className="question_num">{displayOrder} (id {question.id})</div>
+								<div className="question_status">{question.status}</div>
+								<Link to={curQuestionUrl}>
+									<div className="link">Go</div>
+								</Link>
+						</React.Fragment>
 */
 
 		return (
@@ -103,7 +119,7 @@ class TestSummary extends Component {
 					<div>
 						<h2>Name {curTestObj.name}</h2>
 						<p>Total time {prettyTotalTime}</p>
-						<p>Total Questions {curTestObj.questions.length}</p>
+						<p>Total Questions {curTestQuestionsCount}</p>
 					</div>
 				)}
 
@@ -111,10 +127,9 @@ class TestSummary extends Component {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
 					return (
-						<React.Fragment key={displayOrder}>
-							<div className="question_num">{displayOrder} (id {question.id})</div>
-							<div className="question_status">{question.status}</div>
-						</React.Fragment>
+						<div key={displayOrder} className={styles.question}>
+							Q{displayOrder} {question.status} 
+						</div>
 					)
 				})}
 
@@ -122,23 +137,19 @@ class TestSummary extends Component {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
 					return (
-						<React.Fragment key={displayOrder}>
-								<div className="question_num">{displayOrder} (id {question.id})</div>
-								<div className="question_status">{question.status}</div>
-								<Link to={curQuestionUrl}>
-									<div className="link">Go</div>
-								</Link>
-						</React.Fragment>
+						<div key={displayOrder}
+							className={styles.question}>Q{displayOrder} {question.status} 
+								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
+						</div>								
 					)
 				})}
 
 				{curTestObj && status === 'completed' && (
-					<div>
-						<h2>Name {curTestObj.name}</h2>
-						<p>Time taken {getPrettyTime(timeTaken)} (Total time {prettyTotalTime})</p>
-						<p>Skipped Questions {this.getQuestionsCountByStatus().skipped}</p>
-						<p>Completed Questions {this.getQuestionsCountByStatus().completed}</p>
-						<p>Total Questions {curTestObj.questions ? curTestObj.questions.length: 0}</p>
+					<div className={styles.testSummary}>
+						<h2><span className={styles.bold}>Name</span> {curTestObj.name}</h2>
+						<p><span className={styles.bold}>Time used</span> {getPrettyTime(timeTaken)} / {prettyTotalTime}</p>
+						<p><span className={styles.bold}>Skipped Questions</span> {this.getQuestionsCountByStatus().skipped} / {curTestQuestionsCount}</p>
+						<p><span className={styles.bold}>Completed Questions</span> {this.getQuestionsCountByStatus().completed} / {curTestQuestionsCount}</p>
 					</div>
 				)}
 
@@ -146,24 +157,21 @@ class TestSummary extends Component {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
 					return (
-						<React.Fragment key={displayOrder}>
-								<div className="question_num">{displayOrder} (id {question.id})</div>
-								<div className="question_status">{question.status}</div>
-								<Link to={curQuestionUrl}>
-									<div className="link">Go</div>
-								</Link>
-						</React.Fragment>
+						<div key={displayOrder}
+							className={styles.question}>Q{displayOrder} {question.status} 
+								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
+						</div>								
 					)
 				})}
 
 
 
 				{status === 'initialized' && (
-					<button onClick={this.startTest} >Start</button>
+					<button onClick={this.startTest} className={styles.btnTestSummary}>Start</button>
 				)}
 
 				{status === 'active' && (
-					<button onClick={this.submitTest} >Submit</button>
+					<button onClick={this.submitTest} className={styles.btnTestSummary}>Submit</button>
 				)}
 
 			</div>
