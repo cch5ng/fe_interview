@@ -63,9 +63,12 @@ a:visited {
 
 a:hover,
 a:active {
-	text-decoration: underline;
-	color: #000000;
+	text-decoration: none;
+	color: #666666;
+	/*color: #000000;*/
 }
+
+/* global section */
 
 .hidden {
 	display: none;
@@ -78,6 +81,62 @@ a:active {
 .fullHeight {
 	height: 100vh;
 }
+
+.linkButton {
+	/*border: 2px solid #28a3a3;*/
+	background-color: #bee3e3;
+	border-radius: 5px;
+	padding: 0 8px;
+}
+
+.linkButton:hover,
+.linkButton:active {
+	text-decoration: none;
+	background-color: #93d1d1;
+	/*background-color: #bee3e3;*/
+}
+
+h1 {
+	font-size: 1.5em;
+}
+
+/* form styling */
+
+.formGroup {
+	display: flex;
+	flex-flow: column wrap;
+	margin-bottom: 8px;
+}
+
+label {
+	color: #666666;
+	/*color: #7f7f7f;*/
+	/*color: #4c4c4c;*/
+}
+
+input,
+select {
+	border: 1px solid #7f7f7f;
+	border-radius: 5px;
+	height: 28px;
+	padding-left: 5px;
+	font-size: 0.9em;
+	color: #999999;
+}
+
+button {
+	width: 80px;
+	height: 32px;
+	border: 2px solid #28a3a3;
+	border-radius: 5px;
+	font-size: 0.9em;
+}
+
+button:hover,
+button:active {
+	background-color: #bee3e3;
+}
+
 
 @media (min-width: 768px) {
 
@@ -110,6 +169,37 @@ a:active {
 	.navAddTestIcon,
 	.dropDownMenu {
 		display: none;
+	}
+
+	.formGroup,
+	.buttonGroup {
+		display: flex;
+		flex-flow: row wrap;
+	}
+
+	.buttonGroup {
+		margin-top: 26px;
+	}
+
+	label,
+	.leftButtonGroup {
+		width: 20%;
+		text-align: right;
+		padding-right: 5px;
+	}
+
+	.leftButtonGroup {
+		padding-right: 10px;
+	}
+
+	input[type="text"],
+	input[type="email"],
+	input[type="password"] {
+		width: 70%;
+	}
+
+	input[type="number"] {
+		width: 70px;
 	}
 
 }
