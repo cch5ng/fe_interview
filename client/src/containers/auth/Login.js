@@ -85,9 +85,6 @@ class Login extends Component {
 							</div>
 							<p>Need an account? <NavLink to="/register" className={styles.linkButton}>Register</NavLink></p>
 						</div>
-
-
-						
 					</form>
 
 			</div>
