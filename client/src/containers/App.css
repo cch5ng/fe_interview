@@ -135,13 +135,20 @@ label {
 }
 
 input,
-select {
+select,
+textarea {
 	border: 1px solid #7f7f7f;
 	border-radius: 5px;
 	height: 28px;
 	padding-left: 5px;
 	font-size: 0.9em;
 	color: #999999;
+}
+
+textarea {
+	width: 100%;
+	height: 200px;
+	margin-top: 12px;
 }
 
 button {
@@ -214,7 +221,8 @@ button:active {
 
 	input[type="text"],
 	input[type="email"],
-	input[type="password"] {
+	input[type="password"],
+	textarea {
 		width: 70%;
 	}
 
