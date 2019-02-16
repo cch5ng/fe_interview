@@ -4,6 +4,11 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUpdateTestQuestion } from './TestActions';
 import { getPrettyTime } from '../../utils/helper';
+import globalStyles from '../App.css';
+import testStyles from './Tests.css';
+
+let styles = {};
+Object.assign(styles, globalStyles, testStyles);
 
 class TestQuestion extends Component {
 
@@ -67,11 +72,9 @@ class TestQuestion extends Component {
 	}
 
 	render() {
-		//TODO question detail could also have 2 states (if parent test is active vs completed)
 		let curQuestionId;
 		
 		if (this.props.match) {
-			//console.log('id', this.props.match.params.id);
 			curQuestionId = this.props.match.params.id;
 		}
 
@@ -81,34 +84,45 @@ class TestQuestion extends Component {
 		let curQuestionStatus = curQuestion && curQuestion.status ? curQuestion.status : 'not visited';
 		let curQuestionResponse = curQuestion && curQuestion.response ? curQuestion.response : '';
 		let curQuestionContent = curQuestion && curQuestion.content ? curQuestion.content : '';
+    let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
 
-		console.log('curQuestion', curQuestion);
-		console.log('curQuestionContent', curQuestionContent);
-
-		return (
-			<div>
+/*
 				<h1>Test Question</h1>
 
 				{curTestStatus === 'active' && (
 					<h1>Remaining Time {getPrettyTime(this.props.remainingTime)} </h1> 
 				)}
+*/
+
+		return (
+			<div>
+				{(curTestStatus === 'initialized' || curTestStatus === 'completed') && (
+					<h1>Test Question</h1>
+				)}
 
 				{curTestStatus === 'active' && (
-					<div>
-						<div>Time Left: </div>
+					<React.Fragment>
+						<div className={styles.testSummaryHeading}>
+							<h1>Test Question</h1>
+							<div className={displayAlarm ? [styles.countdownDisplay, styles.countdownAlarm].join(' ') : styles.countdownDisplay}>
+								<p>{getPrettyTime(this.props.remainingTime)}</p>
+								<p>remaining</p>
+							</div> 
+						</div>
+					
+						<div>
+							<h2>Question {curQuestionContent}</h2>
 
-						<h2>Question {curQuestionContent}</h2>
+							<textarea
+								name="curQuestionResponse"
+								value={this.state.curQuestionResponse}
+								onChange={this.handleInputUpdate}
+							></textarea>
 
-						<textarea
-							name="curQuestionResponse"
-							value={this.state.curQuestionResponse}
-							onChange={this.handleInputUpdate}
-						></textarea>
-
-						<button onClick={this.submitQuestion} >Submit</button>
-						<button onClick={this.skipQuestion} >Skip</button>
-
-					</div>
+							<button onClick={this.submitQuestion} >Submit</button>
+							<button onClick={this.skipQuestion} >Skip</button>
+						</div>
+					</React.Fragment>
 				)}
 
 				{curTestStatus === 'completed' && (
