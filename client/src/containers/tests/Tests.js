@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchTests } from './TestActions';
 import { getPrettyTime, getPrettyDate } from '../../utils/helper';
@@ -21,7 +22,9 @@ class Tests extends Component {
 
 	componentDidMount() {
 		let email = this.props.auth && this.props.auth.email ? this.props.auth.email : null;
-		this.props.dispatch(fetchTests({ email }));
+		if (email) {
+			this.props.dispatch(fetchTests({ email }));
+		}
 	}
 
 	getQuestionsMissedCount(questionsAr) {
@@ -64,6 +67,10 @@ class Tests extends Component {
 			testsAr = Object.keys(tests.tests).map(testKey => {
 				return this.props.tests.tests[testKey];
 			})
+		}
+
+		if (this.props.auth && !this.props.auth.email) {
+			return (<Redirect to="/login" />)
 		}
 
 		return (
