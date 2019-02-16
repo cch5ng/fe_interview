@@ -1,0 +1,23 @@
+.testFormCategoriesContainer {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+}
+
+.categoryFormGroup {
+	width: 45%;
+}
+
+
+@media (min-width: 768px) {
+	.labelCategory {
+		width: 55%;
+	}
+
+
+
+	.categoryFormGroup {
+		width: 30%;
+	}
+
+}

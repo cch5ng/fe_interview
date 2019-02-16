@@ -4,6 +4,236 @@
 	box-sizing: border-box;
 }
 
-.nav_link {
+body {
+	font-family: 'Nunito', sans-serif;
+}
+
+header {
+	/*height: 80px;*/
+	
+	background-color: #28a3a3;
+	padding: 10px 12px 12px 12px;
+}
+
+.navRow {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+
+.hamburger {
+
+}
+
+.navLinksList {
+	display: none;
+}
+
+.navLogo {
+	font-family: 'Marvel', sans-serif;
+	/*color: ;*/
+	font-size: 1.3em;
+}
+
+.navLink {
 	padding: 0 8px;
 }
+
+.navAddTestIcon {
+	margin-top: -8px;
+	font-size: 1.5em;
+	/*visibility: hidden;*/
+}
+
+.dropDownMenu {
+	display: flex;
+	flex-flow: column wrap;
+	margin-left: 16px;
+}
+
+main {
+	margin: 12px;
+}
+
+a:link,
+a:visited {
+	text-decoration: none;
+	color: #000000;
+}
+
+a:hover,
+a:active {
+	text-decoration: none;
+	color: #666666;
+	/*color: #000000;*/
+}
+
+/* global section */
+
+.hidden {
+	display: none;
+}
+
+.hidden2 {
+	visibility: hidden;
+}
+
+.fullHeight {
+	height: 100vh;
+}
+
+.linkButton {
+	/*border: 2px solid #28a3a3;*/
+	width: 80px;
+	background-color: #bee3e3;
+	border-radius: 5px;
+	padding: 5px 8px;
+	margin-left: 6px;
+}
+
+.linkButton:hover,
+.linkButton:active {
+	text-decoration: none;
+	background-color: #93d1d1;
+	/*background-color: #bee3e3;*/
+}
+
+h1 {
+	margin-bottom: 18px;
+	font-size: 1.5em;
+}
+
+h2 {
+	font-size: 1.2em;
+}
+
+.bold {
+	font-weight: bolder;
+}
+
+.green {
+	color: #669661; 
+	/*#93d1d1;*/
+}
+
+.red {
+	color: #ad6565; 
+	/*#d97f7f;*/
+}
+
+/* form styling */
+
+.formGroup {
+	display: flex;
+	flex-flow: column wrap;
+	margin-bottom: 8px;
+}
+
+label {
+	color: #666666;
+	/*color: #7f7f7f;*/
+	/*color: #4c4c4c;*/
+}
+
+input,
+select,
+textarea {
+	border: 1px solid #7f7f7f;
+	border-radius: 5px;
+	height: 28px;
+	padding-left: 5px;
+	font-size: 0.9em;
+	color: #999999;
+}
+
+textarea {
+	width: 100%;
+	height: 200px;
+	margin: 12px 0;
+}
+
+button {
+	width: 80px;
+	height: 32px;
+	border: 2px solid #28a3a3;
+	border-radius: 5px;
+	font-size: 0.9em;
+}
+
+button:hover,
+button:active {
+	background-color: #bee3e3;
+}
+
+
+@media (min-width: 768px) {
+
+	.navRow {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+	}
+
+	.hamburger {
+		display: none;
+	}
+
+	.logo {
+
+	}
+
+	.navLogo {
+		padding-right: 24px;
+	}
+
+	.navLinksList {
+		display: flex;
+	}
+
+	.navLink {
+		padding: 0 16px;
+	}
+
+	.navAddTestIcon,
+	.dropDownMenu {
+		display: none;
+	}
+
+	.formGroup,
+	.buttonGroup {
+		display: flex;
+		flex-flow: row wrap;
+	}
+
+	.buttonGroup {
+		margin-top: 26px;
+	}
+
+	label,
+	.leftButtonGroup {
+		width: 20%;
+		text-align: right;
+		padding-right: 5px;
+	}
+
+	.leftButtonGroup {
+		padding-right: 10px;
+	}
+
+	input[type="text"],
+	input[type="email"],
+	input[type="password"],
+	textarea {
+		width: 70%;
+	}
+
+	input[type="number"] {
+		width: 70px;
+	}
+
+}
+
+@media (min-width: 992px) {
+
+}
+

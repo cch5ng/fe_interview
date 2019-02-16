@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import classNames from 'classnames/bind';
 import { startTest, fetchUpdateTest, fetchTestById } from './TestActions';
 import { dictToRandomAr, getPrettyTime } from '../../utils/helper';
+import globalStyles from '../App.css';
+import testStyles from './Tests.css';
+
+let styles = {};
+Object.assign(styles, globalStyles, testStyles);
+let cx = classNames.bind(styles);
 
 class TestSummary extends Component {
 
@@ -17,6 +24,7 @@ class TestSummary extends Component {
 		this.startTest = this.startTest.bind(this);
 		this.submitTest = this.submitTest.bind(this);
 		this.getQuestionsCountByStatus = this.getQuestionsCountByStatus.bind(this);
+		this.getQuestionStatusIconClass = this.getQuestionStatusIconClass.bind(this);
 	}
 
 	componentDidMount() {
@@ -53,7 +61,10 @@ class TestSummary extends Component {
 	}
 
 	getQuestionsCountByStatus() {
-		let questionsCountObj = {};
+		let questionsCountObj = {
+			skipped: 0,
+			completed: 0
+		};
 		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
 
 		randomQuestAr.forEach(question => {
@@ -75,95 +86,132 @@ class TestSummary extends Component {
 		return questionsCountObj;
 	}
 
+	convertStatusToIcon(status) {
+		switch(status) {
+			case 'completed':
+				return {__html: '&#10003;'};
+			case 'skipped':
+				return {__html: '&#10007;'};
+			default:
+				return {__html: '&#10079;'}; 
+		}
+	}
+
+	getQuestionStatusIconClass(status) {
+		switch(status) {
+			case 'completed':
+			case 'not_visited':
+				return [styles.questionStatusIconClass, styles.green].join(' ');
+			case 'skipped':
+				return [styles.questionStatusIconClass, styles.red].join(' ');
+			default:
+				return [styles.questionStatusIconClass, styles.green].join(' ');
+		}		
+	}
+
 	render() {
 		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
 		let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized';
 		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
 		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
 		let prettyTotalTime = curTestObj ? getPrettyTime(curTestObj.time_total) : '';
+		// TODO is timeRemaining used?
 		let timeRemaining = curTestObj && curTestObj.time_remaining ? curTestObj.time_remaining : null;
+
 		let timeTaken = curTestObj ? curTestObj.time_total - timeRemaining : null;
+		let curTestQuestionsCount = curTestObj && curTestObj.questions ? Object.keys(curTestObj.questions).length : 0;
+
+    let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
 
 /*
-	TODO
-	time taken: time_total - time_remaining => prettified
-	skipped questions: where status === 'skipped' or 'not_visited'
+				{status === 'active' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
+					const displayOrder = question.sort_order + 1;
+					let curQuestionUrl = `/tests/question/${question.id}`;
+					return (
+						<div key={displayOrder}
+							className={styles.question}>Q{displayOrder} {question.status} 
+								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
+						</div>								
+					)
+				})}
 */
 
 		return (
 			<div>
-
-				<h1>Test Summary</h1>
+				{(status === 'initialized' || status === 'completed') && (
+					<h1>Test Summary</h1>
+				)}
 
 				{status === 'active' && (
-					<h1>Remaining Time {getPrettyTime(this.props.remainingTime)} </h1> 
+					<div className={styles.testSummaryHeading}>
+						<h1>Test Summary</h1>
+						<div className={displayAlarm ? [styles.countdownDisplay, styles.countdownAlarm].join(' ') : styles.countdownDisplay}>
+							<p>{getPrettyTime(this.props.remainingTime)}</p>
+							<p>remaining</p>
+						</div> 
+					</div>
 				)}
 
 				{curTestObj && (status === 'initialized' || status === 'active') && (
 					<div>
 						<h2>Name {curTestObj.name}</h2>
 						<p>Total time {prettyTotalTime}</p>
-						<p>Total Questions {curTestObj.questions.length}</p>
+						<p>Total Questions {curTestQuestionsCount}</p>
 					</div>
 				)}
 
 				{status === 'initialized' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
-					return (
-						<React.Fragment key={displayOrder}>
-							<div className="question_num">{displayOrder} (id {question.id})</div>
-							<div className="question_status">{question.status}</div>
-						</React.Fragment>
-					)
-				})}
+					let questionStatusIconClass;
 
-				{status === 'active' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
-					const displayOrder = question.sort_order + 1;
-					let curQuestionUrl = `/tests/question/${question.id}`;
 					return (
-						<React.Fragment key={displayOrder}>
-								<div className="question_num">{displayOrder} (id {question.id})</div>
-								<div className="question_status">{question.status}</div>
-								<Link to={curQuestionUrl}>
-									<div className="link">Go</div>
-								</Link>
-						</React.Fragment>
+						<div key={displayOrder} className={styles.question}>
+							Q{displayOrder} 
+							<span dangerouslySetInnerHTML={this.convertStatusToIcon(question.status)}
+								className={this.getQuestionStatusIconClass(question.status)} />
+						</div>
 					)
 				})}
 
 				{curTestObj && status === 'completed' && (
-					<div>
-						<h2>Name {curTestObj.name}</h2>
-						<p>Time taken {getPrettyTime(timeTaken)} (Total time {prettyTotalTime})</p>
-						<p>Skipped Questions {this.getQuestionsCountByStatus().skipped}</p>
-						<p>Completed Questions {this.getQuestionsCountByStatus().completed}</p>
-						<p>Total Questions {curTestObj.questions ? curTestObj.questions.length: 0}</p>
+					<div className={styles.testSummary}>
+						<h2><span className={styles.bold}>Name</span> {curTestObj.name}</h2>
+						<p><span className={styles.bold}>Time used</span> {getPrettyTime(timeTaken)} / {prettyTotalTime}</p>
+						<p><span className={styles.bold}>Skipped Questions</span> {this.getQuestionsCountByStatus().skipped} / {curTestQuestionsCount}</p>
+						<p><span className={styles.bold}>Completed Questions</span> {this.getQuestionsCountByStatus().completed} / {curTestQuestionsCount}</p>
 					</div>
 				)}
 
-				{status === 'completed' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
+				{(status === 'active' || status === 'completed') && curTestObj && randomQuestAr && randomQuestAr.map(question => {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
+					let statusIcon = '';
+
 					return (
-						<React.Fragment key={displayOrder}>
-								<div className="question_num">{displayOrder} (id {question.id})</div>
-								<div className="question_status">{question.status}</div>
-								<Link to={curQuestionUrl}>
-									<div className="link">Go</div>
-								</Link>
-						</React.Fragment>
+						<div key={displayOrder}
+							className={styles.question}>Q{displayOrder}
+								<span dangerouslySetInnerHTML={this.convertStatusToIcon(question.status)} 
+									className={this.getQuestionStatusIconClass(question.status)} />
+								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
+						</div>								
 					)
 				})}
 
 
 
 				{status === 'initialized' && (
-					<button onClick={this.startTest} >Start</button>
+					<button onClick={this.startTest} className={styles.btnTestSummary}>Start</button>
 				)}
 
 				{status === 'active' && (
-					<button onClick={this.submitTest} >Submit</button>
+					<button onClick={this.submitTest} className={styles.btnTestSummary}>Submit</button>
+				)}
+
+				{status === 'completed' && (
+					<div className={[styles.linkButton, styles.btnTestSummaryBack].join(' ')}>
+						<NavLink to="/tests" >Back</NavLink>
+					</div>
 				)}
 
 			</div>
@@ -171,9 +219,9 @@ class TestSummary extends Component {
 	}
 }
 
-function mapStateToProps({ tests }) {
+function mapStateToProps(state) {
 	return {
-		tests
+		tests: state.tests,
 	}
 }
 

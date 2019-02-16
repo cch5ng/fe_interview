@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
+import classNames from 'classnames/bind';
 import { fetchQuestions } from '../questions/QuestionActions';
 import { fetchRandomTest } from '../tests/TestActions';
+import appStyles from '../App.css';
+import testFormStyles from './TestForm.css';
+
+let styles = {};
+Object.assign(styles, appStyles, testFormStyles);
+let cx = classNames.bind(styles);
 
 const questionCategories = [
 	`Coding Questions`,
@@ -163,17 +170,20 @@ class TestForm extends Component {
 
 				<form className="new-test-form">
 
-					<div>
-						<label>Name
-							<input type="text" name="inputTestName"
-								value={this.state.inputTestName}
-								onChange={this.handleInputChange} 
-							/>
+					<div className={styles.formGroup}>
+						<label>
+							Name
 						</label>
+						<input type="text" name="inputTestName"
+							value={this.state.inputTestName}
+							onChange={this.handleInputChange} 
+						/>
 					</div>
 
-					<div>
-						<label>Time per Question (minutes)</label>
+					<div className={styles.formGroup}>
+						<label>
+							Time per Question
+						</label>
 						<select id="select-time-per-question" name="selectTimePerQuestion"
 							value={this.state.selectTimePerQuestion}
 							onChange={this.handleInputChange} 							
@@ -184,30 +194,38 @@ class TestForm extends Component {
 							<option value="600000">10</option>
 							<option value="900000">15</option>
 						</select>
+						(minutes)
 					</div>
 
 					<div>
 						<h2>Number of Questions (by Category)</h2>
 
-						{questionCategories.map(category => {
-							let categoryAr = category.split(' ');
-							const categoryShort = categoryAr[0];
-							const maxQuestionCount = questionsMaxObj ? questionsMaxObj[category] : 0;
+						<div className={styles.testFormCategoriesContainer}>
+							{questionCategories.map(category => {
+								let categoryAr = category.split(' ');
+								const categoryShort = categoryAr[0];
+								const maxQuestionCount = questionsMaxObj ? questionsMaxObj[category] : 0;
+								let formGroupClass = cx({
+						      [styles.formGroup]: true,
+						      [styles.categoryFormGroup]: true
+						    });
 
-							return (
-								<React.Fragment key={category}>
-									<label>{categoryShort} (Max: {maxQuestionCount})
+								return (
+									<div key={category} className={formGroupClass}>
+										<label className={styles.labelCategory}>
+											{categoryShort} (Max: {maxQuestionCount})
+										</label>
 										<input type="number" name={category} 
 											value={this.state[category]}
 											onChange={this.handleInputChange}
 											max={maxQuestionCount}
 											min="0"
+											placeholder={maxQuestionCount}
 										/>
-									</label>
-									<br />
-								</React.Fragment>
-							)
-						})}
+									</div>
+								)
+							})}
+						</div>
 
 					</div>
 

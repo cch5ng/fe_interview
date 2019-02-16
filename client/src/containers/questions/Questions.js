@@ -2,12 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchQuestions } from './QuestionActions';
 
+const categories = [
+	'JavaScript Questions',
+	'CSS Questions',
+	'Fun Questions',
+	'General Questions',
+	'HTML Questions',
+	'Network Questions',
+	'Performance Questions',
+	'Testing Questions',
+	'Coding Questions'
+];
+
 class Questions extends Component {
 
 	constructor(props) {
 		super(props);
 
 		this.getArFromObj = this.getArFromObj.bind(this);
+		this.getQuestionsByCategory = this.getQuestionsByCategory.bind(this);
+		this.renderQuestionsByCategory = this.renderQuestionsByCategory.bind(this);
 	}
 
 	componentDidMount() {
@@ -23,34 +37,61 @@ class Questions extends Component {
 		return resultAr;
 	}
 
+	getQuestionsByCategory(questionsAr) {
+		let questionsByCategoryObj = {};
+
+		categories.forEach(category => {
+		 	let questionsForCategory = [];
+		 	questionsAr.forEach(quest1 => {
+		 		if (quest1.category === category) {
+		 			questionsForCategory.push(quest1)
+		 		}
+		 	})
+
+		 	questionsByCategoryObj[category] = questionsForCategory;
+		})
+
+		return questionsByCategoryObj;
+	}
+
+	renderQuestionsByCategory(category, questionsByCategory) {
+		if (Object.keys(questionsByCategory).length) {
+			return (
+				questionsByCategory[category].map(question =>
+					<React.Fragment key={question.id}>
+						<li>{question.content}</li>
+					</React.Fragment>
+				)
+			)
+		}
+
+		return (<div></div>)
+	}
+
 	render() {
 		let questionsObj = this.props.questions && this.props.questions.questions ? this.props.questions.questions : null;
-		let questionsAr = questionsObj ? this.getArFromObj(questionsObj): [];
+		let questionsAr = questionsObj ? this.getArFromObj(questionsObj): [];		
+		let questionsByCategory = questionsAr && questionsAr.length ? this.getQuestionsByCategory(questionsAr) : {};
+
 		return (
 			<div>
-				<h2>All Questions</h2>
+				<h1>All Questions</h1>
 
-				<ul>
-					{questionsAr.map(question => {
-						return (
-							<React.Fragment key={question.id}>
-								<li>
-									({question.category}) {question.content}
-								</li>
-							</React.Fragment>
-						)
-					})}
+				{categories.map(category => 
+					(<div key={category}>
+						<h3>{category}</h3>
+						{this.renderQuestionsByCategory(category, questionsByCategory)}
+					</div>)
+				)}
 
-				</ul>
 			</div>
 		)
 	}
 }
 
-function mapStateToProps({ questions }) {
-	console.log('questions', questions);
+function mapStateToProps(state) {
 	return {
-		questions
+		questions: state.questions,
 	}
 }
 

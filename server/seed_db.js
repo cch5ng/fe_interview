@@ -52,6 +52,16 @@ let dummyQuestions = [
 		}
 	]
 
+const UserData = [
+	{	email: 'c@c.com',
+		password: 'pwd'
+	},
+	{	email: 'd@d.com',
+		password: 'pwd'
+	}
+];
+
+
 const TestData = [
 	{	name: 'dummy test 1',
 		date_taken: dummyDate,
@@ -79,26 +89,21 @@ const TestData = [
 	}
 ];
 
-TestData.forEach(test => {
-	TestTable.storeTest(test)
-		.then(testId => console.log('testId', testId))
-		.catch(err => console.error('error', err));
-})
-
-const UserData = [
-	{	email: 'c@c.com',
-		password: 'pwd'
-	},
-	{	email: 'd@d.com',
-		password: 'pwd'
-	}
-];
 
 UserData.forEach(user => {
 	FEUserTable.storeUser(user)
-		.then(userId => console.log('userId', userId))
+		.then(userId => {
+			TestData.forEach(test => {
+				TestTable.storeTest(test)
+					.then(testId => console.log('testId', testId))
+					.catch(err => console.error('error', err));
+			});
+			console.log('userId', userId);
+		})
 		.catch(err => console.error('error', err));
 })
+
+
 
 
 console.log('database seeded');
