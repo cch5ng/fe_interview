@@ -28,10 +28,6 @@ class TestQuestion extends Component {
 		this.handleInputUpdate = this.handleInputUpdate.bind(this);
 	}
 
-	componentDidMount() {
-		//this.props.dispatch(fetchQuestions());
-	}
-
 	//event handlers
 	handleInputUpdate(ev) {
 		let response = ev.target.value;
@@ -67,7 +63,6 @@ class TestQuestion extends Component {
 
 		//update redux (question id and response)
 		this.props.dispatch(fetchUpdateTestQuestion(questionData));
-
 		this.props.history.push('/tests/current');
 	}
 
@@ -86,24 +81,16 @@ class TestQuestion extends Component {
 		let curQuestionContent = curQuestion && curQuestion.content ? curQuestion.content : '';
     let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
 
-/*
-				<h1>Test Question</h1>
-
-				{curTestStatus === 'active' && (
-					<h1>Remaining Time {getPrettyTime(this.props.remainingTime)} </h1> 
-				)}
-*/
-
 		return (
 			<div>
 				{(curTestStatus === 'initialized' || curTestStatus === 'completed') && (
-					<h1>Test Question</h1>
+					<h1>Question {curTestObj.questions[curQuestionId].sort_order + 1}</h1>
 				)}
 
 				{curTestStatus === 'active' && (
 					<React.Fragment>
 						<div className={styles.testSummaryHeading}>
-							<h1>Test Question</h1>
+							<h1>Question {curTestObj.questions[curQuestionId].sort_order + 1}</h1>
 							<div className={displayAlarm ? [styles.countdownDisplay, styles.countdownAlarm].join(' ') : styles.countdownDisplay}>
 								<p>{getPrettyTime(this.props.remainingTime)}</p>
 								<p>remaining</p>
@@ -111,7 +98,7 @@ class TestQuestion extends Component {
 						</div>
 					
 						<div>
-							<h2>Question {curQuestionContent}</h2>
+							<h2>{curQuestionContent}</h2>
 
 							<textarea
 								name="curQuestionResponse"
@@ -119,8 +106,10 @@ class TestQuestion extends Component {
 								onChange={this.handleInputUpdate}
 							></textarea>
 
-							<button onClick={this.submitQuestion} >Submit</button>
-							<button onClick={this.skipQuestion} >Skip</button>
+							<div className={styles.btnQuestionSection}>
+								<button onClick={this.submitQuestion} className={styles.btnQuestion}>Submit</button>
+								<button onClick={this.skipQuestion} className={styles.btnQuestion}>Skip</button>
+							</div>
 						</div>
 					</React.Fragment>
 				)}
@@ -145,9 +134,9 @@ class TestQuestion extends Component {
 	}
 }
 
-function mapStateToProps({ tests }) {
+function mapStateToProps(state) {
 	return {
-		tests
+		tests: state.tests,
 	}
 }
 
