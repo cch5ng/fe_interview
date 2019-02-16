@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchTests } from './TestActions';
 import { getPrettyTime, getPrettyDate } from '../../utils/helper';
+import globalStyles from '../App.css';
+import testStyles from './Tests.css';
+
+let styles = {};
+Object.assign(styles, globalStyles, testStyles);
 
 class Tests extends Component {
 
@@ -11,6 +16,7 @@ class Tests extends Component {
 
 		this.getQuestionsMissedCount = this.getQuestionsMissedCount.bind(this);
 		this.getAvgTimePerQuestion = this.getAvgTimePerQuestion.bind(this);
+		this.prettyMissedQuestionsStr = this.prettyMissedQuestionsStr.bind(this);
 	}
 
 	componentDidMount() {
@@ -31,7 +37,6 @@ class Tests extends Component {
 	}
 
 	getAvgTimePerQuestion(totalTime, completedQuestCount) {
-
 		if (completedQuestCount === 0) {
 			return 0;
 		}
@@ -39,6 +44,16 @@ class Tests extends Component {
 		let avgTime = totalTime / completedQuestCount;
 
 		return getPrettyTime(avgTime);
+	}
+
+	prettyMissedQuestionsStr(missedQuestionsCnt) {
+		if (missedQuestionsCnt === 0) {
+			return 'all questions completed 😆🍕';
+		}
+		if (missedQuestionsCnt === 1) {
+			return '1 question not completed';
+		}
+		return `${missedQuestionsCnt} questions not completed 😬`;
 	}
 
 	render() {
@@ -51,29 +66,24 @@ class Tests extends Component {
 			})
 		}
 
-		//TODO figure out if useful
-		//	<li>Time per question {test.questions ? this.getAvgTimePerQuestion(test.time_total, completedQuestionsCount): null}</li>
-
 		return (
 			<div>
-				<h2>All Tests</h2>
+				<h1>All Tests</h1>
 
 				{testsAr.map(test => {
 					const missedQuestions = test.questions ? this.getQuestionsMissedCount(test.questions) : null;
 					const completedQuestionsCount = test.questions ? test.questions.length - missedQuestions : null;
 					const testSummaryUrl = `/tests/${test.id}`;
-					console.log('testSummaryUrl', testSummaryUrl);
 
 					return (
-						<div className="test" key={test.id} >
+						<div className={styles.test} key={test.id} >
 							<Link to={testSummaryUrl}>
 								<ul>
-									<li>Name {test.name}</li>
-									<li>Date {getPrettyDate(test.date_taken)}</li>
-									<li>{test.questions ? test.questions.length : null} questions</li>
-									<li>{missedQuestions} questions missed</li>
-									<li>Time Taken {getPrettyTime(test.time_total - test.time_remaining)}</li>
-									<li>Total Time {getPrettyTime(test.time_total)}</li>
+									<li className={[styles.testsListDetail, styles.testName].join(' ')}>{test.name}</li>
+									<li className={styles.testsListDetail}>Created on {getPrettyDate(test.date_taken)}</li>
+									<li className={styles.testsListDetail}>{test.questions ? test.questions.length : null} questions</li>
+									<li className={styles.testsListDetail}>{this.prettyMissedQuestionsStr(missedQuestions)}</li>
+									<li className={styles.testsListDetail}>Completed in {getPrettyTime(test.time_total - test.time_remaining)} / {getPrettyTime(test.time_total)}</li>
 								</ul>
 							</Link>
 						</div>
@@ -82,7 +92,6 @@ class Tests extends Component {
 			</div>
 		)
 	}
-
 }
 
 function mapStateToProps(state) {
