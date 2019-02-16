@@ -27,6 +27,10 @@
 	border-top: 1px dashed #52b5b5;
 }
 
+.question:last-of-type {
+	margin-bottom: 16px;
+}
+
 .questionStatusIconClass {
 	font-size: 1.2em;
 	padding: 0 5px 0 10px;
@@ -34,6 +38,11 @@
 
 .btnTestSummary {
 	margin-top: 8px;
+}
+
+.btnTestSummaryBack {
+	text-align: center;
+	margin-top: 16px;
 }
 
 /* Question Detail */

@@ -208,6 +208,12 @@ class TestSummary extends Component {
 					<button onClick={this.submitTest} className={styles.btnTestSummary}>Submit</button>
 				)}
 
+				{status === 'completed' && (
+					<div className={[styles.linkButton, styles.btnTestSummaryBack].join(' ')}>
+						<NavLink to="/tests" >Back</NavLink>
+					</div>
+				)}
+
 			</div>
 		)
 	}
