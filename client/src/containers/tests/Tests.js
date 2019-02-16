@@ -20,8 +20,8 @@ class Tests extends Component {
 	}
 
 	componentDidMount() {
-		let user_id = this.props.auth && this.props.auth.user_id ? this.props.auth.user_id : null;
-		this.props.dispatch(fetchTests({ user_id }));
+		let email = this.props.auth && this.props.auth.email ? this.props.auth.email : null;
+		this.props.dispatch(fetchTests({ email }));
 	}
 
 	getQuestionsMissedCount(questionsAr) {

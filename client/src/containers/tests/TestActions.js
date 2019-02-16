@@ -28,7 +28,7 @@ export function receiveAllTests(tests) {
 	}
 }
 
-export const fetchTests = ({ user_id }) => dispatch => {
+export const fetchTests = ({ email }) => dispatch => {
 	let jwt = localStorage.getItem('fe_interview_session');
 	jwt = "bearer " + jwt;
 
@@ -39,7 +39,7 @@ export const fetchTests = ({ user_id }) => dispatch => {
             "Content-Type": "application/json",
             "Authorization": jwt
         },
-        body: JSON.stringify({ user_id }),
+        body: JSON.stringify({ email }),
 			}
 		)
 		.then(resp => resp.json())
