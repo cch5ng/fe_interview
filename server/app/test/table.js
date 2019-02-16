@@ -31,12 +31,13 @@ class TestTable {
 		})
 	}
 
-	static getAllTests({ user_id }) {
+	static getAllTests({ email }) {
 		return new Promise((resolve, reject) => {
 			pool.query(
-				`SELECT test.id, time_total, time_remaining, name, date_taken, status from test
-					WHERE user_id = $1`,
-				[user_id],
+				`SELECT test.id, test.time_total, test.time_remaining, test.name, test.date_taken, test.status, fe_user.email from test
+					INNER JOIN fe_user ON test.user_id = fe_user.id
+					WHERE fe_user.email = $1`,
+				[email],
 				(err, resp) => {
 					if (err) return reject(err);
 
