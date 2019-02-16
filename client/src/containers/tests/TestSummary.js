@@ -213,9 +213,9 @@ class TestSummary extends Component {
 	}
 }
 
-function mapStateToProps({ tests }) {
+function mapStateToProps(state) {
 	return {
-		tests
+		tests: state.tests,
 	}
 }
 
