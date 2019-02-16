@@ -61,7 +61,10 @@ class TestSummary extends Component {
 	}
 
 	getQuestionsCountByStatus() {
-		let questionsCountObj = {};
+		let questionsCountObj = {
+			skipped: 0,
+			completed: 0
+		};
 		let randomQuestAr = this.props.tests && this.props.tests.curTest && this.props.tests.curTest.questions ? dictToRandomAr(this.props.tests.curTest.questions) : [];
 
 		randomQuestAr.forEach(question => {
