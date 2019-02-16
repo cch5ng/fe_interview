@@ -31,7 +31,7 @@ router.post('/login', (req, res, next) => {
 			if (result.userId) {
 				if (process.env.JWT_SECRET) {
 					var token = jwt.sign({ userId: result.userId }, process.env.JWT_SECRET, { expiresIn: '72h' });
-					res.json({jwt: token, user_id: result.userId });
+					res.json({jwt: token, email });
 				} else {
 					res.json({error: 'error getting token'});
 				}
