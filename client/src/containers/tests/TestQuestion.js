@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUpdateTestQuestion } from './TestActions';
 import { getPrettyTime } from '../../utils/helper';
@@ -122,10 +122,12 @@ class TestQuestion extends Component {
 						<textarea
 							name="curQuestionResponse"
 							value={this.state.curQuestionResponse}
-							readOnly="true"
+							disabled
 						></textarea>
 
-						<Link to="/tests/current" >Back</Link>
+						<div>
+							<span className={styles.linkButton}><NavLink to="/tests/current" >Back</NavLink></span>
+						</div>
 					</div>
 				)}
 
