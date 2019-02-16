@@ -38,12 +38,8 @@ class Registration extends Component {
 
 		let login = {email: this.state.email, password: this.state.password};
 
-		//call action to send to BE
 		this.props.dispatch(fetchRegister(login));
 		this.resetState();
-
-		//TODO see if alt way to do this
-		//this.props.history.push('/login');
 	}
 
 	resetState() {
@@ -58,7 +54,6 @@ class Registration extends Component {
 				<Redirect to="/login" />
 			)
 		}
-
 
 		return (
 			<div>
