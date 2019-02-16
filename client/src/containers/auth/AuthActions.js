@@ -64,7 +64,7 @@ export function requestLogin() {
 export function receiveLogin(result) {
 	let jwt = '';
 	let loginError = '';
-	let user_id = null;
+	let email = null;
 
 	if (result.jwt) {
 		jwt = result.jwt;
@@ -74,8 +74,8 @@ export function receiveLogin(result) {
 		localStorage.setItem('fe_interview_session', jwt);
 	}
 
-	if (result.user_id) {
-		user_id = result.user_id;
+	if (result.email) {
+		email = result.email;
 	}
 
 	if (result.error) {
@@ -85,7 +85,7 @@ export function receiveLogin(result) {
 	return {
 		type: RECEIVE_LOGIN,
 		jwt,
-		user_id,
+		email,
 		loginError,
 		retrieving: false
 	}
