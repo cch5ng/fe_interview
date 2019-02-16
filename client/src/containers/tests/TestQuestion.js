@@ -116,9 +116,7 @@ class TestQuestion extends Component {
 
 				{curTestStatus === 'completed' && (
 					<div>
-
-						<h2>Question {curTestObj.name}</h2>
-
+						<h2>{curQuestionContent}</h2>
 						<textarea
 							name="curQuestionResponse"
 							value={this.state.curQuestionResponse}
