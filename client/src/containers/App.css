@@ -110,6 +110,16 @@ h2 {
 	font-weight: bolder;
 }
 
+.green {
+	color: #669661; 
+	/*#93d1d1;*/
+}
+
+.red {
+	color: #ad6565; 
+	/*#d97f7f;*/
+}
+
 /* form styling */
 
 .formGroup {

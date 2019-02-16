@@ -24,6 +24,7 @@ class TestSummary extends Component {
 		this.startTest = this.startTest.bind(this);
 		this.submitTest = this.submitTest.bind(this);
 		this.getQuestionsCountByStatus = this.getQuestionsCountByStatus.bind(this);
+		this.getQuestionStatusIconClass = this.getQuestionStatusIconClass.bind(this);
 	}
 
 	componentDidMount() {
@@ -82,6 +83,29 @@ class TestSummary extends Component {
 		return questionsCountObj;
 	}
 
+	convertStatusToIcon(status) {
+		switch(status) {
+			case 'completed':
+				return {__html: '&#10003;'};
+			case 'skipped':
+				return {__html: '&#10007;'};
+			default:
+				return {__html: '&#10079;'}; 
+		}
+	}
+
+	getQuestionStatusIconClass(status) {
+		switch(status) {
+			case 'completed':
+			case 'not_visited':
+				return [styles.questionStatusIconClass, styles.green].join(' ');
+			case 'skipped':
+				return [styles.questionStatusIconClass, styles.red].join(' ');
+			default:
+				return [styles.questionStatusIconClass, styles.green].join(' ');
+		}		
+	}
+
 	render() {
 		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
 		let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized';
@@ -96,9 +120,21 @@ class TestSummary extends Component {
 
     let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
 
+/*
+				{status === 'active' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
+					const displayOrder = question.sort_order + 1;
+					let curQuestionUrl = `/tests/question/${question.id}`;
+					return (
+						<div key={displayOrder}
+							className={styles.question}>Q{displayOrder} {question.status} 
+								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
+						</div>								
+					)
+				})}
+*/
+
 		return (
 			<div>
-
 				{(status === 'initialized' || status === 'completed') && (
 					<h1>Test Summary</h1>
 				)}
@@ -124,21 +160,14 @@ class TestSummary extends Component {
 				{status === 'initialized' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
+					let questionStatusIconClass;
+
 					return (
 						<div key={displayOrder} className={styles.question}>
-							Q{displayOrder} {question.status} 
+							Q{displayOrder} 
+							<span dangerouslySetInnerHTML={this.convertStatusToIcon(question.status)}
+								className={this.getQuestionStatusIconClass(question.status)} />
 						</div>
-					)
-				})}
-
-				{status === 'active' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
-					const displayOrder = question.sort_order + 1;
-					let curQuestionUrl = `/tests/question/${question.id}`;
-					return (
-						<div key={displayOrder}
-							className={styles.question}>Q{displayOrder} {question.status} 
-								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
-						</div>								
 					)
 				})}
 
@@ -151,12 +180,16 @@ class TestSummary extends Component {
 					</div>
 				)}
 
-				{status === 'completed' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
+				{(status === 'active' || status === 'completed') && curTestObj && randomQuestAr && randomQuestAr.map(question => {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
+					let statusIcon = '';
+
 					return (
 						<div key={displayOrder}
-							className={styles.question}>Q{displayOrder} {question.status} 
+							className={styles.question}>Q{displayOrder}
+								<span dangerouslySetInnerHTML={this.convertStatusToIcon(question.status)} 
+									className={this.getQuestionStatusIconClass(question.status)} />
 								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
 						</div>								
 					)
