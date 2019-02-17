@@ -1,3 +1,5 @@
+// renamed so it would not conflict with jest test file naming
+
 const { Router } = require('express');
 const passport = require('passport');
 const TestTable = require('../test/table');
