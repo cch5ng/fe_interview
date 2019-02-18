@@ -10,7 +10,7 @@ describe('helper getPrettyTime()', () => {
 
 	it('should convert hours/minutes', () => {
 		const timeMs2 = 4800000;
-		const timeStr2 = `1 hr, 20 min`;
+		const timeStr2 = `1 hr:20 min`;
 		expect(getPrettyTime(timeMs2)).toEqual(timeStr2);
 	});
 
