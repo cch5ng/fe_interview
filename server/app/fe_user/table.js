@@ -85,6 +85,28 @@ class FEUserTable {
 			)
 		})
 	}
+
+	//verifies id in jwt
+	static getIdByEmail({ email }) {
+		return new Promise((resolve, reject) => {
+			pool.query(
+				`SELECT id
+					FROM fe_user
+					WHERE email = $1`,
+				[email],
+				(err, resp) => {
+					if (err) {
+						return reject(err)
+					}
+					if (resp) {
+						resolve(resp.rows[0].id)	
+					} else {
+						resolve({error: 'user cannot be found'});
+					}
+				}
+			)
+		})
+	}
 }
 
 module.exports = FEUserTable;
