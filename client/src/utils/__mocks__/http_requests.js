@@ -10,7 +10,7 @@ const questionsData = [
 	{
 		category: "CSS Questions",
 		child_content: null,
-		content: "What's the difference between "resetting" and "normalizing" CSS? Which would you choose, and why?",
+		content: "What's the difference between 'resetting' and 'normalizing' CSS? Which would you choose, and why?",
 		id: 56,
 		sort_order: 1
 	}
