@@ -19,7 +19,7 @@ const questionsData = [
 const Questions = {
 	getAll: () => {
 		return new Promise((resolve, reject) => {
-			resolve(questionsData)
+			resolve(questionsData);
 
 		})
 
