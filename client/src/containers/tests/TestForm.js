@@ -80,7 +80,7 @@ class TestForm extends Component {
 		ev.preventDefault();
 
 		let testData = {};
-		let user_id = this.props.auth && this.props.auth.user_id ? this.props.auth.user_id : null;
+		let email = this.props.auth && this.props.auth.email ? this.props.auth.email : null;
 
 		// build questionsData
 		let questionCountsObj = this.getQuestionsObjFromAr(questionCategories);
@@ -89,7 +89,7 @@ class TestForm extends Component {
 		testData.name = this.state.inputTestName;
 		testData.time_total = this.getTotalTestTime(); //TODO need to calculat this;
 		testData.date_taken = null;
-		testData.user_id = user_id;
+		testData.email = email;
 
 		// (axn) save initial data to redux
 		this.props.dispatch(fetchRandomTest(questionCountsObj, testData));
