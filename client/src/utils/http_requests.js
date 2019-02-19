@@ -1,5 +1,6 @@
 const API_ROOT = 'http://localhost:3000/';
 const QUESTIONS_ALL = 'question/all';
+const QUESTIONS_RANDOM = 'question/random';
 const AUTH_REGISTER = 'auth/register';
 const AUTH_LOGIN = 'auth/login';
 
@@ -45,6 +46,9 @@ const requests = {
 const Questions = {
 	getAll: () => {
 		return requests.get(`${API_ROOT}${QUESTIONS_ALL}`);
+	},
+	getRandomQuestions: (body) => {
+		return requests.post(`${API_ROOT}${QUESTIONS_RANDOM}`, body)
 	}
 }
 
