@@ -22,18 +22,18 @@ describe('Test Actions', () => {
 						name: "d's test ",
 						questions: [
 							{
-								content: "When building a new web site or maintaining one, can you explain some techniques you have used to increase performance?"
-								id: 93
-								response: null
-								sort_order: 1
-								status: "not_visited"			
+								content: "When building a new web site or maintaining one, can you explain some techniques you have used to increase performance?",
+								id: 93,
+								response: null,
+								sort_order: 1,
+								status: "not_visited"	,		
 							},
 							{
-								content: "What is Flash of Unstyled Content? How do you avoid FOUC?"
-								id: 109
-								response: ""
-								sort_order: 0
-								status: "completed"
+								content: "What is Flash of Unstyled Content? How do you avoid FOUC?",
+								id: 109,
+								response: "",
+								sort_order: 0,
+								status: "completed",
 							}		
 						],
 						status: "completed",
@@ -46,10 +46,10 @@ describe('Test Actions', () => {
 
 		it('should return', () => {
 			const store = mockStore({ tests: {} })
-	    return store.dispatch(fetchTests({email: 'z@z.com', token: 'dummy'})).then(() => {
-	      expect(store.getActions()).toEqual(expectedActions)
-	    })
-
+	    return store.dispatch(fetchTests({email: 'z@z.com', token: 'dummy'}))
+		    .then(() => {
+		      expect(store.getActions()).toEqual(expectedActions)
+		    })
 		})
 
 		// it('should handle error', () => {
