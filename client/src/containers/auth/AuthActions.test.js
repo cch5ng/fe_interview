@@ -43,7 +43,39 @@ describe('Async Auth Actions', () => {
     return store.dispatch(fetchRegister()).then(() => {
       expect(store.getActions()).toEqual(expectedActionsFail)
     })
-		
 	})
+
+	const expectedLoginActions = [
+    { type: REQUEST_LOGIN, retrieving: true },
+    { type: RECEIVE_LOGIN, retrieving: false,
+			jwt: 'dummy token',
+			email: 'zzz@z.com',
+			loginError: ''
+		}
+  ];
+
+	it('fetch login should return', () => {
+		const store = mockStore({ auth: {} })
+    return store.dispatch(fetchLogin(registration)).then(() => {
+      expect(store.getActions()).toEqual(expectedLoginActions)
+    })
+	})
+
+	const expectedLoginActionsFail = [
+    { type: REQUEST_LOGIN, retrieving: true },
+    { type: RECEIVE_LOGIN, retrieving: false,
+			jwt: '',
+			email: null,
+			loginError: 'login could not be completed'
+		}
+  ];
+
+	it('fetch login should handle error', () => {
+		const store = mockStore({ auth: {} })
+    return store.dispatch(fetchLogin()).then(() => {
+      expect(store.getActions()).toEqual(expectedLoginActionsFail)
+    })
+	})
+
 
 })
