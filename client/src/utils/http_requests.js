@@ -1,5 +1,7 @@
 const API_ROOT = 'http://localhost:3000/';
 const QUESTIONS_ALL = 'question/all';
+const AUTH_REGISTER = 'auth/register';
+const AUTH_LOGIN = 'auth/login';
 
 const requests = {
   get: url => {
@@ -10,11 +12,25 @@ const requests = {
 					//console.error('fetch error', err));
   	})
   },
-  // post: (url, body) => {
-  //   superagent
-  //     .post(`${API_ROOT}${url}`, body)
-  //     .end(handleErrors)
-  //     .then(responseBody)
+  post: (url, body) => {
+  	return new Promise((resolve, reject) => {
+			fetch(url,
+				{	method: 'POST',
+					headers: {
+	            "Content-Type": "application/json",
+	        },
+	        body: JSON.stringify(login),
+				}
+			)
+				.then(resp => resolve(resp.json()))
+				.catch(err => reject(err))
+  	})
+  },
+  // postJwt: (url, body) => {
+  // 	return new Promise((resolve, reject) => {
+  		
+
+  // 	})
   // }
 };
 
@@ -24,9 +40,15 @@ const Questions = {
 	}
 }
 
-// const Auth = {
+const Auth = {
+	register: (body) => {
+		return requests.post(`${API_ROOT}${AUTH_REGISTER}`)
+	},
+	// login: () => {
 
-// }
+
+	// }
+}
 
 // const Tests = {
 
@@ -34,6 +56,6 @@ const Questions = {
 
 export default {
 	Questions,
-	//Auth,
+	Auth,
 	//Tests,
 }

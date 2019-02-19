@@ -1,3 +1,5 @@
+import http_requests from '../../utils/http_requests';
+
 // BE endpoings
 export const API_POST_REGISTRATION = 'http://localhost:3000/auth/register';
 export const API_POST_LOGIN = 'http://localhost:3000/auth/login';
@@ -37,17 +39,22 @@ export function receiveRegistration(result) {
 
 export const fetchRegister = (login) => dispatch => {
 	dispatch(requestRegistration());
-	return fetch(API_POST_REGISTRATION,
-			{	method: 'POST',
-				headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(login),
-			}
-		)
-		.then(resp => resp.json())
+	return http_requests.Auth.register(login)
 		.then(json => dispatch(receiveRegistration(json)))
 		.catch(err => console.error('fetch error', err));
+
+
+	// return fetch(API_POST_REGISTRATION,
+	// 		{	method: 'POST',
+	// 			headers: {
+ //            "Content-Type": "application/json",
+ //        },
+ //        body: JSON.stringify(login),
+	// 		}
+	// 	)
+	// 	.then(resp => resp.json())
+	// 	.then(json => dispatch(receiveRegistration(json)))
+	// 	.catch(err => console.error('fetch error', err));
 }
 
 // login
