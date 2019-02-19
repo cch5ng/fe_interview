@@ -16,8 +16,6 @@ export function requestRegistration() {
 }
 
 export function receiveRegistration(result) {
-	console.log('result', result)
-
 	let userRegistered = false;
 	let registrationError = '';
 	if (result.userId) {
@@ -25,7 +23,6 @@ export function receiveRegistration(result) {
 	}
 
 	if (result.error) {
-		console.log('gets here')
 		registrationError = result.error;
 	}
 
