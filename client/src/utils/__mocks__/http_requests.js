@@ -17,13 +17,14 @@ const questionsData = [
 ];
 
 const Questions = {
-	getAll: () => {
+	getAll: (p) => {
 		return new Promise((resolve, reject) => {
+			if (p) {
+				reject(new Error('questions could not be retrieved'));
+			}
+
 			resolve(questionsData);
-
 		})
-
-
 	}
 }
 
