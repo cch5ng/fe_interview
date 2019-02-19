@@ -10,6 +10,11 @@ const mockStore = configureMockStore(middlewares);
 
 describe('Async Auth Actions', () => {
 
+  const registration = {
+  	email: 'dummy@d.com',
+  	password: 'password'
+  }
+
 	describe('fetch register ', () => {
 		const expectedActions = [
 	    { type: REQUEST_REGISTRATION, retrieving: true },
@@ -18,11 +23,6 @@ describe('Async Auth Actions', () => {
 				registrationError: '',
 			}
 	  ];
-
-	  const registration = {
-	  	email: 'dummy@d.com',
-	  	password: 'password'
-	  }
 
 		const expectedActionsFail = [
 	    { type: REQUEST_REGISTRATION, retrieving: true },
