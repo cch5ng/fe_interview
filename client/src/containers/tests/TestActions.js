@@ -1,3 +1,5 @@
+import http_requests from '../../utils/http_requests';
+
 import { getRandomlyOrderedList, getRandomArbitrary,
 	objRandomArReducer, randomArToDict, formatDateTwoChar } from '../../utils/helper';
 
@@ -29,17 +31,15 @@ export function receiveAllTests(tests) {
 }
 
 export const fetchTests = ({ email }) => dispatch => {
-	let jwt = localStorage.getItem('fe_interview_session');
-	jwt = "bearer " + jwt;
+	let token = localStorage.getItem('fe_interview_session');
 
 	dispatch(requestAllTests());
 	return fetch(API_GET_TESTS,
 			{	method: 'POST',
 				headers: {
             "Content-Type": "application/json",
-            "Authorization": jwt
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, token }),
 			}
 		)
 		.then(resp => resp.json())
@@ -59,8 +59,6 @@ export function requestTestDetail() {
 }
 
 export function receiveTestDetail(test) {
-
-
 	return {
 		type: RECEIVE_TEST_DETAIL,
 		curTest: test,
@@ -69,17 +67,15 @@ export function receiveTestDetail(test) {
 }
 
 export const fetchTestById = ({ id }) => dispatch => {
-	let jwt = localStorage.getItem('fe_interview_session');
-	jwt = "bearer " + jwt;
+	let token = localStorage.getItem('fe_interview_session');
 
 	dispatch(requestTestDetail());
 	return fetch(API_GET_TEST_DETAIL,
 			{	method: 'POST',
 				headers: {
             "Content-Type": "application/json",
-            "Authorization": jwt
         },
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({ id, token }),
 			}
 		)
 		.then(resp => resp.json())
@@ -117,20 +113,10 @@ export function receiveRandomTest(curTest) {
 }
 
 export const fetchRandomTest = (questionData, testData) => dispatch => {
-	let jwt = localStorage.getItem('fe_interview_session');
-	jwt = "bearer " + jwt;
+	let token = localStorage.getItem('fe_interview_session');
 
 	dispatch(requestRandomTest());
-	return fetch(API_POST_RANDOM_TEST,
-			{	method: 'POST',
-				headers: {
-            "Content-Type": "application/json",
-            "Authorization": jwt
-        },
-        body: JSON.stringify(questionData),
-			}
-		)
-		.then(resp => resp.json())
+	return http_requests.Questions.getRandomQuestions({questionData, token})
 		.then(json => {
 			let flatQuestionsAr = [];
 			let curTestObj = {};
@@ -182,7 +168,6 @@ export const fetchRandomTest = (questionData, testData) => dispatch => {
 export const REQUEST_INIT_TEST = 'REQUEST_INIT_TEST';
 export const RECEIVE_INIT_TEST = 'RECEIVE_INIT_TEST';
 
-
 export function requestInitTest() {
 	return {
 		type: REQUEST_INIT_TEST,
@@ -199,17 +184,16 @@ export function receiveInitTest(curTest) {
 }
 
 export const fetchInitTest = (testData) => dispatch => {
-	let jwt = localStorage.getItem('fe_interview_session');
-	jwt = "bearer " + jwt;
+	let token = localStorage.getItem('fe_interview_session');
+	let email = testData.email || null;
 
 	dispatch(requestInitTest());
 	return fetch(API_POST_INIT_TEST,
 			{	method: 'POST',
 				headers: {
             "Content-Type": "application/json",
-            "Authorization": jwt
         },
-        body: JSON.stringify(testData),
+        body: JSON.stringify({...testData, token}),
 			}
 		)
 		.then(resp => resp.json())
@@ -254,7 +238,6 @@ export function completeTest() {
 export const REQUEST_UPDATE_TEST_QUESTION = 'REQUEST_UPDATE_TEST_QUESTION';
 export const RECEIVE_UPDATE_TEST_QUESTION = 'RECEIVE_UPDATE_TEST_QUESTION';
 
-
 export function requestUpdateTestQuestion() {
 	return {
 		type: REQUEST_UPDATE_TEST_QUESTION,
@@ -272,17 +255,15 @@ export function receiveUpdateTestQuestion(questionData) {
 
 //should this update the BE?
 export const fetchUpdateTestQuestion = (questionData) => dispatch => {
-	let jwt = localStorage.getItem('fe_interview_session');
-	jwt = "bearer " + jwt;
+	let token = localStorage.getItem('fe_interview_session');
 
 	dispatch(requestUpdateTestQuestion());
 	return fetch(API_POST_UPDATE_TEST_QUESTION,
 			{	method: 'POST',
 				headers: {
             "Content-Type": "application/json",
-            "Authorization": jwt
         },
-        body: JSON.stringify(questionData),
+        body: JSON.stringify({...questionData, token}),
 			}
 		)
 		.then(resp => resp.json())
@@ -295,7 +276,6 @@ export const fetchUpdateTestQuestion = (questionData) => dispatch => {
 // action types
 export const REQUEST_UPDATE_TEST = 'REQUEST_UPDATE_TEST';
 export const RECEIVE_UPDATE_TEST = 'RECEIVE_UPDATE_TEST';
-
 
 export function requestUpdateTest() {
 	return {
@@ -314,17 +294,15 @@ export function receiveUpdateTest(testData) {
 
 //should this update the BE?
 export const fetchUpdateTest = (testData) => dispatch => {
-	let jwt = localStorage.getItem('fe_interview_session');
-	jwt = "bearer " + jwt;
+	let token = localStorage.getItem('fe_interview_session');
 
 	dispatch(requestUpdateTest());
 	return fetch(API_POST_UPDATE_TEST,
 			{	method: 'POST',
 				headers: {
             "Content-Type": "application/json",
-            "Authorization": jwt
         },
-        body: JSON.stringify(testData),
+        body: JSON.stringify({...testData, token}),
 			}
 		)
 		.then(resp => resp.json())
