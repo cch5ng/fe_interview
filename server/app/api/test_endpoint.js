@@ -40,7 +40,7 @@ router.post('/detail',
 router.post('/new', 
 	passport.authenticate('jwt', { session: false }),
 	(req, res, next) => {
-		FEUserTable.getIdByEmail({email: req.body["email"]})
+		FEUserTable.getIdByEmail(req.body)
 			.then(uid => {
 				let user_id = parseInt(uid, 10);
 				TestTable.storeTest({...req.body, user_id})
