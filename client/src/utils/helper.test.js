@@ -26,8 +26,28 @@ describe('helper getPrettyTime()', () => {
 
 describe('helper getRandomlyOrderedList()', () => {
 
+
+
 	it('should return a different list', () => {
-		const origList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+		const origList = [
+			{
+				category: "... Questions",
+				child_content: null,
+				content: "Who?",
+				id: 5,
+				sort_order: 0,
+				status: "not_visited"
+			},
+			{
+				category: "... Questions",
+				child_content: null,
+				content: "When?",
+				id: 6,
+				sort_order: 1,
+				status: "not_visited"	
+			}
+		];
+
 		expect(getRandomlyOrderedList(origList)).not.toEqual(origList);
 
 	})
