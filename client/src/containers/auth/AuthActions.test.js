@@ -1,6 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { REQUEST_REGISTRATION, RECEIVE_REGISTRATION, fetchRegister } from './AuthActions';
+import { REQUEST_REGISTRATION, RECEIVE_REGISTRATION, fetchRegister,
+	REQUEST_LOGIN, RECEIVE_LOGIN, fetchLogin } from './AuthActions';
 
 jest.mock('../../utils/http_requests');
 
