@@ -45,7 +45,33 @@ describe('helper getRandomlyOrderedList()', () => {
 				id: 6,
 				sort_order: 1,
 				status: "not_visited"	
-			}
+			},
+			{
+				category: "... Questions",
+				child_content: null,
+				content: "Who?",
+				id: 7,
+				sort_order: 2,
+				status: "not_visited"
+			},
+			{
+				category: "... Questions",
+				child_content: null,
+				content: "Who?",
+				id: 8,
+				sort_order: 3,
+				status: "not_visited"
+			},
+			{
+				category: "... Questions",
+				child_content: null,
+				content: "Who?",
+				id: 9,
+				sort_order: 4,
+				status: "not_visited"
+			},
+
+
 		];
 
 		expect(getRandomlyOrderedList(origList)).not.toEqual(origList);
