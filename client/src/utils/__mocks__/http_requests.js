@@ -52,7 +52,10 @@ const Auth = {
 				resolve({error: loginError})
 			}
 
-			resolve({ userId });
+			resolve({ jwt: 'dummy token',
+				email: 'zzz@z.com',
+				loginError: ''
+			 });
 
 			reject(new Error(loginError));
 
