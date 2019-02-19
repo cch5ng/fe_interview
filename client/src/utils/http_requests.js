@@ -19,7 +19,7 @@ const requests = {
 					headers: {
 	            "Content-Type": "application/json",
 	        },
-	        body: JSON.stringify(login),
+	        body: JSON.stringify(body),
 				}
 			)
 				.then(resp => resolve(resp.json()))
