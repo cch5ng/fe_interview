@@ -28,8 +28,24 @@ const Questions = {
 	}
 }
 
+const userId = 9999990;
+
+const Auth = {
+	register: (login) => {
+		return new Promise((resolve, reject) => {
+			if (!login) {
+				reject(new Error('registration could not be completed'));
+			}
+
+			resolve({ userId });
+		})
+	},
+	// login: () => {
+	// }
+}
+
 export default {
 	Questions,
-	//Auth,
+	Auth,
 	//Tests,
 }
