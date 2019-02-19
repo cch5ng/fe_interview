@@ -34,10 +34,14 @@ const Auth = {
 	register: (login) => {
 		return new Promise((resolve, reject) => {
 			if (!login) {
-				reject(new Error('registration could not be completed'));
+				console.error('error', 'registration could not be completed')
+				resolve({error: 'registration could not be completed'})
 			}
 
 			resolve({ userId });
+
+			reject(new Error('registration could not be completed'));
+
 		})
 	},
 	// login: () => {
