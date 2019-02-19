@@ -28,8 +28,16 @@ const requests = {
   },
   // postJwt: (url, body) => {
   // 	return new Promise((resolve, reject) => {
-  		
-
+		// 	fetch(url,
+		// 		{	method: 'POST',
+		// 			headers: {
+	 //            "Content-Type": "application/json",
+	 //        },
+	 //        body: JSON.stringify(login),
+		// 		}
+		// 	)
+		// 		.then(resp => resolve(resp.json()))
+		// 		.catch(err => reject(err))
   // 	})
   // }
 };
@@ -42,12 +50,11 @@ const Questions = {
 
 const Auth = {
 	register: (body) => {
-		return requests.post(`${API_ROOT}${AUTH_REGISTER}`)
+		return requests.post(`${API_ROOT}${AUTH_REGISTER}`, body)
 	},
-	// login: () => {
-
-
-	// }
+	login: (body) => {
+		return requests.post(`${API_ROOT}${AUTH_LOGIN}`, body)
+	}
 }
 
 // const Tests = {
