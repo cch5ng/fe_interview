@@ -96,17 +96,22 @@ export function receiveLogin(result) {
 }
 
 export const fetchLogin = (login) => dispatch => {
-	console.log('calls fetchLogin');
 	dispatch(requestLogin());
-	return fetch(API_POST_LOGIN,
-			{	method: 'POST',
-				headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(login),
-			}
-		)
-		.then(resp => resp.json())
+
+	return http_requests.Auth.login(login)
 		.then(json => dispatch(receiveLogin(json)))
 		.catch(err => console.error('fetch error', err));
+
+
+	// return fetch(API_POST_LOGIN,
+	// 		{	method: 'POST',
+	// 			headers: {
+ //            "Content-Type": "application/json",
+ //        },
+ //        body: JSON.stringify(login),
+	// 		}
+	// 	)
+	// 	.then(resp => resp.json())
+	// 	.then(json => dispatch(receiveLogin(json)))
+	// 	.catch(err => console.error('fetch error', err));
 }
