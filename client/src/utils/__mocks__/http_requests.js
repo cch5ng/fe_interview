@@ -44,8 +44,20 @@ const Auth = {
 
 		})
 	},
-	// login: () => {
-	// }
+	login: (login) => {
+		const loginError = 'login could not be completed';
+		return new Promise((resolve, reject) => {
+			if (!login) {
+				console.error('error', loginError)
+				resolve({error: loginError})
+			}
+
+			resolve({ userId });
+
+			reject(new Error(loginError));
+
+		})
+	}
 }
 
 export default {
