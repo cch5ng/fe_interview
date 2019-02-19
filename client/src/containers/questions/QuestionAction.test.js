@@ -32,14 +32,22 @@ describe('Question Actions', () => {
   ];
 
 	it('should update store for all questions request', () => {
-
 		const store = mockStore({ questions: {} })
-
     return store.dispatch(fetchQuestions()).then(() => {
-      // return of async actions
       expect(store.getActions()).toEqual(expectedActions)
     })
-
 	})
+
+	it('should handle error condition all questions request', () => {
+		const store = mockStore({ questions: {} })
+    return store.dispatch(fetchQuestions('cause error'))
+    	.then(() => {
+    		console.log('should not get here')
+    	})
+    	.catch(err => {
+    		expect(err).toEqual('questions could not be retrieved')
+    	});
+	})
+
 
 });
