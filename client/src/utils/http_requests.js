@@ -3,6 +3,7 @@ const QUESTIONS_ALL = 'question/all';
 const QUESTIONS_RANDOM = 'question/random';
 const AUTH_REGISTER = 'auth/register';
 const AUTH_LOGIN = 'auth/login';
+const TESTS_ALL = 'test/all';
 
 const requests = {
   get: url => {
@@ -61,12 +62,14 @@ const Auth = {
 	}
 }
 
-// const Tests = {
-
-// }
+const Tests = {
+	getAll: (body) => {
+		return requests.post(`${API_ROOT}${TESTS_ALL}`, body)
+	}
+}
 
 export default {
 	Questions,
 	Auth,
-	//Tests,
+	Tests,
 }
