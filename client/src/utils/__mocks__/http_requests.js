@@ -110,6 +110,46 @@ const Auth = {
 	}
 }
 
+const testsList = [
+					{
+						date_taken: "2019-02-19T08:00:00.000Z",
+						email: "d@d.com",
+						id: 25,
+						name: "d's test ",
+						questions: [
+							{
+								content: "When building a new web site or maintaining one, can you explain some techniques you have used to increase performance?"
+								id: 93
+								response: null
+								sort_order: 1
+								status: "not_visited"			
+							},
+							{
+								content: "What is Flash of Unstyled Content? How do you avoid FOUC?"
+								id: 109
+								response: ""
+								sort_order: 0
+								status: "completed"
+							}		
+						],
+						status: "completed",
+						time_remaining: 1000,
+						time_total: 600000,
+					}
+				]
+
+const Tests = {
+	getAll: (email) => {
+		return new Promise((resolve, reject) => {
+			if (!email) {
+				reject(new Error('user tests could not be retrieved'));
+			}
+
+			resolve(testsList);
+		})		
+	}
+}
+
 export default {
 	Questions,
 	Auth,
