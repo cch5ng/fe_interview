@@ -34,15 +34,16 @@ export const fetchTests = ({ email }) => dispatch => {
 	let token = localStorage.getItem('fe_interview_session');
 
 	dispatch(requestAllTests());
-	return fetch(API_GET_TESTS,
-			{	method: 'POST',
-				headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, token }),
-			}
-		)
-		.then(resp => resp.json())
+	return http_requests.Tests.getAll({email, token})
+	// fetch(API_GET_TESTS,
+	// 		{	method: 'POST',
+	// 			headers: {
+ //            "Content-Type": "application/json",
+ //        },
+ //        body: JSON.stringify({ email, token }),
+	// 		}
+	// 	)
+	// 	.then(resp => resp.json())
 		.then(json => dispatch(receiveAllTests(json)))
 		.catch(err => console.error('fetch error', err));
 }
