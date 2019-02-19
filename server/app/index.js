@@ -20,7 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 // passport auth configure
 var opts = {}
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = ExtractJwt.fromBodyField('token');
 opts.secretOrKey = process.env.JWT_SECRET;
 opts.passReqToCallback = true;
 passport.use(new JwtStrategy(opts, function(req, jwt_payload, done) {
