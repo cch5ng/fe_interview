@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import { createStore, applyMiddleware, compose } from 'redux'
-import { Provider } from 'react-redux'
-import ReduxThunk from 'redux-thunk'
-import App from './containers/App'
-import appStore from './store/index.js'
+import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
+import App from './containers/App';
+import appStore from './store/index.js';
 //import './index.css'
 //import { render } from 'react-dom';
 
