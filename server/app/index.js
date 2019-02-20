@@ -5,7 +5,7 @@ const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const dotenv = require('dotenv');
-const testRouter = require('./api/test');
+const testRouter = require('./api/test_endpoint');
 const questionRouter = require('./api/question');
 const authRouter = require('./api/auth');
 const FEUserTable = require('./fe_user/table');
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 // passport auth configure
 var opts = {}
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = ExtractJwt.fromBodyField('token');
 opts.secretOrKey = process.env.JWT_SECRET;
 opts.passReqToCallback = true;
 passport.use(new JwtStrategy(opts, function(req, jwt_payload, done) {

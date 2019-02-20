@@ -4,19 +4,19 @@ describe('helper getPrettyTime()', () => {
 
 	it('should convert minutes', () => {
 		const timeMs = 1800000;
-		const timeStr = `30 minutes`;
+		const timeStr = `30 min`;
 		expect(getPrettyTime(timeMs)).toEqual(timeStr);
 	});
 
 	it('should convert hours/minutes', () => {
 		const timeMs2 = 4800000;
-		const timeStr2 = `1 hour, 20 minutes`;
+		const timeStr2 = `1 hr:20 min`;
 		expect(getPrettyTime(timeMs2)).toEqual(timeStr2);
 	});
 
 	it('should convert hours', () => {
 		const timeMs3 = 7200000;
-		const timeStr3 = `2 hours`;
+		const timeStr3 = `2 hr`;
 		expect(getPrettyTime(timeMs3)).toEqual(timeStr3);
 	});
 
@@ -24,11 +24,56 @@ describe('helper getPrettyTime()', () => {
 
 // TODO set of tests for getPrettyDate()
 
-
 describe('helper getRandomlyOrderedList()', () => {
 
+
+
 	it('should return a different list', () => {
-		const origList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+		const origList = [
+			{
+				category: "... Questions",
+				child_content: null,
+				content: "Who?",
+				id: 5,
+				sort_order: 0,
+				status: "not_visited"
+			},
+			{
+				category: "... Questions",
+				child_content: null,
+				content: "When?",
+				id: 6,
+				sort_order: 1,
+				status: "not_visited"	
+			},
+			{
+				category: "... Questions",
+				child_content: null,
+				content: "Who?",
+				id: 7,
+				sort_order: 2,
+				status: "not_visited"
+			},
+			{
+				category: "... Questions",
+				child_content: null,
+				content: "Who?",
+				id: 8,
+				sort_order: 3,
+				status: "not_visited"
+			},
+			{
+				category: "... Questions",
+				child_content: null,
+				content: "Who?",
+				id: 9,
+				sort_order: 4,
+				status: "not_visited"
+			},
+
+
+		];
+
 		expect(getRandomlyOrderedList(origList)).not.toEqual(origList);
 
 	})

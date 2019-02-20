@@ -50,10 +50,10 @@ class QuestionTable {
 	}
 
 //TODO test this 012919
-	static getRandomQuestionsByCategoryCounts(categoryCountsObj) {
+	static getRandomQuestionsByCategoryCounts({questionData}) {
 
 		// TODO check if the nesting works; feel like there are too many resolve/rejects here
-		return Promise.all(Object.keys(categoryCountsObj).map(category => {
+		return Promise.all(Object.keys(questionData).map(category => {
 			return new Promise((resolve, reject) => {
 				pool.query(
 					`SELECT * 
@@ -61,7 +61,7 @@ class QuestionTable {
 						WHERE category = $1
 						ORDER BY random()
 						LIMIT $2;`,
-					[category, categoryCountsObj[category]],
+					[category, questionData[category]],
 					(err, resp) => {
 						if (err) return reject(err);
 

@@ -1,3 +1,5 @@
+import http_requests from '../../utils/http_requests';
+
 // BE endpoings
 export const API_POST_REGISTRATION = 'http://localhost:3000/auth/register';
 export const API_POST_LOGIN = 'http://localhost:3000/auth/login';
@@ -14,8 +16,6 @@ export function requestRegistration() {
 }
 
 export function receiveRegistration(result) {
-	console.log('result', result)
-
 	let userRegistered = false;
 	let registrationError = '';
 	if (result.userId) {
@@ -23,7 +23,6 @@ export function receiveRegistration(result) {
 	}
 
 	if (result.error) {
-		console.log('gets here')
 		registrationError = result.error;
 	}
 
@@ -37,17 +36,22 @@ export function receiveRegistration(result) {
 
 export const fetchRegister = (login) => dispatch => {
 	dispatch(requestRegistration());
-	return fetch(API_POST_REGISTRATION,
-			{	method: 'POST',
-				headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(login),
-			}
-		)
-		.then(resp => resp.json())
+	return http_requests.Auth.register(login)
 		.then(json => dispatch(receiveRegistration(json)))
 		.catch(err => console.error('fetch error', err));
+
+
+	// return fetch(API_POST_REGISTRATION,
+	// 		{	method: 'POST',
+	// 			headers: {
+ //            "Content-Type": "application/json",
+ //        },
+ //        body: JSON.stringify(login),
+	// 		}
+	// 	)
+	// 	.then(resp => resp.json())
+	// 	.then(json => dispatch(receiveRegistration(json)))
+	// 	.catch(err => console.error('fetch error', err));
 }
 
 // login
@@ -92,17 +96,22 @@ export function receiveLogin(result) {
 }
 
 export const fetchLogin = (login) => dispatch => {
-	console.log('calls fetchLogin');
 	dispatch(requestLogin());
-	return fetch(API_POST_LOGIN,
-			{	method: 'POST',
-				headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(login),
-			}
-		)
-		.then(resp => resp.json())
+
+	return http_requests.Auth.login(login)
 		.then(json => dispatch(receiveLogin(json)))
 		.catch(err => console.error('fetch error', err));
+
+
+	// return fetch(API_POST_LOGIN,
+	// 		{	method: 'POST',
+	// 			headers: {
+ //            "Content-Type": "application/json",
+ //        },
+ //        body: JSON.stringify(login),
+	// 		}
+	// 	)
+	// 	.then(resp => resp.json())
+	// 	.then(json => dispatch(receiveLogin(json)))
+	// 	.catch(err => console.error('fetch error', err));
 }

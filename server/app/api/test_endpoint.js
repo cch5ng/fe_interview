@@ -1,7 +1,10 @@
+// renamed so it would not conflict with jest test file naming
+
 const { Router } = require('express');
 const passport = require('passport');
 const TestTable = require('../test/table');
 const TestQuestionTable = require('../testQuestion/table');
+const FEUserTable = require('../fe_user/table');
 
 const router = Router();
 
@@ -37,8 +40,13 @@ router.post('/detail',
 router.post('/new', 
 	passport.authenticate('jwt', { session: false }),
 	(req, res, next) => {
-		TestTable.storeTest(req.body)
-			.then(testId => res.json(testId))
+		FEUserTable.getIdByEmail(req.body)
+			.then(uid => {
+				let user_id = parseInt(uid, 10);
+				TestTable.storeTest({...req.body, user_id})
+					.then(testId => res.json(testId))
+					.catch(err => console.error('error', err))
+			})
 			.catch(err => console.error('error', err))
 })
 

@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": ">=8.12.0"
+    "node": "8.12.0",
+    "npm": "6.4.1"
   },
   "scripts": {
     "start": "node ./bin/server",
     "dev": "nodemon ./bin/server",
     "configure": "./bin/configure_db.sh && node seed_db.js",
-    "configure-dev": "yarn run configure && yarn run dev"
+    "configure-dev": "yarn run configure && yarn run dev",
+    "test": "jest"
   },
   "dependencies": {
     "bcrypt": "^3.0.4",
@@ -26,6 +28,7 @@
     "simple-markdown": "^0.4.2"
   },
   "devDependencies": {
+    "jest": "^24.1.0",
     "nodemon": "^1.18.9"
   },
   "author": "",
