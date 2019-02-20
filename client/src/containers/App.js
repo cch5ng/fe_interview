@@ -37,6 +37,8 @@ class App extends Component {
     this.stopCountdownTimer = this.stopCountdownTimer.bind(this);
     this.updateCountdownStore = this.updateCountdownStore.bind(this);
     this.toggleNavMenuDisplay = this.toggleNavMenuDisplay.bind(this);
+    this.createMarkupHamburger = this.createMarkupHamburger.bind(this);
+    this.createMarkupPlusIcon = this.createMarkupPlusIcon.bind(this);
   }
 
 // EVENT HANDLERS
@@ -75,6 +77,15 @@ class App extends Component {
     }));
   }
 
+  createMarkupHamburger() {
+    return {__html: '&#9776;'};
+  }
+
+  createMarkupPlusIcon() {
+    return {__html: '&#8853;'};
+  }
+
+
   render() {
     let headerClass = cx({
       [styles.fullHeight]: this.state.mobileNavMenuDisplay
@@ -96,7 +107,9 @@ class App extends Component {
           <header className={headerClass}>
             <nav>
               <div className={styles.navRow}>
-                <div onClick={this.toggleNavMenuDisplay} className={styles.hamburger}>&#9776;</div>
+                <div onClick={this.toggleNavMenuDisplay} className={styles.hamburger}>
+                  ☰
+                </div>
                 <div className={styles.logo}>
                   <NavLink to="/questions" className={styles.navLogo}>Front End Interview</NavLink>
                 </div>
@@ -106,9 +119,11 @@ class App extends Component {
                   <NavLink to="/tests/new" className={styles.navLink}>New Test</NavLink>
                   <NavLink to="/login" className={styles.navLink}>Login</NavLink>
                 </div>
-                <div className={navAddTestIconClass}>
-                  <NavLink to="/tests/new">&#8853;</NavLink>
-                </div>
+                <NavLink to="/tests/new">
+                  <div className={navAddTestIconClass}
+                    dangerouslySetInnerHTML={this.createMarkupPlusIcon()}>
+                  </div>
+                </NavLink>
               </div>
               <div className={dropDownMenuClass}>
                 <NavLink to="/questions"
@@ -137,7 +152,6 @@ class App extends Component {
 
           <main>
             <Switch>
-
               <Route exact path="/questions" render={() => (
                 <Questions />
               )} />
@@ -174,6 +188,11 @@ class App extends Component {
               <Route exact path="/login" render={() => (
                 <Login />
               )} />
+
+              <Route exact path="/" render={() => (
+                <Questions />
+              )} />
+
             </Switch> 
           </main>
          
