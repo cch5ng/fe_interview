@@ -8,7 +8,8 @@
     "start": "nf start",
     "server": "nodemon server/bin/server",
     "clean": "rm -rf dist .cache",
-    "client": "yarn run clean && parcel client/src/index.html"
+    "client": "yarn run clean && parcel client/src/index.html",
+    "start_prod": "node server/bin/server"
   },
   "license": "MIT",
   "dependencies": {
