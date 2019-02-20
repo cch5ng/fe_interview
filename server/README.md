@@ -2,6 +2,10 @@
 
 ## Purpose
 
+## Dependencies
+
+Global installation of parcel. http://npmjs.com/package/parcel-bundler
+
 ## Setup (local)
 
 Install server files.
