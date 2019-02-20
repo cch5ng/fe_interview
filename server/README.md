@@ -1,10 +1,28 @@
-# FE_Interview
+# FE_Interview Server
 
 ## Purpose
 
 ## Setup
 
+Install server files.
+
+`yarn install`
+
+Convert questions from markdown source files to JavaScript.
+
+`node test_md_to_json.js`
+
+Create the database (Postgres).
+
+Seed the database.
+
+`node seed_db.js`
+
 ## Run
+
+Start the server.
+
+`yarn run start`
 
 ## Test
 
