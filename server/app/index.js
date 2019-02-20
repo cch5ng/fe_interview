@@ -42,7 +42,7 @@ passport.use(new JwtStrategy(opts, function(req, jwt_payload, done) {
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:1234' }));
+app.use(cors({ origin: process.env.CLIENT_ROOT }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use('/test', testRouter);
