@@ -5,18 +5,19 @@ const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const dotenv = require('dotenv');
+const path = require('path')
 const testRouter = require('./api/test_endpoint');
 const questionRouter = require('./api/question');
 const authRouter = require('./api/auth');
 const FEUserTable = require('./fe_user/table');
 
-if (process.env.NODE_ENV !== 'production') {
+//if (process.env.NODE_ENV !== 'production') {
 	const result = dotenv.config()
  
 	if (result.error) {
   	throw result.error
 	}
-}
+//}
 
 // passport auth configure
 var opts = {}
@@ -42,13 +43,25 @@ passport.use(new JwtStrategy(opts, function(req, jwt_payload, done) {
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_ROOT }));
+app.use(function(req, res, next) {
+  let allowed;
+  allowed = process.env.NODE_ENV === 'production' ? process.env.CLIENT_ROOT_PROD : process.env.CLIENT_ROOT;
+
+  res.header("Access-Control-Allow-Origin", "*"); // "*"
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(cors({ origin: process.env.CLIENT_ROOT_PROD }));
+// } else if (process.env.NODE_ENV === 'develop') {
+//   app.use(cors({ origin: process.env.CLIENT_ROOT }));
+// }
 app.use(bodyParser.json());
 app.use(passport.initialize());
-app.use('/test', testRouter);
-app.use('/question', questionRouter);
-app.use('/auth', authRouter);
-
+app.use('/api/test', testRouter);
+app.use('/api/question', questionRouter);
+app.use('/api/auth', authRouter);
 app.use((err, req, res, next) => {
 	const statusCode = err.statusCode || 500;
 
