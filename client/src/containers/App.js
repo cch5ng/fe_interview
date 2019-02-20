@@ -37,7 +37,6 @@ class App extends Component {
     this.stopCountdownTimer = this.stopCountdownTimer.bind(this);
     this.updateCountdownStore = this.updateCountdownStore.bind(this);
     this.toggleNavMenuDisplay = this.toggleNavMenuDisplay.bind(this);
-    this.createMarkupHamburger = this.createMarkupHamburger.bind(this);
     this.createMarkupPlusIcon = this.createMarkupPlusIcon.bind(this);
   }
 
@@ -75,10 +74,6 @@ class App extends Component {
     this.setState((state, props) => ({
       mobileNavMenuDisplay: !state.mobileNavMenuDisplay
     }));
-  }
-
-  createMarkupHamburger() {
-    return {__html: '&#9776;'};
   }
 
   createMarkupPlusIcon() {
