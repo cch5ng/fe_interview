@@ -1,13 +1,12 @@
 const { Pool } = require('pg');
-const databaseConfiguration = require('./secrets/databaseConfiguration');
+const databaseConfiguration = {
+	user: process.env.DB_USER,
+	host: process.env.DB_HOST,
+	database: process.env.DB_DATABASE,
+	password: process.env.DB_PASSWORD,
+	port: process.env.DB_PORT,
+}
 
 const pool = new Pool(databaseConfiguration);
 
 module.exports = pool;
-
-// test pool connection
-// pool.query('SELECT * from question', (err, resp) => {
-// 	if (err) return console.log('error', err);
-
-// 	console.log('response.rows', resp.rows);
-// })
