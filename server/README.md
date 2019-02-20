@@ -2,7 +2,7 @@
 
 ## Purpose
 
-## Setup
+## Setup (local)
 
 Install server files.
 
@@ -13,6 +13,12 @@ Convert questions from markdown source files to JavaScript.
 `node test_md_to_json.js`
 
 Create the database (Postgres).
+
+Copy environment variables file in server root directory.
+
+`cp .env.example .env`
+
+Update server environment variables (in .env file). 
 
 Seed the database.
 
