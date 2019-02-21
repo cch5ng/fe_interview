@@ -5,6 +5,8 @@
 /server/node_modules
 /server/secrets
 /server/.env
+/server/.cache
+/server/dist
 /client/node_modules
 /client/.cache
 /client/dist
