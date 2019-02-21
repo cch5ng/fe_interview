@@ -4,6 +4,10 @@
   "main": "index.js",
   "repository": "git@github.com:cch5ng/fe_interview.git",
   "author": "<cch5ng@gmail.com>",
+  "engines": {
+    "node": "8.12.0",
+    "npm": "6.4.1"
+  },
   "scripts": {
     "start": "nf start",
     "server": "nodemon server/bin/server",
