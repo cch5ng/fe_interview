@@ -4,12 +4,12 @@ import { getRandomlyOrderedList, getRandomArbitrary,
 	objRandomArReducer, randomArToDict, formatDateTwoChar } from '../../utils/helper';
 
 // fetch constants
-const API_GET_TESTS = 'http://localhost:3000/test/all';
-const API_GET_TEST_DETAIL = 'http://localhost:3000/test/detail';
-const API_POST_RANDOM_TEST = 'http://localhost:3000/question/random';
-const API_POST_INIT_TEST = 'http://localhost:3000/test/new';
-const API_POST_UPDATE_TEST_QUESTION = 'http://localhost:3000/test/updateQuestion';
-const API_POST_UPDATE_TEST = 'http://localhost:3000/test/update';
+const API_ROOT = process.env.API_ROOT;
+const API_GET_TEST_DETAIL = `${API_ROOT}test/detail`;
+const API_POST_RANDOM_TEST = `${API_ROOT}question/random`;
+const API_POST_INIT_TEST = `${API_ROOT}test/new`;
+const API_POST_UPDATE_TEST_QUESTION = `${API_ROOT}test/updateQuestion`;
+const API_POST_UPDATE_TEST = `${API_ROOT}test/update`;
 
 // action types
 export const REQUEST_ALL_TESTS = 'REQUEST_ALL_TESTS';
@@ -35,15 +35,6 @@ export const fetchTests = ({ email }) => dispatch => {
 
 	dispatch(requestAllTests());
 	return http_requests.Tests.getAll({email, token})
-	// fetch(API_GET_TESTS,
-	// 		{	method: 'POST',
-	// 			headers: {
- //            "Content-Type": "application/json",
- //        },
- //        body: JSON.stringify({ email, token }),
-	// 		}
-	// 	)
-	// 	.then(resp => resp.json())
 		.then(json => dispatch(receiveAllTests(json)))
 		.catch(err => console.error('fetch error', err));
 }

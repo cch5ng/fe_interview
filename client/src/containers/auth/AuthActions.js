@@ -1,9 +1,5 @@
 import http_requests from '../../utils/http_requests';
 
-// BE endpoings
-export const API_POST_REGISTRATION = 'http://localhost:3000/auth/register';
-export const API_POST_LOGIN = 'http://localhost:3000/auth/login';
-
 // registration
 export const REQUEST_REGISTRATION = 'REQUEST_REGISTRATION';
 export const RECEIVE_REGISTRATION = 'RECEIVE_REGISTRATION';
@@ -39,19 +35,6 @@ export const fetchRegister = (login) => dispatch => {
 	return http_requests.Auth.register(login)
 		.then(json => dispatch(receiveRegistration(json)))
 		.catch(err => console.error('fetch error', err));
-
-
-	// return fetch(API_POST_REGISTRATION,
-	// 		{	method: 'POST',
-	// 			headers: {
- //            "Content-Type": "application/json",
- //        },
- //        body: JSON.stringify(login),
-	// 		}
-	// 	)
-	// 	.then(resp => resp.json())
-	// 	.then(json => dispatch(receiveRegistration(json)))
-	// 	.catch(err => console.error('fetch error', err));
 }
 
 // login
@@ -101,17 +84,4 @@ export const fetchLogin = (login) => dispatch => {
 	return http_requests.Auth.login(login)
 		.then(json => dispatch(receiveLogin(json)))
 		.catch(err => console.error('fetch error', err));
-
-
-	// return fetch(API_POST_LOGIN,
-	// 		{	method: 'POST',
-	// 			headers: {
- //            "Content-Type": "application/json",
- //        },
- //        body: JSON.stringify(login),
-	// 		}
-	// 	)
-	// 	.then(resp => resp.json())
-	// 	.then(json => dispatch(receiveLogin(json)))
-	// 	.catch(err => console.error('fetch error', err));
 }

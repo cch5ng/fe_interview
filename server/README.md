@@ -1,10 +1,38 @@
-# FE_Interview
+# FE_Interview Server
 
 ## Purpose
 
-## Setup
+## Dependencies
+
+Global installation of parcel. http://npmjs.com/package/parcel-bundler
+
+## Setup (local)
+
+Install server files.
+
+`yarn install`
+
+Convert questions from markdown source files to JavaScript.
+
+`node test_md_to_json.js`
+
+Create the database (Postgres).
+
+Copy environment variables file in server root directory.
+
+`cp .env.example .env`
+
+Update server environment variables (in .env file). 
+
+Seed the database.
+
+`node seed_db.js`
 
 ## Run
+
+Start the server.
+
+`yarn run start`
 
 ## Test
 
