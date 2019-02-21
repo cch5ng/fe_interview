@@ -38,6 +38,8 @@ class App extends Component {
     this.updateCountdownStore = this.updateCountdownStore.bind(this);
     this.toggleNavMenuDisplay = this.toggleNavMenuDisplay.bind(this);
     this.createMarkupPlusIcon = this.createMarkupPlusIcon.bind(this);
+    this.logout = this.logout.bind(this);
+    this.logoutToggleNavMenuDisplay = this.logoutToggleNavMenuDisplay.bind(this);
   }
 
 // EVENT HANDLERS
@@ -76,10 +78,19 @@ class App extends Component {
     }));
   }
 
+  logout() {
+    localStorage.removeItem('fe_interview_session');
+    this.props.dispatch(logout());
+  }
+
+  logoutToggleNavMenuDisplay() {
+    this.logout();
+    this.toggleNavMenuDisplay();
+  }
+
   createMarkupPlusIcon() {
     return {__html: '&#8853;'};
   }
-
 
   render() {
     let headerClass = cx({
@@ -95,6 +106,8 @@ class App extends Component {
       [styles.navAddTestIcon]: true,
       [styles.hidden2]: this.state.mobileNavMenuDisplay
     });
+
+    let loggedIn = this.props.auth && this.props.auth.email ? true : false;
 
     return (
       <Router>
@@ -112,7 +125,12 @@ class App extends Component {
                   <NavLink to="/questions" className={styles.navLink}>Questions</NavLink>
                   <NavLink to="/tests" className={styles.navLink}>Tests</NavLink>
                   <NavLink to="/tests/new" className={styles.navLink}>New Test</NavLink>
-                  <NavLink to="/login" className={styles.navLink}>Login</NavLink>
+                  {loggedIn && (
+                    <NavLink to="/login" onClick={this.logout} className={styles.navLink}>Logout</NavLink>
+                  )}
+                  {!loggedIn && (
+                    <NavLink to="/login" className={styles.navLink}>Login</NavLink>
+                  )}
                 </div>
                 <NavLink to="/tests/new">
                   <div className={navAddTestIconClass}
@@ -136,11 +154,20 @@ class App extends Component {
                   className={styles.navLinkCol}>
                     New Test
                 </NavLink>
-                <NavLink to="/login"
-                  onClick={this.toggleNavMenuDisplay}
-                  className={styles.navLinkCol}>
-                    Login
-                </NavLink>
+                {loggedIn && (
+                  <NavLink to="/login"
+                    onClick={this.logoutToggleNavMenuDisplay}
+                    className={styles.navLinkCol}>
+                      Logout
+                  </NavLink>                
+                )}
+                {!loggedIn && (
+                  <NavLink to="/login"
+                    onClick={this.toggleNavMenuDisplay}
+                    className={styles.navLinkCol}>
+                      Login
+                  </NavLink>                
+                )}
               </div>
             </nav>
           </header>
@@ -202,6 +229,7 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     tests: state.tests,
+    auth: state.auth,
   }
 }
 
