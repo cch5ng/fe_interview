@@ -14,7 +14,7 @@
     "clean": "rm -rf dist .cache",
     "client": "yarn run clean && parcel client/src/index.html",
     "start_prod": "node server/bin/server",
-    "postinstall": "cd ./server && yarn install && cd ../client && yarn install && cd ../server/app && parcel build ../client/src/index.html"
+    "postinstall": "cd ./server && yarn install && cd ../client && yarn install && cd ../server && parcel build ../client/src/index.html"
   },
   "license": "MIT",
   "dependencies": {
