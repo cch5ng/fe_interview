@@ -11,13 +11,13 @@ const questionRouter = require('./api/question');
 const authRouter = require('./api/auth');
 const FEUserTable = require('./fe_user/table');
 
-//if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
 	const result = dotenv.config()
  
 	if (result.error) {
   	throw result.error
 	}
-//}
+}
 
 // passport auth configure
 var opts = {}
