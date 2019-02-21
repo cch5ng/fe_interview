@@ -7,6 +7,8 @@
 /server/.env
 /server/.cache
 /server/dist
+/server/app/.cache
+/server/app/dist
 /client/node_modules
 /client/.cache
 /client/dist
