@@ -1,5 +1,5 @@
 import { REQUEST_REGISTRATION, RECEIVE_REGISTRATION,
-	REQUEST_LOGIN, RECEIVE_LOGIN } from './AuthActions';
+	REQUEST_LOGIN, RECEIVE_LOGIN, LOGOUT } from './AuthActions';
 
 export function auth(state = { userRegistered: false }, action) {
 	switch(action.type) {
@@ -24,6 +24,11 @@ export function auth(state = { userRegistered: false }, action) {
 				jwt: action.jwt,
 				email: action.email,
 				loginError: action.loginError
+			}
+		case LOGOUT:
+			return {
+				...state,
+				email: action.email
 			}
 		default:
 			return state;
