@@ -85,3 +85,14 @@ export const fetchLogin = (login) => dispatch => {
 		.then(json => dispatch(receiveLogin(json)))
 		.catch(err => console.error('fetch error', err));
 }
+
+// logout
+export const LOGOUT = 'LOGOUT';
+
+export function logout() {
+	return {
+		type: LOGOUT,
+		email: ''
+	}
+}
+
