@@ -62,6 +62,7 @@ class Tests extends Component {
 	render() {
 		let { tests } = this.props;
 		let testsAr = [];
+		let testError = tests && tests.testError ? tests.testError : null;
 
 		if (tests && tests.tests) {
 			testsAr = Object.keys(tests.tests).map(testKey => {
@@ -76,6 +77,12 @@ class Tests extends Component {
 		return (
 			<div>
 				<h1>All Tests</h1>
+
+				{testError && (
+					<div className={styles.errorMessage}>
+						{testError}
+					</div>
+				)}
 
 				{testsAr.map(test => {
 					const missedQuestions = test.questions ? this.getQuestionsMissedCount(test.questions) : null;
