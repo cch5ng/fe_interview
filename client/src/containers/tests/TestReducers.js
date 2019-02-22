@@ -17,6 +17,12 @@ export function tests(state = {}, action) {
 				...state,
 				retrieving: action.retrieving
 			}
+		case REQUEST_ALL_TESTS:
+			return {
+				...state,
+				retrieving: action.retrieving,
+				testError: action.testError
+			}
 		case RECEIVE_ALL_TESTS:
 			let testsObj = {};
 			action.tests.forEach(test => {
@@ -26,6 +32,7 @@ export function tests(state = {}, action) {
 			return {
 				...state,
 				tests: testsObj,
+				testError: action.testError,
 				retrieving: false
 			}
 		case RECEIVE_RANDOM_TEST:
