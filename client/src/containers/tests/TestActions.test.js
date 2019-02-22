@@ -1,6 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { REQUEST_ALL_TESTS, RECEIVE_ALL_TESTS, fetchTests } from './TestActions';
+import { REQUEST_ALL_TESTS, RECEIVE_ALL_TESTS, fetchTests,
+	REQUEST_TEST_DETAIL, RECEIVE_TEST_DETAIL, fetchTestById } from './TestActions';
 
 jest.mock('../../utils/http_requests');
 
@@ -53,7 +54,58 @@ describe('Test Actions', () => {
 		})
 
 		// it('should handle error', () => {
+		// 	const store = mockStore({ tests: {} })
+	 //    return store.dispatch(fetchTests())
+		//     .then(() => {
+		//       expect(store.getActions()).toEqual(expectedActions)
+		//     })
 		// })
+	})
+
+	describe('async fetch test by id', () => {
+
+		const expectedTestDetailActions = [
+	    { type: REQUEST_TEST_DETAIL, retrieving: true },
+	    { type: RECEIVE_TEST_DETAIL, retrieving: false,
+	  		curTest: {
+					date_taken: "2019-02-21T08:00:00.000Z",
+					name: "test example",
+					questions: {
+						10: {
+							category: "General Questions",
+							child_content: null,
+							content: "gen question",
+							id: 10,
+							needs_review: null,
+							response: "",
+							sort_order: 0,
+							status: "skipped"
+						},
+						14: {
+							category: "Coding Questions",
+							child_content: null,
+							content: "coding question",
+							id: 14,
+							needs_review: null,
+							response: "",
+							sort_order: 1,
+							status: "skipped"
+						}
+					},
+					status: "completed",
+					time_remaining: 1191000,
+					time_total: 1200000
+				}
+	  	}
+	  ];
+
+		it('should return', () => {
+			const store = mockStore({ tests: {} })
+	    return store.dispatch(fetchTestById({id: 1, token: 'dummy'}))
+		    .then(() => {
+		      expect(store.getActions()).toEqual(expectedTestDetailActions)
+		    })
+		})
 
 	})
 
