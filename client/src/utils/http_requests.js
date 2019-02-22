@@ -5,6 +5,7 @@ const AUTH_REGISTER = 'auth/register';
 const AUTH_LOGIN = 'auth/login';
 const TESTS_ALL = 'test/all';
 const TEST_BY_ID = 'test/detail';
+const TEST_INIT = 'test/new';
 
 const requests = {
   get: url => {
@@ -55,6 +56,9 @@ const Tests = {
 	},
 	getTestById: (body) => {
 		return requests.post(`${API_ROOT}${TEST_BY_ID}`, body);
+	},
+	initializeTest: (body) => {
+		return requests.post(`${API_ROOT}${TEST_INIT}`, body);
 	}
 }
 
