@@ -17,7 +17,9 @@ describe('Async Auth Actions', () => {
 
 	describe('fetch register ', () => {
 		const expectedActions = [
-	    { type: REQUEST_REGISTRATION, retrieving: true },
+	    { type: REQUEST_REGISTRATION, retrieving: true,
+	    	registrationError: null
+	    },
 	    { type: RECEIVE_REGISTRATION, retrieving: false,
 				userRegistered: true,
 				registrationError: '',
@@ -25,7 +27,9 @@ describe('Async Auth Actions', () => {
 	  ];
 
 		const expectedActionsFail = [
-	    { type: REQUEST_REGISTRATION, retrieving: true },
+	    { type: REQUEST_REGISTRATION, retrieving: true,
+	    	registrationError: null
+	    },
 	    { type: RECEIVE_REGISTRATION, retrieving: false,
 				userRegistered: false,
 				registrationError: 'registration could not be completed',
@@ -49,7 +53,9 @@ describe('Async Auth Actions', () => {
 
 	describe('fetch login ', () => {
 		const expectedLoginActions = [
-	    { type: REQUEST_LOGIN, retrieving: true },
+	    { type: REQUEST_LOGIN, retrieving: true,
+	    	loginError: null
+	    },
 	    { type: RECEIVE_LOGIN, retrieving: false,
 				jwt: 'dummy token',
 				email: 'zzz@z.com',
@@ -65,7 +71,9 @@ describe('Async Auth Actions', () => {
 		})
 
 		const expectedLoginActionsFail = [
-	    { type: REQUEST_LOGIN, retrieving: true },
+	    { type: REQUEST_LOGIN, retrieving: true,
+	    	loginError: null
+	    },
 	    { type: RECEIVE_LOGIN, retrieving: false,
 				jwt: '',
 				email: null,
