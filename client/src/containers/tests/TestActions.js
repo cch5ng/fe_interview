@@ -18,14 +18,19 @@ export const RECEIVE_ALL_TESTS = 'RECEIVE_ALL_TESTS';
 export function requestAllTests() {
 	return {
 		type: REQUEST_ALL_TESTS,
-		retrieving: true
+		retrieving: true,
+		testError: null
 	}
 }
 
-export function receiveAllTests(tests) {
+export function receiveAllTests(resp) {
+	let tests = resp.tests ? resp.tests : {};
+	let testError = resp.testError ? resp.testError : null; 
+
 	return {
 		type: RECEIVE_ALL_TESTS,
 		tests,
+		testError,
 		retrieving: false
 	}
 }
