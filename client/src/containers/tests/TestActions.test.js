@@ -1,7 +1,8 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { REQUEST_ALL_TESTS, RECEIVE_ALL_TESTS, fetchTests,
-	REQUEST_TEST_DETAIL, RECEIVE_TEST_DETAIL, fetchTestById } from './TestActions';
+	REQUEST_TEST_DETAIL, RECEIVE_TEST_DETAIL, fetchTestById,
+	REQUEST_INIT_TEST, RECEIVE_INIT_TEST, fetchInitTest } from './TestActions';
 
 jest.mock('../../utils/http_requests');
 
@@ -119,6 +120,78 @@ describe('Test Actions', () => {
 	    return store.dispatch(fetchTestById({id: 1, token: 'dummy'}))
 		    .then(() => {
 		      expect(store.getActions()).toEqual(expectedTestDetailActions)
+		    })
+		})
+
+	})
+
+	describe('async fetch new test', () => {
+
+		const newTest = {
+			"name":"test sample",
+			"questions":[
+				{
+					"id":7,
+					"content":"What is?",
+					"child_content":null,
+					"category":"CSS Questions",
+					"sort_order":0,
+					"status":"not_visited"
+				},
+				{
+					"id":9,
+					"content":"Describe",
+					"child_content":null,
+					"category":"CSS Questions",
+					"sort_order":1,
+					"status":"not_visited"
+				}
+			],
+			"time_total":600000,
+			"status":"initialized",
+			"email":"hello@m.com",
+			"date_taken":"2019-02-22"
+		}
+
+		const normTest = {
+			"name":"test sample",
+			"questions": {
+				"7": {
+					"id":7,
+					"content":"What is?",
+					"child_content":null,
+					"category":"CSS Questions",
+					"sort_order":0,
+					"status":"not_visited"
+				},
+				"9": {
+					"id":9,
+					"content":"Describe",
+					"child_content":null,
+					"category":"CSS Questions",
+					"sort_order":1,
+					"status":"not_visited"
+				}
+			},				
+			"time_total":600000,
+			"status":"initialized",
+			"email":"hello@m.com",
+			"date_taken":"2019-02-22",
+			"id": 9999
+		}
+
+		const expectedTestNewActions = [
+	    { type: REQUEST_INIT_TEST, retrieving: true },
+	    { type: RECEIVE_INIT_TEST, retrieving: false,
+	  		curTest: normTest
+	  	}
+	  ];
+
+		it('should return', () => {
+			const store = mockStore({ tests: {} })
+	    return store.dispatch(fetchInitTest(newTest))
+		    .then(() => {
+		      expect(store.getActions()).toEqual(expectedTestNewActions)
 		    })
 		})
 
