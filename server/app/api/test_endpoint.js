@@ -13,10 +13,14 @@ router.post('/all',
 	(req, res, next) => {
 		TestTable.getAllTests(req.body)
 			.then(tests => {
-				res.json(tests);
+				if (Object.keys(tests).length) {
+					res.json({tests});
+				} else {
+					res.json({tests, testError: 'No tests were found'})
+				}
 			})
 			.catch(err => {
-				//console.error('error', err);
+				console.error('error', err);
 				next(err);	
 			});
 });
