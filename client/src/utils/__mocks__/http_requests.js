@@ -138,6 +138,36 @@ const testsList = [
 					}
 				];
 
+const testDetail = {
+	date_taken: "2019-02-21T08:00:00.000Z",
+	name: "test example",
+	questions: [
+		{
+			category: "General Questions",
+			child_content: null,
+			content: "gen question",
+			id: 10,
+			needs_review: null,
+			response: "",
+			sort_order: 0,
+			status: "skipped"
+		},
+		{
+			category: "Coding Questions",
+			child_content: null,
+			content: "coding question",
+			id: 14,
+			needs_review: null,
+			response: "",
+			sort_order: 1,
+			status: "skipped"
+		}
+	],
+	status: "completed",
+	time_remaining: 1191000,
+	time_total: 1200000
+}
+
 const Tests = {
 	getAll: (email) => {
 		return new Promise((resolve, reject) => {
@@ -146,6 +176,16 @@ const Tests = {
 			}
 
 			resolve(testsList);
+		})		
+	},
+	getTestById: (id) => {
+		return new Promise((resolve, reject) => {
+			if (!id) {
+				resolve({error: 'test could not be retrieved'})
+				//reject(new Error('test could not be retrieved'));
+			}
+
+			resolve(testDetail);
 		})		
 	}
 }
