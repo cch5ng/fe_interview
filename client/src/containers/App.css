@@ -121,6 +121,11 @@ h2 {
 	/*#d97f7f;*/
 }
 
+.errorMessage {
+	font-size: 1.2em;
+	color: #ad6565; 	
+}
+
 /* form styling */
 
 .formGroup {
