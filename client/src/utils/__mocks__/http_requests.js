@@ -169,13 +169,14 @@ const testDetail = {
 }
 
 const Tests = {
-	getAll: (email) => {
+	getAll: ({email}) => {
 		return new Promise((resolve, reject) => {
 			if (!email) {
-				reject(new Error('user tests could not be retrieved'));
+				resolve({tests: {}, testError: 'No tests were found'})
+				//reject(new Error('user tests could not be retrieved'));
 			}
 
-			resolve(testsList);
+			resolve({tests: testsList});
 		})		
 	},
 	getTestById: (id) => {
