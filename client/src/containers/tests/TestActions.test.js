@@ -13,7 +13,10 @@ describe('Test Actions', () => {
 	describe('async fetch tests', () => {
 
 		const expectedActions = [
-	    { type: REQUEST_ALL_TESTS, retrieving: true },
+	    { type: REQUEST_ALL_TESTS,
+	    	retrieving: true,
+	    	testError: null
+	    },
 	    { type: RECEIVE_ALL_TESTS, retrieving: false,
 	  		tests: [
 					{
@@ -41,7 +44,8 @@ describe('Test Actions', () => {
 						time_remaining: 1000,
 						time_total: 600000,
 					}
-				]
+	  		],
+				testError: null
 	  	}
 	  ];
 
@@ -53,13 +57,24 @@ describe('Test Actions', () => {
 		    })
 		})
 
-		// it('should handle error', () => {
-		// 	const store = mockStore({ tests: {} })
-	 //    return store.dispatch(fetchTests())
-		//     .then(() => {
-		//       expect(store.getActions()).toEqual(expectedActions)
-		//     })
-		// })
+		const expectedFailActions = [
+	    { type: REQUEST_ALL_TESTS,
+	    	retrieving: true,
+	    	testError: null
+	    },
+	    { type: RECEIVE_ALL_TESTS, retrieving: false,
+	  		tests: {},
+	  		testError: 'No tests were found'
+	  	}
+	  ];
+
+		it('should handle error', () => {
+			const store = mockStore({ tests: {} })
+	    return store.dispatch(fetchTests({email: null}))
+		    .then(() => {
+		      expect(store.getActions()).toEqual(expectedFailActions)
+		    })
+		})
 	})
 
 	describe('async fetch test by id', () => {
