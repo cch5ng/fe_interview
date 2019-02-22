@@ -49,6 +49,8 @@ class Registration extends Component {
 	render() {
 		let userIsRegistered = this.props.auth && this.props.auth.userRegistered ? true : false;
 
+		let registrationError = this.props.auth && this.props.auth.registrationError ? this.props.auth.registrationError : null ;
+
 		if (userIsRegistered) {
 			return (
 				<Redirect to="/login" />
@@ -58,6 +60,12 @@ class Registration extends Component {
 		return (
 			<div>
 				<h1>Registration</h1>
+
+				{registrationError && (
+					<div className={styles.errorMessage}>
+						{registrationError}
+					</div>
+				)}
 
 				<form>
 					<div className={styles.formGroup}>

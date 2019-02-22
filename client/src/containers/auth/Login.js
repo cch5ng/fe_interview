@@ -49,6 +49,7 @@ class Login extends Component {
 
 	render() {
 		let hasToken = this.props.auth && this.props.auth.jwt ? true : false;
+		let loginError = this.props.auth && this.props.auth.loginError ? this.props.auth.loginError : null;
 
 		if (hasToken) {
 			return (
@@ -59,6 +60,12 @@ class Login extends Component {
 		return (
 			<div>
 				<h1>Login</h1>
+
+					{loginError && (
+						<div className={styles.errorMessage}>
+							{loginError}
+						</div>
+					)}
 
 					<form>
 						<div className={styles.formGroup}>
