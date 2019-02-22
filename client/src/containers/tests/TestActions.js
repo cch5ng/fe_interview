@@ -177,15 +177,7 @@ export const fetchInitTest = (testData) => dispatch => {
 	let email = testData.email || null;
 
 	dispatch(requestInitTest());
-	return fetch(API_POST_INIT_TEST,
-			{	method: 'POST',
-				headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({...testData, token}),
-			}
-		)
-		.then(resp => resp.json())
+	return http_requests.Tests.initializeTest({...testData, token})
 		.then(json => {
 			let curTest = {...testData, id: json.test_id}
 
