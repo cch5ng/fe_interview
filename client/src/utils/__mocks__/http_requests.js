@@ -188,6 +188,15 @@ const Tests = {
 
 			resolve(testDetail);
 		})		
+	},
+	initializeTest: (testData) => {
+		return new Promise((resolve, reject) => {
+			if (!testData) {
+				resolve({error: 'test could not be saved'})
+			}
+
+			resolve({test_id: 9999});
+		})				
 	}
 }
 
