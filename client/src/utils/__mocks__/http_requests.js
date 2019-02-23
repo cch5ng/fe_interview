@@ -204,7 +204,7 @@ const Tests = {
 				resolve({error: 'question could not be updated'})
 			}
 
-			resolve();
+			resolve({ question_id: 40, response: "a very precise and concise answer", question_status:"completed" });
 		})				
 	}
 }

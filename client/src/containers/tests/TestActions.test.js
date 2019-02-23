@@ -234,7 +234,7 @@ describe('Test Actions', () => {
 	  ];
 
 
-		it('should return', () => {
+		it.skip('should return', () => {
 			const store = mockStore({ tests: {} })
 	    return store.dispatch(fetchUpdateTestQuestion(questionData))
 		    .then(() => {
