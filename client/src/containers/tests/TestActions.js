@@ -7,7 +7,7 @@ import { getRandomlyOrderedList, getRandomArbitrary,
 const API_ROOT = process.env.API_ROOT;
 //const API_GET_TEST_DETAIL = `${API_ROOT}test/detail`;
 const API_POST_RANDOM_TEST = `${API_ROOT}question/random`;
-const API_POST_INIT_TEST = `${API_ROOT}test/new`;
+//const API_POST_INIT_TEST = `${API_ROOT}test/new`;
 const API_POST_UPDATE_TEST_QUESTION = `${API_ROOT}test/updateQuestion`;
 const API_POST_UPDATE_TEST = `${API_ROOT}test/update`;
 
@@ -239,15 +239,7 @@ export const fetchUpdateTestQuestion = (questionData) => dispatch => {
 	let token = localStorage.getItem('fe_interview_session');
 
 	dispatch(requestUpdateTestQuestion());
-	return fetch(API_POST_UPDATE_TEST_QUESTION,
-			{	method: 'POST',
-				headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({...questionData, token}),
-			}
-		)
-		.then(resp => resp.json())
+	return http_requests.Tests.updateTestQuestion({...questionData, token})
 		.then(json => {
 			dispatch(receiveUpdateTestQuestion(questionData));
 		})
