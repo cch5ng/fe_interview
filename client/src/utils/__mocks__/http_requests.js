@@ -197,6 +197,15 @@ const Tests = {
 
 			resolve({test_id: 9999});
 		})				
+	},
+	updateTestQuestion: (questionData) => {
+		return new Promise((resolve, reject) => {
+			if (!questionData) {
+				resolve({error: 'question could not be updated'})
+			}
+
+			resolve();
+		})				
 	}
 }
 
