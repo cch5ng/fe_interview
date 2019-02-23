@@ -2,7 +2,8 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { REQUEST_ALL_TESTS, RECEIVE_ALL_TESTS, fetchTests,
 	REQUEST_TEST_DETAIL, RECEIVE_TEST_DETAIL, fetchTestById,
-	REQUEST_INIT_TEST, RECEIVE_INIT_TEST, fetchInitTest } from './TestActions';
+	REQUEST_INIT_TEST, RECEIVE_INIT_TEST, fetchInitTest,
+	REQUEST_UPDATE_TEST_QUESTION, RECEIVE_UPDATE_TEST_QUESTION, fetchUpdateTestQuestion } from './TestActions';
 
 jest.mock('../../utils/http_requests');
 
@@ -192,6 +193,52 @@ describe('Test Actions', () => {
 	    return store.dispatch(fetchInitTest(newTest))
 		    .then(() => {
 		      expect(store.getActions()).toEqual(expectedTestNewActions)
+		    })
+		})
+
+	})
+
+	describe('async fetch update test question', () => {
+
+		const questionData = {
+			"test_id":9,
+			"question_id":40,
+			"response":"a very precise and concise answer",
+			"question_status":"completed",
+			"token":"dummy"
+		}
+
+		const expectedTestQuestionUpdateActions = [
+	    { type: REQUEST_UPDATE_TEST_QUESTION, retrieving: true },
+	    { type: RECEIVE_UPDATE_TEST_QUESTION, retrieving: false,
+	  		curTest: {
+					"name":"test sample",
+					"questions": {
+						"40": {
+							"id":40,
+							"content":"What is?",
+							"child_content":null,
+							"category":"CSS Questions",
+							"sort_order":0,
+							"status":"completed",
+							"response":"a very precise and concise answer",
+						}
+					},				
+					"time_total":600000,
+					"status":"initialized",
+					"email":"hello@m.com",
+					"date_taken":"2019-02-22",
+					"id": 9
+				}
+	  	}
+	  ];
+
+
+		it('should return', () => {
+			const store = mockStore({ tests: {} })
+	    return store.dispatch(fetchUpdateTestQuestion(questionData))
+		    .then(() => {
+		      expect(store.getActions()).toEqual(expectedTestQuestionUpdateActions)
 		    })
 		})
 
