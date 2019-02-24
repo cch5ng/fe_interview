@@ -2,7 +2,7 @@ import React from 'react';
 import {createStore} from 'redux';
 import {Provider, connect} from 'react-redux';
 import {render, fireEvent, cleanup, waitForElement,
-	waitForDomChange, getByTestId} from 'react-testing-library';
+	waitForDomChange, getByTestId, wait} from 'react-testing-library';
 import 'jest-dom/extend-expect';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -13,7 +13,7 @@ jest.mock('../../utils/http_requests');
 
 const middlewares = [thunk]; // add your middlewares like `redux-thunk`
 const mockStore = configureStore(middlewares);
-const initialState = //{questions: {}, tests: {}, auth: {}
+ const initialState = //{questions: {}, tests: {}, auth: {}
   {
 	  questions: {
 	    questions: {
@@ -44,8 +44,23 @@ const initialState = //{questions: {}, tests: {}, auth: {}
 
 const store = mockStore(initialState);
 
+// function reducer(state = { }, action) {
+//   switch (action.type) {
+//     case 'RECEIVE_ALL_QUESTIONS':
+//       return {
+//         ...state,
+//         questions: {
+//         	questions: action.questions
+//         }
+//       }
+//     default:
+//       return state
+//   }
+// }
+
 function renderWithRedux(
   ui,
+  //{ initialState, store = createStore(reducer, {...mockStore, ...initialState}) } = {}
   store
 ) {
   return {
@@ -57,14 +72,14 @@ function renderWithRedux(
   }
 }
 
-async function waitForElementWrap(identifier) {
-	let question = await waitForElement(
-		  () => getByTestId(container, identifier),
-		  { container }
-		)
+// async function waitForElementWrap(identifier) {
+// 	let question = await waitForElement(
+// 		  () => getByTestId(container, identifier),
+// 		  { container }
+// 		)
 
-	return question
-}
+// 	return question
+// }
 
 describe('Questions', () => {
 
@@ -81,6 +96,7 @@ describe('Questions', () => {
 		//   () => getByTestId(container, 'question-item'),
 		//   { container }
 		// )
+		wait(() => getByTestId('question-item'));
 
 		// console.log('questionReturned', questionReturned)
 		// expect(questionReturned).not.toBeNull();
@@ -89,6 +105,9 @@ describe('Questions', () => {
 		// but something wrong when testing the flow with the async axn (although mock gets called as expected)
 		// maybe need to mock the action itself??
 		let question = getByTestId('question-item');
+		console.log('store', store)
+		console.log('store.getActions()', store.getActions())
+		console.log('store.getState()', store.getState())
 		expect(question).not.toBeNull();
 
 	})
