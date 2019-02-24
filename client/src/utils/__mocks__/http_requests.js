@@ -60,7 +60,6 @@ const Questions = {
 			if (p) {
 				reject(new Error('questions could not be retrieved'));
 			}
-
 			resolve(questionsData);
 		})
 	},
