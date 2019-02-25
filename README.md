@@ -2,6 +2,18 @@
 
 ## Purpose
 
+* Initially this project is geared towards Front End Engineers preparing for a technical interview.
+
+* It allows the user to simulate an online test with randomized questions and timer.
+
+* Afterward the user can review the test and see a summary of the questions/topics which need to be reviewed further.
+
+* This application does not provide correct answers or grading of the user's responses.
+
+## Credits
+
+* The main content for this application was sourced from this project: https://github.com/h5bp/Front-end-Developer-Interview-Questions
+
 ## Dependencies
 
 Global installation of parcel. http://npmjs.com/package/parcel-bundler
