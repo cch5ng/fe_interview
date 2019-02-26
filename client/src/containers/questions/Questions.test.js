@@ -4,7 +4,6 @@ import {Provider, connect} from 'react-redux';
 import {render, fireEvent, cleanup, waitForElement,
 	waitForDomChange, getByTestId, wait, getAllByTestId} from 'react-testing-library';
 import 'jest-dom/extend-expect';
-import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Questions from './Questions';
 import 'react-testing-library/cleanup-after-each';
