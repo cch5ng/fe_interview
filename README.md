@@ -18,7 +18,7 @@
 
 Global installation of parcel. http://npmjs.com/package/parcel-bundler
 
-## Setup (local)
+## Setup (local/development)
 
 **Install files**
 
@@ -72,6 +72,9 @@ Global installation of parcel. http://npmjs.com/package/parcel-bundler
 `cd ../client && yarn run start`
 
 
+From a browser, open http://localhost:1234
+
+
 ## Test
 
 * API Server
@@ -81,6 +84,7 @@ TODO; currently saved in postman
 * Client (from /client directory)
 
 `yarn run test`
+
 
 ## Deploy
 
