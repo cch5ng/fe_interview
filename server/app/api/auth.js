@@ -15,7 +15,7 @@ router.post('/register', (req, res, next) => {
 		.catch(err => {
 			let message;
 			if (err.detail.indexOf('already exists') > -1) {
-				message = 'user already exists';
+				message = 'That user already exists';
 			}
 			res.json({error: message});
 		})

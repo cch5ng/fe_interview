@@ -7,7 +7,8 @@ export const RECEIVE_REGISTRATION = 'RECEIVE_REGISTRATION';
 export function requestRegistration() {
 	return {
 		type: REQUEST_REGISTRATION,
-		retrieving: true
+		retrieving: true,
+		registrationError: null,
 	}
 }
 
@@ -44,7 +45,8 @@ export const RECEIVE_LOGIN = 'RECEIVE_LOGIN';
 export function requestLogin() {
 	return {
 		type: REQUEST_LOGIN,
-		retrieving: true
+		retrieving: true,
+		loginError: null
 	}
 }
 

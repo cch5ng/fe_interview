@@ -59,7 +59,7 @@ class Questions extends Component {
 			return (
 				questionsByCategory[category].map(question =>
 					<React.Fragment key={question.id}>
-						<li>{question.content}</li>
+						<li data-testid="question-item">{question.content}</li>
 					</React.Fragment>
 				)
 			)
@@ -74,7 +74,7 @@ class Questions extends Component {
 		let questionsByCategory = questionsAr && questionsAr.length ? this.getQuestionsByCategory(questionsAr) : {};
 
 		return (
-			<div>
+			<div data-testid="questions" id="questions">
 				<h1>All Questions</h1>
 
 				{categories.map(category => 

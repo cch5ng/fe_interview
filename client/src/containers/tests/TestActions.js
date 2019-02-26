@@ -5,9 +5,9 @@ import { getRandomlyOrderedList, getRandomArbitrary,
 
 // fetch constants
 const API_ROOT = process.env.API_ROOT;
-const API_GET_TEST_DETAIL = `${API_ROOT}test/detail`;
+//const API_GET_TEST_DETAIL = `${API_ROOT}test/detail`;
 const API_POST_RANDOM_TEST = `${API_ROOT}question/random`;
-const API_POST_INIT_TEST = `${API_ROOT}test/new`;
+//const API_POST_INIT_TEST = `${API_ROOT}test/new`;
 const API_POST_UPDATE_TEST_QUESTION = `${API_ROOT}test/updateQuestion`;
 const API_POST_UPDATE_TEST = `${API_ROOT}test/update`;
 
@@ -18,14 +18,19 @@ export const RECEIVE_ALL_TESTS = 'RECEIVE_ALL_TESTS';
 export function requestAllTests() {
 	return {
 		type: REQUEST_ALL_TESTS,
-		retrieving: true
+		retrieving: true,
+		testError: null
 	}
 }
 
-export function receiveAllTests(tests) {
+export function receiveAllTests(resp) {
+	let tests = resp.tests ? resp.tests : {};
+	let testError = resp.testError ? resp.testError : null; 
+
 	return {
 		type: RECEIVE_ALL_TESTS,
 		tests,
+		testError,
 		retrieving: false
 	}
 }
@@ -62,15 +67,7 @@ export const fetchTestById = ({ id }) => dispatch => {
 	let token = localStorage.getItem('fe_interview_session');
 
 	dispatch(requestTestDetail());
-	return fetch(API_GET_TEST_DETAIL,
-			{	method: 'POST',
-				headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id, token }),
-			}
-		)
-		.then(resp => resp.json())
+	return http_requests.Tests.getTestById({id, token})
 		.then(json => {
 			let randomizedQuestionsObj = {};
 
@@ -180,15 +177,7 @@ export const fetchInitTest = (testData) => dispatch => {
 	let email = testData.email || null;
 
 	dispatch(requestInitTest());
-	return fetch(API_POST_INIT_TEST,
-			{	method: 'POST',
-				headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({...testData, token}),
-			}
-		)
-		.then(resp => resp.json())
+	return http_requests.Tests.initializeTest({...testData, token})
 		.then(json => {
 			let curTest = {...testData, id: json.test_id}
 
@@ -250,15 +239,7 @@ export const fetchUpdateTestQuestion = (questionData) => dispatch => {
 	let token = localStorage.getItem('fe_interview_session');
 
 	dispatch(requestUpdateTestQuestion());
-	return fetch(API_POST_UPDATE_TEST_QUESTION,
-			{	method: 'POST',
-				headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({...questionData, token}),
-			}
-		)
-		.then(resp => resp.json())
+	return http_requests.Tests.updateTestQuestion({...questionData, token})
 		.then(json => {
 			dispatch(receiveUpdateTestQuestion(questionData));
 		})

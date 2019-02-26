@@ -5,10 +5,16 @@ export function auth(state = { userRegistered: false }, action) {
 	switch(action.type) {
 
 		case REQUEST_REGISTRATION:
+			return {
+				...state,
+				retrieving: action.retrieving,
+				registrationError: action.registrationError
+			}
 		case REQUEST_LOGIN:
 			return {
 				...state,
-				retrieving: action.retrieving
+				retrieving: action.retrieving,
+				loginError: action.loginError
 			}
 		case RECEIVE_REGISTRATION:
 			return {

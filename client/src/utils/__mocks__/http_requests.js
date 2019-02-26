@@ -60,7 +60,6 @@ const Questions = {
 			if (p) {
 				reject(new Error('questions could not be retrieved'));
 			}
-
 			resolve(questionsData);
 		})
 	},
@@ -135,18 +134,113 @@ const testsList = [
 						status: "completed",
 						time_remaining: 1000,
 						time_total: 600000,
+					},
+					{
+						date_taken: "2019-02-20T08:00:00.000Z",
+						email: "d@d.com",
+						id: 26,
+						name: "d's test xx",
+						questions: [
+							{
+								content: "What is Flash of Unstyled Content? How do you avoid FOUC?",
+								id: 109,
+								response: "",
+								sort_order: 0,
+								status: "completed",
+							}		
+						],
+						status: "completed",
+						time_remaining: 1000,
+						time_total: 600000,
+					},
+					{
+						date_taken: "2019-02-22T08:00:00.000Z",
+						email: "d@d.com",
+						id: 27,
+						name: "d's test xxx",
+						questions: [
+							{
+								content: "What is Flash of Unstyled Content? How do you avoid FOUC?",
+								id: 109,
+								response: "",
+								sort_order: 0,
+								status: "completed",
+							}		
+						],
+						status: "completed",
+						time_remaining: 1000,
+						time_total: 600000,
 					}
 				];
 
+const testDetail = {
+	date_taken: "2019-02-21T08:00:00.000Z",
+	name: "test example",
+	questions: [
+		{
+			category: "General Questions",
+			child_content: null,
+			content: "gen question",
+			id: 10,
+			needs_review: null,
+			response: "",
+			sort_order: 0,
+			status: "skipped"
+		},
+		{
+			category: "Coding Questions",
+			child_content: null,
+			content: "coding question",
+			id: 14,
+			needs_review: null,
+			response: "",
+			sort_order: 1,
+			status: "skipped"
+		}
+	],
+	status: "completed",
+	time_remaining: 1191000,
+	time_total: 1200000
+}
+
 const Tests = {
-	getAll: (email) => {
+	getAll: ({email}) => {
 		return new Promise((resolve, reject) => {
 			if (!email) {
-				reject(new Error('user tests could not be retrieved'));
+				resolve({tests: {}, testError: 'No tests were found'})
+				//reject(new Error('user tests could not be retrieved'));
 			}
 
-			resolve(testsList);
+			resolve({tests: testsList});
 		})		
+	},
+	getTestById: (id) => {
+		return new Promise((resolve, reject) => {
+			if (!id) {
+				resolve({error: 'test could not be retrieved'})
+				//reject(new Error('test could not be retrieved'));
+			}
+
+			resolve(testDetail);
+		})		
+	},
+	initializeTest: (testData) => {
+		return new Promise((resolve, reject) => {
+			if (!testData) {
+				resolve({error: 'test could not be saved'})
+			}
+
+			resolve({test_id: 9999});
+		})				
+	},
+	updateTestQuestion: (questionData) => {
+		return new Promise((resolve, reject) => {
+			if (!questionData) {
+				resolve({error: 'question could not be updated'})
+			}
+
+			resolve({ question_id: 40, response: "a very precise and concise answer", question_status:"completed" });
+		})				
 	}
 }
 

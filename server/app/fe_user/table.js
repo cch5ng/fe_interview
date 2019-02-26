@@ -53,7 +53,7 @@ class FEUserTable {
 							})
 							.catch(berr => console.error('bcrypt err', berr))
 					} else {
-						resolve({error: 'invalid login'});
+						resolve({error: 'Login failed. Please check spelling of email and password.'});
 					}
 				}
 			)
