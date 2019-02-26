@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchQuestions } from './QuestionActions';
-import { formatQuestion } from '../../utils/helper';
 import styles from '../App.css';
 
 const categories = [
