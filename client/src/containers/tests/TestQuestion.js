@@ -26,6 +26,7 @@ class TestQuestion extends Component {
 		this.submitQuestion = this.submitQuestion.bind(this);
 		this.skipQuestion = this.skipQuestion.bind(this);
 		this.handleInputUpdate = this.handleInputUpdate.bind(this);
+		this.formatQuestion = this.formatQuestion.bind(this);
 	}
 
 	//event handlers
@@ -66,6 +67,66 @@ class TestQuestion extends Component {
 		this.props.history.push('/tests/current');
 	}
 
+	//not sure how to abstract
+	formatQuestion(str) {
+
+		let threeHatAr = [];
+		let oneHatAr = [];
+
+		//handle 3 cases
+		// only has '^^^'
+		// only has '^'
+		// has both '^^^' and '^'
+
+		if (str.indexOf('^^^') > -1 && str.indexOf('^') > -1) {
+			threeHatAr = str.split('^^^');
+			return (
+				<span>
+					{threeHatAr.map((subStr, idx) => {
+						if (subStr.indexOf('^')) {
+							subStr = this.formatQuestion(subStr);
+						}
+
+						if (idx % 2 === 1) {
+							return (<span key={idx} className={styles.code}>{subStr}<br/></span>)
+						} else {
+							return (<span key={idx} >{subStr}</span>)
+						}
+					})}
+				</span>
+			)
+		} else if (str.indexOf('^^^') > -1) {
+			threeHatAr = str.split('^^^');
+			return (
+				<span>
+					{threeHatAr.map((subStr, idx) => {
+						if (idx % 2 === 1) {
+							return (<span key={idx} className={styles.code}><br>{subStr}</br></span>)
+						} else {
+							return (<span key={idx} >{subStr}</span>)
+						}
+					})}
+				</span>
+			)
+		} else if (str.indexOf('^') > -1) {
+			oneHatAr = str.split('^')
+			return (
+				<span>
+					{oneHatAr.map((subStr, idx) => {
+						if (idx % 2 === 1) {
+							return (<span key={idx} className={styles.code}>{subStr}</span>)
+						} else {
+							return (<span key={idx} >{subStr}</span>)
+						}
+					})}
+				</span>
+			)
+		} else {
+			return (<span>{str}</span>);
+		}
+
+	}
+
 	render() {
 		let curQuestionId;
 		
@@ -98,7 +159,7 @@ class TestQuestion extends Component {
 						</div>
 					
 						<div>
-							<h2>{curQuestionContent}</h2>
+							<h2>{this.formatQuestion(curQuestionContent)}</h2>
 
 							<textarea
 								name="curQuestionResponse"
