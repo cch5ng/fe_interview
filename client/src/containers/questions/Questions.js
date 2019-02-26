@@ -82,7 +82,22 @@ class Questions extends Component {
 		// has both '^^^' and '^'
 
 		if (str.indexOf('^^^') > -1 && str.indexOf('^') > -1) {
-			console.log('todo')
+			threeHatAr = str.split('^^^');
+			return (
+				<span>
+					{threeHatAr.map((subStr, idx) => {
+						if (subStr.indexOf('^')) {
+							subStr = this.formatQuestion(subStr);
+						}
+
+						if (idx % 2 === 1) {
+							return (<span key={idx} className={styles.code}>{subStr}<br/></span>)
+						} else {
+							return (<span key={idx} >{subStr}</span>)
+						}
+					})}
+				</span>
+			)
 		} else if (str.indexOf('^^^') > -1) {
 			threeHatAr = str.split('^^^');
 			return (
