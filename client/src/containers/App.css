@@ -126,6 +126,13 @@ h2 {
 	color: #ad6565; 	
 }
 
+.code {
+	font-family: 'Source Code Pro', monospace;
+	background-color: #e5e5e5;
+	font-size: 0.9em;
+	padding: 0 3px;
+}
+
 /* form styling */
 
 .formGroup {
