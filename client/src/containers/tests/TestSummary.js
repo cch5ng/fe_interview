@@ -153,7 +153,7 @@ class TestSummary extends Component {
 				)}
 
 				{curTestObj && (status === 'initialized' || status === 'active') && (
-					<div>
+					<div data-testid="curTest">
 						<h2>Name {curTestObj.name}</h2>
 						<p>Total time {prettyTotalTime}</p>
 						<p>Total Questions {curTestQuestionsCount}</p>
@@ -175,7 +175,7 @@ class TestSummary extends Component {
 				})}
 
 				{curTestObj && status === 'completed' && (
-					<div className={styles.testSummary}>
+					<div className={styles.testSummary} data-testid="curTest">
 						<h2><span className={styles.bold}>Name</span> {curTestObj.name}</h2>
 						<p><span className={styles.bold}>Time used</span> {getPrettyTime(timeTaken)} / {prettyTotalTime}</p>
 						<p><span className={styles.bold}>Skipped Questions</span> {this.getQuestionsCountByStatus().skipped} / {curTestQuestionsCount}</p>
