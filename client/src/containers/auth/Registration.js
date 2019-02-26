@@ -7,7 +7,9 @@ import styles from '../App.css';
 
 const initState = {
 	email: '',
-	password: ''
+	password: '',
+	emailError: null,
+	passwordError: null
 }
 
 class Registration extends Component {
@@ -17,13 +19,17 @@ class Registration extends Component {
 
 		this.state = {
 			email: '',
-			password: ''
+			password: '',
+			emailError: null,
+			passwordError: null
 		}
 
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.submitForm = this.submitForm.bind(this);
 		this.resetState = this.resetState.bind(this);
-
+		this.validateEmail = this.validateEmail.bind(this);
+		this.validatePassword = this.validatePassword.bind(this);
+		this.submitForm2 = this.submitForm2.bind(this);
 	}
 
 	handleInputChange(ev) {
@@ -31,15 +37,75 @@ class Registration extends Component {
 		let value = ev.target.value;
 
 		this.setState({[name]: value})
+
 	}
 
 	submitForm(ev) {
 		ev.preventDefault();
 
+		// validate email
+		console.log('todo')
+
+		// validate password
+		//handle cases, password empty
+		if (this.state.password === '') {
+			//set error
+			this.setState({passwordError: 'Password should not be empty'})
+		} else if (this.state.password.length > 0) {
+			let pwdErr = this.state.passwordError;
+			if (pwdErr && pwdErr.indexOf('Password should not be empty') > -1) {
+				pwdErr = pwdErr.replace('Password should not be empty', '');
+
+				this.setState({passwordError: pwdErr}, () => {
+					if (this.validatePassword()) {
+						this.submitForm2();
+					} else {
+						this.setState((state, props) => ({
+							passwordError: 'The password must include one number, one letter, one special character including !@#$%^&*'
+						}))
+					}
+				})
+
+			} else {
+				if (this.validatePassword()) {
+					this.setState({passwordError: null}, () => {
+						this.submitForm2();
+					})
+				} else {
+					this.setState((state, props) => ({
+						passwordError: 'The password must include one number, one letter, one special character including !@#$%^&*'
+					}))
+				}				
+			}
+		} else if (!this.state.passwordError) {
+			this.submitForm2();
+		}
+
+	}
+
+	submitForm2() {
 		let login = {email: this.state.email, password: this.state.password};
 
-		this.props.dispatch(fetchRegister(login));
-		this.resetState();
+		if (!this.state.emailError && (!this.state.passwordError || this.state.passwordError === '')) {
+			this.props.dispatch(fetchRegister(login));
+			this.resetState();
+		}
+
+	}
+
+	validateEmail() {
+	}
+
+	validatePassword() {
+		let { password } = this.state;
+		let regex1 = /[\d]+/g;
+		let regex2 = /[\D]+/g;
+		let regex3 = /[!@#$%^&*]+/g;
+
+		if (password.search(regex1) > -1 && password.search(regex2) > -1 && password.search(regex3) > -1) {
+			return true;
+		}
+		return false;
 	}
 
 	resetState() {
@@ -74,16 +140,23 @@ class Registration extends Component {
 						</label>
 						<input type="email" name="email"
 							value={this.state.email}
-							onChange={this.handleInputChange} />
+							onChange={this.handleInputChange}
+							minLength="5"
+							required />
 					</div>
 
 					<div className={styles.formGroup}>
 						<label>
-							Password
+							Password (min 8 characters, with one number, one letter, one special character including !@#$%^&*)
 						</label>
+						{this.state.passwordError && (
+							<div className={styles.errorMessage}>{this.state.passwordError}</div>
+						)}
 						<input type="password" name="password"
 							value={this.state.password}
-							onChange={this.handleInputChange} />
+							onChange={this.handleInputChange}
+							minLength="8"
+							required />
 					</div>
 
 					<div className={styles.buttonGroup}>
