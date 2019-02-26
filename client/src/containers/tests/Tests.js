@@ -90,7 +90,7 @@ class Tests extends Component {
 					const testSummaryUrl = `/tests/${test.id}`;
 
 					return (
-						<div className={styles.test} key={test.id} >
+						<div className={styles.test} key={test.id} data-testid="test-item">
 							<Link to={testSummaryUrl}>
 								<ul>
 									<li className={[styles.testsListDetail, styles.testName].join(' ')}>{test.name}</li>
