@@ -24,17 +24,7 @@ export function receiveAllQuestions(questions) {
 
 export const fetchQuestions = () => dispatch => {
 	dispatch(requestAllQuestions());
-	return http_requests.Questions.getAll() 
-	//fetch(API_GET_QUESTIONS)
-		//.then(resp => resp.json())
+	return http_requests.Questions.getAll()
 		.then(json => dispatch(receiveAllQuestions(json)))
 		.catch(err => console.error('fetch error', err));
 } 
-
-// export const fetchQuestions = () => dispatch => {
-// 	dispatch(requestAllQuestions());
-// 	return fetch(API_GET_QUESTIONS)
-// 		.then(resp => resp.json())
-// 		.then(json => dispatch(receiveAllQuestions(json)))
-// 		.catch(err => console.error('fetch error', err));
-// }
