@@ -122,7 +122,7 @@ describe('Test Actions', () => {
 	    { type: RECEIVE_TEST_DETAIL, retrieving: false,
 	  		curTest: {
 					date_taken: "2019-02-21T08:00:00.000Z",
-					name: "test example",
+					name: "test example 15",
 					questions: {
 						10: {
 							category: "General Questions",

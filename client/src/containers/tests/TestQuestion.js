@@ -27,6 +27,7 @@ class TestQuestion extends Component {
 		this.skipQuestion = this.skipQuestion.bind(this);
 		this.handleInputUpdate = this.handleInputUpdate.bind(this);
 		this.formatQuestion = this.formatQuestion.bind(this);
+		this.getQuestionIdFromHistory = this.getQuestionIdFromHistory.bind(this);
 	}
 
 	//event handlers
@@ -127,11 +128,25 @@ class TestQuestion extends Component {
 
 	}
 
+	// added for test purpose
+	getQuestionIdFromHistory() {
+		let questionId;
+
+		if (this.props.history && this.props.history.location && this.props.history.location.pathname) {
+			let pathAr = this.props.history.location.pathname.split('/')
+			questionId = pathAr[pathAr.length - 1];
+		}
+
+		return questionId;
+	}
+
 	render() {
 		let curQuestionId;
 		
-		if (this.props.match) {
+		if (this.props.match && this.props.match.params.id) {
 			curQuestionId = this.props.match.params.id;
+		} else {
+			curQuestionId = this.getQuestionIdFromHistory();
 		}
 
 		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
@@ -159,7 +174,7 @@ class TestQuestion extends Component {
 						</div>
 					
 						<div>
-							<h2>{this.formatQuestion(curQuestionContent)}</h2>
+							<h2 data-testid="questionDetailContent">{this.formatQuestion(curQuestionContent)}</h2>
 
 							<textarea
 								name="curQuestionResponse"

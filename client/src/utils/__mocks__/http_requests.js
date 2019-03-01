@@ -175,7 +175,7 @@ const testsList = [
 
 const testDetail = {
 	date_taken: "2019-02-21T08:00:00.000Z",
-	name: "test example",
+	name: "test example 15",
 	questions: [
 		{
 			category: "General Questions",
@@ -214,8 +214,9 @@ const Tests = {
 			resolve({tests: testsList});
 		})		
 	},
-	getTestById: (id) => {
+	getTestById: ({id}) => {
 		return new Promise((resolve, reject) => {
+			console.log('id', id)
 			if (!id) {
 				resolve({error: 'test could not be retrieved'})
 				//reject(new Error('test could not be retrieved'));

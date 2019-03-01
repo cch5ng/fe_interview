@@ -25,12 +25,20 @@ class TestSummary extends Component {
 		this.submitTest = this.submitTest.bind(this);
 		this.getQuestionsCountByStatus = this.getQuestionsCountByStatus.bind(this);
 		this.getQuestionStatusIconClass = this.getQuestionStatusIconClass.bind(this);
+		this.getQuestionIdFromHistory = this.getQuestionIdFromHistory.bind(this);
 	}
 
 	componentDidMount() {
+		let test_id;
+
 		if (this.props.match.params && this.props.match.params.test_id) {
-			this.props.dispatch(fetchTestById({ id: this.props.match.params.test_id }));
+			test_id = this.props.match.params.test_id;
+		} else {
+			test_id = this.getQuestionIdFromHistory();
 		}
+		console.log('test_id', test_id)
+
+		this.props.dispatch(fetchTestById({ id: test_id }));
 	}
 
 	//event handlers
@@ -109,6 +117,18 @@ class TestSummary extends Component {
 		}		
 	}
 
+		// added for test purpose; need to refactor
+	getQuestionIdFromHistory() {
+		let questionId;
+
+		if (this.props.history && this.props.history.location && this.props.history.location.pathname) {
+			let pathAr = this.props.history.location.pathname.split('/')
+			questionId = pathAr[pathAr.length - 1];
+		}
+
+		return questionId;
+	}
+
 	render() {
 		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
 		let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized';
@@ -153,7 +173,7 @@ class TestSummary extends Component {
 				)}
 
 				{curTestObj && (status === 'initialized' || status === 'active') && (
-					<div>
+					<div data-testid="test_summary">
 						<h2>Name {curTestObj.name}</h2>
 						<p>Total time {prettyTotalTime}</p>
 						<p>Total Questions {curTestQuestionsCount}</p>
@@ -175,7 +195,7 @@ class TestSummary extends Component {
 				})}
 
 				{curTestObj && status === 'completed' && (
-					<div className={styles.testSummary}>
+					<div className={styles.testSummary} data-testid="test_summary">
 						<h2><span className={styles.bold}>Name</span> {curTestObj.name}</h2>
 						<p><span className={styles.bold}>Time used</span> {getPrettyTime(timeTaken)} / {prettyTotalTime}</p>
 						<p><span className={styles.bold}>Skipped Questions</span> {this.getQuestionsCountByStatus().skipped} / {curTestQuestionsCount}</p>
