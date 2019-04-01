@@ -75,6 +75,16 @@ Global installation of parcel. http://npmjs.com/package/parcel-bundler
 From a browser, open http://localhost:1234
 
 
+### To create a random test
+
+* Click New Test
+
+* Name test and select how many questions from each category to include
+
+* At this time, it is expected that the user will take the test immediately after it is generated
+
+
+
 ## Test
 
 * API Server
