@@ -190,6 +190,7 @@ class TestSummary extends Component {
 							Q{displayOrder} 
 							<span dangerouslySetInnerHTML={this.convertStatusToIcon(question.status)}
 								className={this.getQuestionStatusIconClass(question.status)} />
+								{question.content}
 						</div>
 					)
 				})}
@@ -213,6 +214,7 @@ class TestSummary extends Component {
 							className={styles.question}>Q{displayOrder}
 								<span dangerouslySetInnerHTML={this.convertStatusToIcon(question.status)} 
 									className={this.getQuestionStatusIconClass(question.status)} />
+								{question.content}
 								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
 						</div>								
 					)
