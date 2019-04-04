@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { fetchQuestions } from './QuestionActions';
 import styles from '../App.css';
 
@@ -153,6 +154,7 @@ class Questions extends Component {
 function mapStateToProps(state) {
 	return {
 		questions: state.questions,
+		auth: state.auth,
 	}
 }
 

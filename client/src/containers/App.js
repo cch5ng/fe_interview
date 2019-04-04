@@ -109,6 +109,8 @@ class App extends Component {
 
     let loggedIn = this.props.auth && this.props.auth.email ? true : false;
 
+//                {/* <Questions /> */}
+
     return (
       <Router>
         <div className="App">
@@ -212,7 +214,7 @@ class App extends Component {
               )} />
 
               <Route exact path="/" render={() => (
-                <Questions />
+                <Login />
               )} />
 
             </Switch> 
