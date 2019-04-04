@@ -139,8 +139,8 @@ class Questions extends Component {
 				<h1>All Questions</h1>
 
 				{categories.map(category => 
-					(<div key={category}>
-						<h3>{category}</h3>
+					(<div key={category} className={styles.questionContainer}>
+						<h3 className={styles.h3Question}>{category}</h3>
 						{this.renderQuestionsByCategory(category, questionsByCategory)}
 					</div>)
 				)}

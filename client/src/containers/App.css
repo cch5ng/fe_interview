@@ -133,6 +133,16 @@ h2 {
 	padding: 0 3px;
 }
 
+/* Question */
+
+.questionContainer {
+	margin: 22px 0;
+}
+
+.h3Question {
+	margin-bottom: 8px;
+}
+
 /* form styling */
 
 .formGroup {
