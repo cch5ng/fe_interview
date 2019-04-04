@@ -44,6 +44,11 @@ class Registration extends Component {
 		ev.preventDefault();
 
 		// validate email
+		if (this.state.email === '') {
+			this.setState({emailError: 'Email should not be empty'})
+		} else if (this.state.email.length > 0) {
+			this.setState({emailError: null})
+		}
 
 		// validate password
 		if (this.state.password === '') {
@@ -73,7 +78,7 @@ class Registration extends Component {
 					}))
 				}				
 			}
-		} else if (!this.state.passwordError) {
+		} else if (!this.state.passwordError && !this.state.emailError) {
 			this.submitForm2();
 		}
 
@@ -134,6 +139,9 @@ class Registration extends Component {
 						<label>
 							New Account Email
 						</label>
+						{this.state.emailError && (
+							<div className={styles.errorMessage}>{this.state.emailError}</div>
+						)}
 						<input type="email" name="email"
 							value={this.state.email}
 							onChange={this.handleInputChange}
