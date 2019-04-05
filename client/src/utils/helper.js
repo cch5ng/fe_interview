@@ -9,33 +9,37 @@ export function	getPrettyTime(timeMs) {
 	let hour = Math.floor(curTimeMs / (60 * 60 * 1000));
 
 	if (hour === 1) {
-		hourStr = `${hour} hr`;
+		hourStr = `${hour}`; // hr
 	} else if (hour > 1) {
-		hourStr = `${hour} hr`;
+		hourStr = `${hour}`; // hr
 	}
 
 	curTimeMs = curTimeMs - (hour * (60 * 60 * 1000));
 	let minute = Math.floor(curTimeMs / (60 * 1000));
 
 	if (minute === 1) {
-		minuteStr = `${minute} min`;
-	} else if (minute > 1) {
-		minuteStr = `${minute} min`;
+		minuteStr = `${minute}`; // min
+	} else if (minute < 10) {
+		minuteStr = `0${minute}`;
+	} else { //if (minute > 1)
+		minuteStr = `${minute}`; // min
 	}
 
 	curTimeMs = curTimeMs - (minute * (60 * 1000));
 	let second = Math.floor(curTimeMs / 1000);
 
 	if (second === 1) {
-		secondStr = `${second} sec`;
-	} else if (second > 1) {
-		secondStr = `${second} sec`;
+		secondStr = `${second}`; //  sec
+	} else if (second < 10) {
+		secondStr = `0${second}`;
+	} else { //if (second > 1) 
+		secondStr = `${second}`; //  sec
 	}
 
-	if (hour >= 1 && minute >= 1) {
+	if (hour >= 1) { //&& minute >= 1
 		connectorStr = `:`;
 	}
-	if (minute >= 1 && second >= 1) {
+	if (minute >= 1) { //&& second >= 1
 		connectorStr2 = `:`;
 	}
 	// TODO improve things like 0 value, singular/plural display

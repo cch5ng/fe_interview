@@ -158,7 +158,7 @@ class TestQuestion extends Component {
     let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
 
 		return (
-			<div>
+			<div className={styles.testQuestionContainer}>
 				{(curTestStatus === 'initialized' || curTestStatus === 'completed') && (
 					<h1>Question {curTestObj.questions[curQuestionId].sort_order + 1}</h1>
 				)}
@@ -169,7 +169,6 @@ class TestQuestion extends Component {
 							<h1>Question {curTestObj.questions[curQuestionId].sort_order + 1}</h1>
 							<div className={displayAlarm ? [styles.countdownDisplay, styles.countdownAlarm].join(' ') : styles.countdownDisplay}>
 								<p>{getPrettyTime(this.props.remainingTime)}</p>
-								<p>remaining</p>
 							</div> 
 						</div>
 					

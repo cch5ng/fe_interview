@@ -1,3 +1,7 @@
+.testFormContainer {
+	margin: 12px;
+}
+
 .testFormCategoriesContainer {
 	display: flex;
 	flex-flow: row wrap;
@@ -8,16 +12,18 @@
 	width: 45%;
 }
 
-
 @media (min-width: 768px) {
 	.labelCategory {
 		width: 55%;
 	}
 
-
-
 	.categoryFormGroup {
 		width: 30%;
 	}
+}
 
+@media (min-width: 900px) {
+	.testFormContainer {
+		margin: 30px 5%;
+	}
 }

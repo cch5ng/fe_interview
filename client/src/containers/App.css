@@ -9,8 +9,6 @@ body {
 }
 
 header {
-	/*height: 80px;*/
-	
 	background-color: #28a3a3;
 	padding: 10px 12px 12px 12px;
 }
@@ -21,17 +19,12 @@ header {
 	justify-content: space-between;
 }
 
-.hamburger {
-
-}
-
 .navLinksList {
 	display: none;
 }
 
 .navLogo {
 	font-family: 'Marvel', sans-serif;
-	/*color: ;*/
 	font-size: 1.3em;
 }
 
@@ -39,20 +32,19 @@ header {
 	padding: 0 8px;
 }
 
+.hamburger {
+	margin-top: 2px;
+}
+
 .navAddTestIcon {
-	margin-top: -8px;
+	margin-top: -3px;
 	font-size: 1.5em;
-	/*visibility: hidden;*/
 }
 
 .dropDownMenu {
 	display: flex;
 	flex-flow: column wrap;
 	margin-left: 16px;
-}
-
-main {
-	margin: 12px;
 }
 
 a:link,
@@ -65,7 +57,14 @@ a:hover,
 a:active {
 	text-decoration: none;
 	color: #666666;
-	/*color: #000000;*/
+}
+
+footer {
+	text-align: center;
+	margin-top: 45px;
+	padding: 12px;
+	background-color: #def1f1;
+	min-height: 150px;
 }
 
 /* global section */
@@ -83,7 +82,6 @@ a:active {
 }
 
 .linkButton {
-	/*border: 2px solid #28a3a3;*/
 	width: 80px;
 	background-color: #bee3e3;
 	border-radius: 5px;
@@ -95,7 +93,6 @@ a:active {
 .linkButton:active {
 	text-decoration: none;
 	background-color: #93d1d1;
-	/*background-color: #bee3e3;*/
 }
 
 h1 {
@@ -112,13 +109,11 @@ h2 {
 }
 
 .green {
-	color: #669661; 
-	/*#93d1d1;*/
+	color: #669661;
 }
 
 .red {
 	color: #ad6565; 
-	/*#d97f7f;*/
 }
 
 .errorMessage {
@@ -131,6 +126,77 @@ h2 {
 	background-color: #e5e5e5;
 	font-size: 0.9em;
 	padding: 0 3px;
+}
+
+/* Question */
+
+.questionsContainer {
+	margin: 12px;
+}
+
+.questionContainer {
+	margin: 22px 0;
+}
+
+.h3Question {
+	margin-bottom: 8px;
+}
+
+/* Login */
+
+.heroContainer {
+	width: 100%;
+	z-index: -5;
+	position: absolute;
+	left: 0;
+	top: 48px;
+}
+
+.heroImg {
+	max-width: 100%;
+}
+
+.heroCaption {
+	position: relative;
+	left: 12px;
+	bottom: 35px;
+	color: #666666;
+	font-size: 0.85em;
+}
+
+.loginContainer {
+	margin-top: 18px;
+}
+
+.formContainer {
+	margin: 12px;
+	padding: 12px;
+	border-radius: 5px;
+	background-color: #ffffff;
+	opacity: 0.9;
+}
+
+.buttonGroup {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.registrationText,
+.loginText {
+	margin-top: 8px;
+	margin: 7px 0 0 8px;
+	font-size: 0.9em;
+}
+
+/* REGISTRATION */
+
+.registrationContainer {
+	margin: 12px;
+}
+
+.requirements {
+	font-size: 0.85em;
+	color: #7f7f7f;
 }
 
 /* form styling */
@@ -200,6 +266,7 @@ button:active {
 
 	.navLinksList {
 		display: flex;
+		padding-top: 3px;
 	}
 
 	.navLink {
@@ -211,41 +278,48 @@ button:active {
 		display: none;
 	}
 
+	/* LOGIN */
+
+	.loginContainer {
+		width: 65%;
+		margin: 30px auto;
+	}
+
+	/* REGISTRATION */
+
+	.registrationContainer {
+		width: 65%;
+		margin: 30px auto;
+	}
+
+
+	/* FORM */
+
 	.formGroup,
 	.buttonGroup {
-		display: flex;
-		flex-flow: row wrap;
+		/*display: flex;
+		flex-flow: row wrap;*/
 	}
 
 	.buttonGroup {
 		margin-top: 26px;
 	}
 
-	label,
-	.leftButtonGroup {
-		width: 20%;
-		text-align: right;
-		padding-right: 5px;
-	}
-
-	.leftButtonGroup {
-		padding-right: 10px;
-	}
-
 	input[type="text"],
 	input[type="email"],
 	input[type="password"],
 	textarea {
-		width: 70%;
+		width: 100%;
 	}
 
 	input[type="number"] {
 		width: 70px;
 	}
-
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
+	.questionsContainer {
+		margin: 30px 5%;
+	}
 
 }
-

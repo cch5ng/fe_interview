@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { fetchQuestions } from './QuestionActions';
 import styles from '../App.css';
 
@@ -135,12 +136,12 @@ class Questions extends Component {
 		let questionsByCategory = questionsAr && questionsAr.length ? this.getQuestionsByCategory(questionsAr) : {};
 
 		return (
-			<div data-testid="questions" id="questions">
+			<div data-testid="questions" id="questions" className={styles.questionsContainer}>
 				<h1>All Questions</h1>
 
 				{categories.map(category => 
-					(<div key={category}>
-						<h3>{category}</h3>
+					(<div key={category} className={styles.questionContainer}>
+						<h3 className={styles.h3Question}>{category}</h3>
 						{this.renderQuestionsByCategory(category, questionsByCategory)}
 					</div>)
 				)}
@@ -153,6 +154,7 @@ class Questions extends Component {
 function mapStateToProps(state) {
 	return {
 		questions: state.questions,
+		auth: state.auth,
 	}
 }
 

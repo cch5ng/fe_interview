@@ -75,7 +75,7 @@ class Tests extends Component {
 		}
 
 		return (
-			<div>
+			<div className={styles.testsContainer}>
 				<h1>All Tests</h1>
 
 				{testError && (

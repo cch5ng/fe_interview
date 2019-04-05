@@ -162,7 +162,7 @@ class TestForm extends Component {
 		}
 
 		return (
-			<div>
+			<div className={styles.testFormContainer}>
 
 				{this.state.formSubmitted && (
 					<Redirect to="/tests/current" />

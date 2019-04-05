@@ -109,6 +109,8 @@ class App extends Component {
 
     let loggedIn = this.props.auth && this.props.auth.email ? true : false;
 
+//                {/* <Questions /> */}
+
     return (
       <Router>
         <div className="App">
@@ -212,13 +214,22 @@ class App extends Component {
               )} />
 
               <Route exact path="/" render={() => (
-                <Questions />
+                <Login />
               )} />
 
             </Switch> 
           </main>
-         
 
+          {/* 
+            <footer>
+              <h3>Front End Interview</h3>
+              <p>
+                Created by cch5ng with | 
+                <a href="https://github.com/cch5ng/fe_interview" target="_blank"
+                  rel="noopener noreferrer" title="" className={styles.linkSource}> Source</a>
+              </p>
+            </footer>
+          */}
         </div>
       </Router>
 

@@ -4,6 +4,30 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchLogin } from './AuthActions';
 import styles from '../App.css';
+import heroImgSm from '../../img/nathan-dumlao-738469-unsplash2240x3360.jpg';
+import heroImgMd from '../../img/nathan-dumlao-738469-unsplash2240x2408.jpg';
+import heroImgLg from '../../img/nathan-dumlao-738469-unsplash2222w.jpg';
+
+const srcset = `${heroImgMd}, ${heroImgSm} 3x, ${heroImgSm} 2x`;
+
+export function BackgroundImage(props) {
+	return (
+		<div className={styles.heroContainer}>
+			<div className={styles.heroImageContainer}>
+			<picture>
+			  <source media="(max-width: 580px)" srcSet={heroImgSm} />
+			  <source media="(max-width: 900px)" srcSet={heroImgMd} />
+			  <img src={heroImgLg}
+			  alt="man sitting at laptop" className={styles.heroImg} />
+			</picture>
+			</div>
+			<div className={styles.heroCaption}>
+				<p><a href="https://unsplash.com/@nate_dumlao?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Nathan Dumlao">Photo by Nathan Dumlao on Unsplash</a></p>
+			</div>
+		</div>
+
+	)
+}
 
 const initState = {
 	email: '',
@@ -57,9 +81,14 @@ class Login extends Component {
 			)
 		}
 
+		//							<div className={styles.leftButtonGroup}>
+		//							</div>
+
 		return (
-			<div>
-				<h1>Login</h1>
+			<div className={styles.loginContainer}>
+				<BackgroundImage />
+
+				<div className={styles.formContainer}>
 
 					{loginError && (
 						<div className={styles.errorMessage}>
@@ -67,7 +96,7 @@ class Login extends Component {
 						</div>
 					)}
 
-					<form>
+					<form className={styles.loginForm}>
 						<div className={styles.formGroup}>
 							<label>
 								Email
@@ -87,17 +116,16 @@ class Login extends Component {
 						</div>
 
 						<div className={styles.buttonGroup}>
-							<div className={styles.leftButtonGroup}>
-								<button onClick={this.submitForm}>Login</button>
-							</div>
-							<p>Need an account? <NavLink to="/register" className={styles.linkButton}>Register</NavLink></p>
+							<button onClick={this.submitForm}>Login</button>
+							<p className={styles.registrationText}>
+								Need an account? <NavLink to="/register" className={styles.linkButton}>Register</NavLink>
+							</p>
 						</div>
 					</form>
-
+				</div>
 			</div>
 		)
 	}
-
 }
 
 function mapStateToProps(state) {
