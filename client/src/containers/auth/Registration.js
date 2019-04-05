@@ -125,8 +125,7 @@ class Registration extends Component {
 		}
 
 		return (
-			<div>
-				<h1>Registration</h1>
+			<div className={styles.registrationContainer}>
 
 				{registrationError && (
 					<div className={styles.errorMessage}>
@@ -151,7 +150,7 @@ class Registration extends Component {
 
 					<div className={styles.formGroup}>
 						<label>
-							Password (min 8 characters, with one number, one letter, one special character including !@#$%^&*)
+							Password
 						</label>
 						{this.state.passwordError && (
 							<div className={styles.errorMessage}>{this.state.passwordError}</div>
@@ -161,13 +160,17 @@ class Registration extends Component {
 							onChange={this.handleInputChange}
 							minLength="8"
 							required />
+
+						<p className={styles.requirements}>
+							(min 8 characters, with one number, one letter, one special character including !@#$%^&*)
+						</p>
 					</div>
 
 					<div className={styles.buttonGroup}>
-						<div className={styles.leftButtonGroup}>
-							<button onClick={this.submitForm}>Register</button>
-						</div>
-						<p>Already have an account? <NavLink to="/login" className={styles.linkButton}>Login</NavLink></p>
+						<button onClick={this.submitForm}>Register</button> 
+						<p className={styles.loginText}>
+							Already have an account? <NavLink to="/login" className={styles.linkButton}>Login</NavLink>
+						</p>
 					</div>
 				</form>
 			</div>

@@ -81,11 +81,12 @@ class Login extends Component {
 			)
 		}
 
+		//							<div className={styles.leftButtonGroup}>
+		//							</div>
+
 		return (
 			<div className={styles.loginContainer}>
 				<BackgroundImage />
-
-				{/* <h1>Login</h1> */}
 
 				<div className={styles.formContainer}>
 
@@ -115,17 +116,16 @@ class Login extends Component {
 						</div>
 
 						<div className={styles.buttonGroup}>
-							<div className={styles.leftButtonGroup}>
-								<button onClick={this.submitForm}>Login</button>
-							</div>
-							<p>Need an account? <NavLink to="/register" className={styles.linkButton}>Register</NavLink></p>
+							<button onClick={this.submitForm}>Login</button>
+							<p className={styles.registrationText}>
+								Need an account? <NavLink to="/register" className={styles.linkButton}>Register</NavLink>
+							</p>
 						</div>
 					</form>
 				</div>
 			</div>
 		)
 	}
-
 }
 
 function mapStateToProps(state) {
