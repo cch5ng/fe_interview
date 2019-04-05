@@ -15,9 +15,8 @@ export function BackgroundImage(props) {
 		<div className={styles.heroContainer}>
 			<div className={styles.heroImageContainer}>
 			<picture>
-			  <source media="(max-width: 550px)" srcSet={heroImgSm} />
-			  <source media="(min-width: 551px) && (max-width: 899px)" srcSet={heroImgMd} />
-			  <source media="(min-width: 900px)" srcSet={heroImgLg} />
+			  <source media="(max-width: 580px)" srcSet={heroImgSm} />
+			  <source media="(max-width: 900px)" srcSet={heroImgMd} />
 			  <img src={heroImgLg}
 			  alt="man sitting at laptop" className={styles.heroImg} />
 			</picture>
