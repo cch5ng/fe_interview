@@ -136,7 +136,7 @@ class Questions extends Component {
 		let questionsByCategory = questionsAr && questionsAr.length ? this.getQuestionsByCategory(questionsAr) : {};
 
 		return (
-			<div data-testid="questions" id="questions">
+			<div data-testid="questions" id="questions" className={styles.questionsContainer}>
 				<h1>All Questions</h1>
 
 				{categories.map(category => 
