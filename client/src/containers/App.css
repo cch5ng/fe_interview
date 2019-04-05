@@ -143,6 +143,16 @@ h2 {
 	margin-bottom: 8px;
 }
 
+/* Login */
+
+.heroContainer {
+	width: 100%;
+}
+
+.heroImg {
+	max-width: 100%;
+}
+
 /* form styling */
 
 .formGroup {

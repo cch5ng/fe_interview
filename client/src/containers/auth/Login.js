@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchLogin } from './AuthActions';
 import styles from '../App.css';
+import heroImg from '../../img/nathan-dumlao-738469-unsplash.jpg';
 
 const initState = {
 	email: '',
@@ -61,11 +62,17 @@ class Login extends Component {
 			<div>
 				<h1>Login</h1>
 
+
+
 					{loginError && (
 						<div className={styles.errorMessage}>
 							{loginError}
 						</div>
 					)}
+
+					<div className={styles.heroContainer}>
+						<img src={heroImg} alt="man sitting at laptop" className={styles.heroImg} />
+					</div>
 
 					<form>
 						<div className={styles.formGroup}>
