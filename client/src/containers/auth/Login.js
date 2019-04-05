@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { fetchLogin } from './AuthActions';
 import styles from '../App.css';
 import heroImgSm from '../../img/nathan-dumlao-738469-unsplash2240x3360.jpg';
-import heroImgMd from '../../img/nathan-dumlao-738469-unsplash2222w.jpg';
+import heroImgMd from '../../img/nathan-dumlao-738469-unsplash2240x2408.jpg';
+import heroImgLg from '../../img/nathan-dumlao-738469-unsplash2222w.jpg';
 
 const srcset = `${heroImgMd}, ${heroImgSm} 3x, ${heroImgSm} 2x`;
 
@@ -14,9 +15,10 @@ export function BackgroundImage(props) {
 		<div className={styles.heroContainer}>
 			<div className={styles.heroImageContainer}>
 			<picture>
-			  <source media="(max-width: 600px)" srcset={heroImgSm} />
-			  <source media="(min-width: 900px)" srcset={heroImgMd} />
-			  <img src={heroImgMd}
+			  <source media="(max-width: 550px)" srcSet={heroImgSm} />
+			  <source media="(min-width: 551px) && (max-width: 899px)" srcSet={heroImgMd} />
+			  <source media="(min-width: 900px)" srcSet={heroImgLg} />
+			  <img src={heroImgLg}
 			  alt="man sitting at laptop" className={styles.heroImg} />
 			</picture>
 			</div>
