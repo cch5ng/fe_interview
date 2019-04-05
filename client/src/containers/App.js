@@ -219,9 +219,17 @@ class App extends Component {
 
             </Switch> 
           </main>
-          <footer>
-          </footer>
-        
+
+          {/* 
+            <footer>
+              <h3>Front End Interview</h3>
+              <p>
+                Created by cch5ng with | 
+                <a href="https://github.com/cch5ng/fe_interview" target="_blank"
+                  rel="noopener noreferrer" title="" className={styles.linkSource}> Source</a>
+              </p>
+            </footer>
+          */}
         </div>
       </Router>
 
