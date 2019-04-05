@@ -1,6 +1,8 @@
 /* TESTS */
 
-.testsContainer {
+.testSummaryContainer,
+.testsContainer,
+.testQuestionContainer {
 	margin: 12px;
 }
 
@@ -19,7 +21,11 @@
 .countdownDisplay {
 	background-color: #93d78b;
 	border-radius: 5px;
-	padding: 5px;
+	padding: 6px 8px 0 8px;
+	height: 40px;
+	min-width: 60px;
+	font-size: 1.4em;
+	text-align: center;
 }
 
 .countdownAlarm {
@@ -74,7 +80,9 @@
 }
 
 @media (min-width: 900px) {
-	.testsContainer {
+	.testsContainer,
+	.testSummaryContainer,
+	.testQuestionContainer {
 		margin: 30px 5%;
 	}
 

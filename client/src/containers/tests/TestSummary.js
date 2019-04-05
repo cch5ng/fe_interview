@@ -157,7 +157,7 @@ class TestSummary extends Component {
 */
 
 		return (
-			<div>
+			<div className={styles.testSummaryContainer}>
 				{(status === 'initialized' || status === 'completed') && (
 					<h1>Test Summary</h1>
 				)}
@@ -167,7 +167,6 @@ class TestSummary extends Component {
 						<h1>Test Summary</h1>
 						<div className={displayAlarm ? [styles.countdownDisplay, styles.countdownAlarm].join(' ') : styles.countdownDisplay}>
 							<p>{getPrettyTime(this.props.remainingTime)}</p>
-							<p>remaining</p>
 						</div> 
 					</div>
 				)}
