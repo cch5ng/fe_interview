@@ -161,6 +161,14 @@ h2 {
 	max-width: 100%;
 }
 
+.heroCaption {
+	position: relative;
+	left: 12px;
+	bottom: 35px;
+	color: #666666;
+	font-size: 0.85em;
+}
+
 .formContainer {
 	margin: 12px;
 	padding: 12px;
@@ -236,6 +244,7 @@ button:active {
 
 	.navLinksList {
 		display: flex;
+		padding-top: 3px;
 	}
 
 	.navLink {
@@ -246,6 +255,15 @@ button:active {
 	.dropDownMenu {
 		display: none;
 	}
+
+	/* LOGIN */
+
+	.loginContainer {
+		width: 65%;
+		margin: 30px auto;
+	}
+
+	/* FORM */
 
 	.formGroup,
 	.buttonGroup {

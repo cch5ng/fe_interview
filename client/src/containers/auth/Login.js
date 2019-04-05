@@ -4,7 +4,29 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchLogin } from './AuthActions';
 import styles from '../App.css';
-import heroImg from '../../img/nathan-dumlao-738469-unsplash.jpg';
+import heroImgSm from '../../img/nathan-dumlao-738469-unsplash2240x3360.jpg';
+import heroImgMd from '../../img/nathan-dumlao-738469-unsplash2222w.jpg';
+
+const srcset = `${heroImgMd}, ${heroImgSm} 3x, ${heroImgSm} 2x`;
+
+export function BackgroundImage(props) {
+	return (
+		<div className={styles.heroContainer}>
+			<div className={styles.heroImageContainer}>
+			<picture>
+			  <source media="(max-width: 600px)" srcset={heroImgSm} />
+			  <source media="(min-width: 900px)" srcset={heroImgMd} />
+			  <img src={heroImgMd}
+			  alt="man sitting at laptop" className={styles.heroImg} />
+			</picture>
+			</div>
+			<div className={styles.heroCaption}>
+				<p><a href="https://unsplash.com/@nate_dumlao?utm_medium=referral&amp;utm_campaign=photographer-credit&amp;utm_content=creditBadge" target="_blank" rel="noopener noreferrer" title="Download free do whatever you want high-resolution photos from Nathan Dumlao">Photo by Nathan Dumlao on Unsplash</a></p>
+			</div>
+		</div>
+
+	)
+}
 
 const initState = {
 	email: '',
@@ -60,11 +82,9 @@ class Login extends Component {
 
 		return (
 			<div className={styles.loginContainer}>
-				{/* <h1>Login</h1> */}
+				<BackgroundImage />
 
-				<div className={styles.heroContainer}>
-					<img src={heroImg} alt="man sitting at laptop" className={styles.heroImg} />
-				</div>
+				{/* <h1>Login</h1> */}
 
 				<div className={styles.formContainer}>
 
