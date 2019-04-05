@@ -59,10 +59,14 @@ class Login extends Component {
 		}
 
 		return (
-			<div>
-				<h1>Login</h1>
+			<div className={styles.loginContainer}>
+				{/* <h1>Login</h1> */}
 
+				<div className={styles.heroContainer}>
+					<img src={heroImg} alt="man sitting at laptop" className={styles.heroImg} />
+				</div>
 
+				<div className={styles.formContainer}>
 
 					{loginError && (
 						<div className={styles.errorMessage}>
@@ -70,11 +74,7 @@ class Login extends Component {
 						</div>
 					)}
 
-					<div className={styles.heroContainer}>
-						<img src={heroImg} alt="man sitting at laptop" className={styles.heroImg} />
-					</div>
-
-					<form>
+					<form className={styles.loginForm}>
 						<div className={styles.formGroup}>
 							<label>
 								Email
@@ -100,7 +100,7 @@ class Login extends Component {
 							<p>Need an account? <NavLink to="/register" className={styles.linkButton}>Register</NavLink></p>
 						</div>
 					</form>
-
+				</div>
 			</div>
 		)
 	}

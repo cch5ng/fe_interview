@@ -52,7 +52,7 @@ header {
 }
 
 main {
-	margin: 12px;
+	/*margin: 12px;*/
 }
 
 a:link,
@@ -145,12 +145,28 @@ h2 {
 
 /* Login */
 
+.loginContainer {
+
+}
+
 .heroContainer {
 	width: 100%;
+	z-index: -5;
+	position: absolute;
+	left: 0;
+	top: 48px;
 }
 
 .heroImg {
 	max-width: 100%;
+}
+
+.formContainer {
+	margin: 12px;
+	padding: 12px;
+	border-radius: 5px;
+	background-color: #ffffff;
+	opacity: 0.9;
 }
 
 /* form styling */
