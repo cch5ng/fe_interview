@@ -140,21 +140,7 @@ class TestSummary extends Component {
 
 		let timeTaken = curTestObj ? curTestObj.time_total - timeRemaining : null;
 		let curTestQuestionsCount = curTestObj && curTestObj.questions ? Object.keys(curTestObj.questions).length : 0;
-
     let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
-
-/*
-				{status === 'active' && curTestObj && randomQuestAr && randomQuestAr.map(question => {
-					const displayOrder = question.sort_order + 1;
-					let curQuestionUrl = `/tests/question/${question.id}`;
-					return (
-						<div key={displayOrder}
-							className={styles.question}>Q{displayOrder} {question.status} 
-								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
-						</div>								
-					)
-				})}
-*/
 
 		return (
 			<div className={styles.testSummaryContainer}>
