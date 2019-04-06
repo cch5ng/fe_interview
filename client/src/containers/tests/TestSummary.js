@@ -33,12 +33,8 @@ class TestSummary extends Component {
 
 		if (this.props.match.params && this.props.match.params.test_id) {
 			test_id = this.props.match.params.test_id;
-		} else {
-			test_id = this.getQuestionIdFromHistory();
+			this.props.dispatch(fetchTestById({ id: test_id }));
 		}
-		console.log('test_id', test_id)
-
-		this.props.dispatch(fetchTestById({ id: test_id }));
 	}
 
 	//event handlers
