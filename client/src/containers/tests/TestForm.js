@@ -101,7 +101,6 @@ class TestForm extends Component {
 
 	// reset state
 	resetState() {
-		//ev.preventDefault();
 		this.setState({ ...initState, formSubmitted: true });
 	}
 
@@ -131,12 +130,9 @@ class TestForm extends Component {
 		let questObj = {};
 
 		categoriesAr.forEach(category => {
-			//let categoryConcat = category.split(' ').join('');
 			questObj[category] = this.state[category];
-			//questObj[categoryConcat] = this.state[categoryConcat];
 		});
 
-		console.log('questObj', questObj);
 		return questObj;
 	}
 
@@ -155,6 +151,7 @@ class TestForm extends Component {
 		let questionObj = this.props.questions && this.props.questions.questions ? this.props.questions.questions : null;
 		let questionsAr = [];
 		let questionsMaxObj = {};
+		let newTestUrl = `/tests/current`;
 
 		if (questionObj) {
 			questionsAr = Object.keys(questionObj).map(k => questionObj[k]);
@@ -165,11 +162,10 @@ class TestForm extends Component {
 			<div className={styles.testFormContainer}>
 
 				{this.state.formSubmitted && (
-					<Redirect to="/tests/current" />
+					<Redirect to={newTestUrl} />
 				)}
 
 				<form className="new-test-form">
-
 					<div className={styles.formGroup}>
 						<label>
 							Name
@@ -199,7 +195,6 @@ class TestForm extends Component {
 
 					<div>
 						<h2>Number of Questions (by Category)</h2>
-
 						<div className={styles.testFormCategoriesContainer}>
 							{questionCategories.map(category => {
 								let categoryAr = category.split(' ');
@@ -226,34 +221,10 @@ class TestForm extends Component {
 								)
 							})}
 						</div>
-
 					</div>
-
-					{/* 
-						<input type="checkbox" name={categoryConcat} checked={this.state[categoryConcat]} 
-							onChange={this.handleInputChange}
-						/>
-						<label>{categoryShort}</label>
-					*/}
-
-					{/* 
-					<div>
-						<label>Number of Questions
-							<input type="number" name="inputQuestionCount" 
-								value={this.state.inputQuestionCount}
-								onChange={this.handleInputChange} 
-							/>
-						</label>
-					</div>					
-					*/}
-
 
 					<button id="button-create-test" onClick={this.handleFormSubmit}>Create</button>
 					
-					{/* maybe more confusing than useful
-					<button id="button-cancel-test" onClick={this.resetState} >Cancel</button>
-					*/}
-
 				</form>
 			</div>
 		)
@@ -263,6 +234,7 @@ class TestForm extends Component {
 function mapStateToProps(state) {
 	return {
 		questions: state.questions,
+		tests: state.tests,
 		auth: state.auth,
 	}
 }
