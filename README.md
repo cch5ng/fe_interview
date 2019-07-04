@@ -10,90 +10,111 @@
 
 * This application does not provide correct answers or grading of the user's responses.
 
+
 ## Credits
 
 * The main content for this application was sourced from this project: https://github.com/h5bp/Front-end-Developer-Interview-Questions
 
+
 ## Dependencies
 
-Global installation of parcel. http://npmjs.com/package/parcel-bundler
+* PosgreSQL should be installed locally (v10.5+). https://www.postgresql.org/
+
+* Parcel is used to bundle and build the Front End files. It should be installed globally. http://npmjs.com/package/parcel-bundler
+
+
+## Database Setup
+
+1 Create a database named `fe_interview_db`.
+
+2 Create a database user with admin rights for the new database (read, create, update, delete). Record the user's password.
+
 
 ## Setup (local/development)
 
-**Install files**
+### Install files
 
-* Root
+1 Install root-level files.
 
 `yarn install`
 
-* Server
+
+2 Install back-end files.
 
 `cd server && yarn install`
 
 
-* Client
+3 Install front-end files.
 
 `cd ../client && yarn install`
 
 
-**Server setup**
+### Server setup
 
-* Convert questions from markdown source files to JavaScript.
+1 Convert questions from markdown source files to JavaScript.
 
 `cd ../server && node test_md_to_json.js`
 
 
-* Create the database (Postgres).
+2 Create the database (Postgres).
 
 `yarn run configure`
 
 
-* Copy environment variables file in server root directory.
+3 Copy environment variables file in server root directory.
 
 `cp .env.example .env`
 
 
-* Update server environment variables (in .env file). 
+* `JWT_SECRET`: to be used as a salt to encrypt strings used in authentication; this can be an arbitrary string, preferably complex
 
-* Seed the database.
+* `DB_USER`: the user name for fe_interview_db database
+
+* `DB_PASSWORD`: the password for `DB_USER`
+
+
+4 Update server environment variables (in .env file). 
+
+
+5 Seed the database.
 
 `node seed_db.js`
 
 
-## Run
+## Run the servers
 
-* API Server
+1 Start the back-end server.
 
 `yarn run start`
 
 
-* Client Server
+2 Start the front-end server.
 
 `cd ../client && yarn run start`
 
 
-From a browser, open http://localhost:1234
+3 From a browser, open http://localhost:1234
 
 
-### To create a random test
+## Automated Tests
 
-* Click New Test
+### Front-end 
 
-* Name test and select how many questions from each category to include
-
-* At this time, it is expected that the user will take the test immediately after it is generated
+* Run from the /client directory
 
 
+1 `yarn run test`
 
-## Test
 
-* API Server
+## Using the Application
 
-TODO; currently saved in postman
+### To create a random front-end interview test
 
-* Client (from /client directory)
+1 Click **New Test**.
 
-`yarn run test`
+2 Name the test and select how many questions from each category to include.
+
+3 At this time, it is expected that the user will take the test immediately after it is generated.
 
 
 ## Deploy
