@@ -145,3 +145,21 @@ export function arToDict(ar) {
 
 	return obj;
 }
+
+export function getPrettyQuestion(qStr) {
+	let strAr = [];
+	let resultStr = '';
+	if (qStr.indexOf('^^^') > -1) {
+		strAr = qStr.split('^^^');
+		resultStr = strAr.join('\n');
+	}
+
+	if (resultStr.length === 0) {
+		let regex = /\^/g
+		resultStr = qStr.replace(regex, '"');
+	}
+
+	console.log('resultStr', resultStr);
+	return resultStr;
+}
+

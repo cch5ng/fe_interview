@@ -4,7 +4,7 @@ import { Link, withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { startTest, fetchUpdateTest, fetchTestById } from './TestActions';
-import { dictToRandomAr, getPrettyTime } from '../../utils/helper';
+import { dictToRandomAr, getPrettyTime, getPrettyQuestion } from '../../utils/helper';
 import globalStyles from '../App.css';
 import testStyles from './Tests.css';
 
@@ -165,13 +165,14 @@ class TestSummary extends Component {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
 					let questionStatusIconClass;
+					let prettyQuestion = getPrettyQuestion(question.content);
 
 					return (
 						<div key={displayOrder} className={styles.question}>
 							Q{displayOrder} 
 							<span dangerouslySetInnerHTML={this.convertStatusToIcon(question.status)}
 								className={this.getQuestionStatusIconClass(question.status)} />
-								{question.content}
+								{prettyQuestion}
 						</div>
 					)
 				})}
