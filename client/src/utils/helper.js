@@ -153,13 +153,9 @@ export function getPrettyQuestion(qStr) {
 		strAr = qStr.split('^^^');
 		resultStr = strAr.join('\n');
 	}
-
 	if (resultStr.length === 0) {
 		let regex = /\^/g
 		resultStr = qStr.replace(regex, '"');
 	}
-
-	console.log('resultStr', resultStr);
 	return resultStr;
 }
-
