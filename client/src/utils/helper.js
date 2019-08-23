@@ -154,8 +154,11 @@ export function getPrettyQuestion(qStr) {
 		resultStr = strAr.join('\n');
 	}
 	if (resultStr.length === 0) {
+		resultStr = qStr;
+	}
+	if (resultStr.indexOf('^') > -1) {
 		let regex = /\^/g
-		resultStr = qStr.replace(regex, '"');
+		resultStr = resultStr.replace(regex, '"');
 	}
 	return resultStr;
 }
