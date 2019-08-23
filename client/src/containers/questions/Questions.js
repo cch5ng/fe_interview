@@ -36,7 +36,6 @@ class Questions extends Component {
 		let resultAr = [];
 		
 		resultAr = Object.keys(obj).map(k => obj[k]);
-
 		return resultAr;
 	}
 
@@ -50,10 +49,8 @@ class Questions extends Component {
 		 			questionsForCategory.push(quest1)
 		 		}
 		 	})
-
 		 	questionsByCategoryObj[category] = questionsForCategory;
 		})
-
 		return questionsByCategoryObj;
 	}
 
