@@ -1,3 +1,6 @@
+import React from 'react';
+import styles from '../containers/App.css';
+
 export function	getPrettyTime(timeMs) {
 	let curTimeMs = timeMs;
 	let hourStr = '';
@@ -161,4 +164,63 @@ export function getPrettyQuestion(qStr) {
 		resultStr = resultStr.replace(regex, '"');
 	}
 	return resultStr;
+}
+
+export function formatQuestion(str) {
+
+	let threeHatAr = [];
+	let oneHatAr = [];
+
+	//handle 3 cases
+	// only has '^^^'
+	// only has '^'
+	// has both '^^^' and '^'
+
+	if (str.indexOf('^^^') > -1 && str.indexOf('^') > -1) {
+		threeHatAr = str.split('^^^');
+		return (
+			<span>
+				{threeHatAr.map((subStr, idx) => {
+					if (subStr.indexOf('^')) {
+						subStr = formatQuestion(subStr);
+					}
+
+					if (idx % 2 === 1) {
+						return (<span key={idx} className={styles.code}>{subStr}<br/></span>)
+					} else {
+						return (<span key={idx} >{subStr}</span>)
+					}
+				})}
+			</span>
+		)
+	} else if (str.indexOf('^^^') > -1) {
+		threeHatAr = str.split('^^^');
+		return (
+			<span>
+				{threeHatAr.map((subStr, idx) => {
+					if (idx % 2 === 1) {
+						return (<span key={idx} className={styles.code}><br>{subStr}</br></span>)
+					} else {
+						return (<span key={idx} >{subStr}</span>)
+					}
+				})}
+			</span>
+		)
+	} else if (str.indexOf('^') > -1) {
+		oneHatAr = str.split('^')
+		return (
+			<span>
+				{oneHatAr.map((subStr, idx) => {
+					if (idx % 2 === 1) {
+						return (<span key={idx} className={styles.code}>{subStr}</span>)
+					} else {
+						return (<span key={idx} >{subStr}</span>)
+					}
+				})}
+			</span>
+		)
+	} else {
+		return (<span>{str}</span>);
+	}
+
 }

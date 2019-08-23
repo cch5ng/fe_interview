@@ -4,7 +4,7 @@ import { Link, withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { startTest, fetchUpdateTest, fetchTestById } from './TestActions';
-import { dictToRandomAr, getPrettyTime, getPrettyQuestion } from '../../utils/helper';
+import { dictToRandomAr, getPrettyTime, getPrettyQuestion, formatQuestion } from '../../utils/helper';
 import globalStyles from '../App.css';
 import testStyles from './Tests.css';
 
@@ -61,7 +61,6 @@ class TestSummary extends Component {
 		// stop timer (delete timer instance)
 		this.props.stopCountdownTimer({test_id, status: 'completed'});
 		// make sure all changes are saved - redux and BE
-
 	}
 
 	getQuestionsCountByStatus() {
@@ -165,14 +164,11 @@ class TestSummary extends Component {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
 					let questionStatusIconClass;
-					let prettyQuestion = getPrettyQuestion(question.content);
+					//let prettyQuestion = getPrettyQuestion(question.content);
 
 					return (
 						<div key={displayOrder} className={styles.question}>
-							Q{displayOrder} 
-							<span dangerouslySetInnerHTML={this.convertStatusToIcon(question.status)}
-								className={this.getQuestionStatusIconClass(question.status)} />
-								{prettyQuestion}
+							Q{displayOrder} {formatQuestion(question.content)}
 						</div>
 					)
 				})}
@@ -193,31 +189,22 @@ class TestSummary extends Component {
 
 					return (
 						<div key={displayOrder}
-							className={styles.question}>Q{displayOrder}
-								<span dangerouslySetInnerHTML={this.convertStatusToIcon(question.status)} 
-									className={this.getQuestionStatusIconClass(question.status)} />
-								{question.content}
+							className={styles.question}>Q{displayOrder} {formatQuestion(question.content)}
 								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
 						</div>								
 					)
 				})}
-
-
-
 				{status === 'initialized' && (
 					<button onClick={this.startTest} className={styles.btnTestSummary}>Start</button>
 				)}
-
 				{status === 'active' && (
 					<button onClick={this.submitTest} className={styles.btnTestSummary}>Submit</button>
 				)}
-
 				{status === 'completed' && (
 					<div className={[styles.linkButton, styles.btnTestSummaryBack].join(' ')}>
 						<NavLink to="/tests" >Back</NavLink>
 					</div>
 				)}
-
 			</div>
 		)
 	}
