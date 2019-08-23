@@ -84,8 +84,7 @@ class TestSummary extends Component {
 					questionsCountObj.completed = 1;
 				}
 			}
-		})
-
+		});
 		return questionsCountObj;
 	}
 
@@ -120,7 +119,6 @@ class TestSummary extends Component {
 			let pathAr = this.props.history.location.pathname.split('/')
 			questionId = pathAr[pathAr.length - 1];
 		}
-
 		return questionId;
 	}
 
