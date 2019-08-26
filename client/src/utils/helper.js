@@ -167,7 +167,6 @@ export function getPrettyQuestion(qStr) {
 }
 
 export function formatQuestion(str) {
-
 	let threeHatAr = [];
 	let oneHatAr = [];
 
@@ -186,7 +185,7 @@ export function formatQuestion(str) {
 					}
 
 					if (idx % 2 === 1) {
-						return (<span key={idx} className={styles.code}>{subStr}<br/></span>)
+						return (<span key={idx} className={styles.code}>{parseLineBreak(subStr)}<br/></span>)
 					} else {
 						return (<span key={idx} >{subStr}</span>)
 					}
@@ -199,7 +198,7 @@ export function formatQuestion(str) {
 			<span>
 				{threeHatAr.map((subStr, idx) => {
 					if (idx % 2 === 1) {
-						return (<span key={idx} className={styles.code}><br>{subStr}</br></span>)
+						return (<span key={idx} className={styles.code}><br>{parseLineBreak(subStr)}</br></span>)
 					} else {
 						return (<span key={idx} >{subStr}</span>)
 					}
@@ -212,7 +211,7 @@ export function formatQuestion(str) {
 			<span>
 				{oneHatAr.map((subStr, idx) => {
 					if (idx % 2 === 1) {
-						return (<span key={idx} className={styles.code}>{subStr}</span>)
+						return (<span key={idx} className={styles.code}>{parseLineBreak(subStr)}</span>)
 					} else {
 						return (<span key={idx} >{subStr}</span>)
 					}
@@ -220,7 +219,26 @@ export function formatQuestion(str) {
 			</span>
 		)
 	} else {
-		return (<span>{str}</span>);
+		return (<span>{parseLineBreak(str)}</span>);
 	}
 
+}
+
+export function parseLineBreak(str) {
+	if (typeof str === 'string') {
+		if (str.indexOf('\n') > -1) {
+			let lineBreakAr = str.split('\n');
+			let newStr;
+			return (
+				<div>
+					{lineBreakAr.map((subStr, idx) => {
+						if (idx !== lineBreakAr.length - 1) {
+							return (<div>{subStr}</div>)
+						}
+					})}
+				</div>
+			)
+		}		
+	}
+	return str;
 }
