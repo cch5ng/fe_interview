@@ -98,3 +98,13 @@ export function logout() {
 	}
 }
 
+// clear login message
+export const CLEAR_LOGIN_ERROR = 'CLEAR_LOGIN_ERROR';
+
+export function clearLoginError() {
+	return {
+		type: CLEAR_LOGIN_ERROR,
+		loginError: null
+	}
+}
+

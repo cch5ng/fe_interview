@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchRegister } from './AuthActions';
+import { fetchRegister, clearLoginError } from './AuthActions';
 import styles from '../App.css';
 
 const initState = {
@@ -30,6 +30,10 @@ class Registration extends Component {
 		//this.validateEmail = this.validateEmail.bind(this);
 		this.validatePassword = this.validatePassword.bind(this);
 		this.submitForm2 = this.submitForm2.bind(this);
+	}
+
+	componentDidMount() {
+		this.props.dispatch(clearLoginError());
 	}
 
 	handleInputChange(ev) {
