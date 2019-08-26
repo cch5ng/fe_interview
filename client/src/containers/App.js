@@ -44,11 +44,8 @@ class App extends Component {
 
 // EVENT HANDLERS
   startCountdownTimer(remainingTime) {
-    console.log('gets to startCountdownTimer');
-    // need to entire time (convert back to ms?)
     this.setState({ remainingTime });
     this.counterIntervalId = window.setInterval(this.updateCountdownStore, 1000)
-
   }
 
   updateCountdownStore() {
@@ -57,7 +54,6 @@ class App extends Component {
         return { remainingTime: curState.remainingTime - 1000 }
       })
     }
-
     if (this.state.remainingTime <= 0) {
       this.setState({ remainingTime: 0 }, () => {
         this.stopCountdownTimer({test_id: this.props.tests.curTest.id, status: 'completed'});
@@ -67,7 +63,6 @@ class App extends Component {
 
   stopCountdownTimer({test_id, status}) {
     window.clearInterval(this.counterIntervalId);
-
     const time_remaining = this.state.remainingTime;
     this.props.dispatch(fetchUpdateTest({test_id, status, time_remaining}))
   }
