@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { fetchQuestions } from './QuestionActions';
+import { formatQuestion } from '../../utils/helper';
 import styles from '../App.css';
 
 const categories = [
@@ -24,7 +25,6 @@ class Questions extends Component {
 		this.getArFromObj = this.getArFromObj.bind(this);
 		this.getQuestionsByCategory = this.getQuestionsByCategory.bind(this);
 		this.renderQuestionsByCategory = this.renderQuestionsByCategory.bind(this);
-		this.formatQuestion = this.formatQuestion.bind(this);
 	}
 
 	componentDidMount() {
@@ -36,7 +36,6 @@ class Questions extends Component {
 		let resultAr = [];
 		
 		resultAr = Object.keys(obj).map(k => obj[k]);
-
 		return resultAr;
 	}
 
@@ -50,10 +49,8 @@ class Questions extends Component {
 		 			questionsForCategory.push(quest1)
 		 		}
 		 	})
-
 		 	questionsByCategoryObj[category] = questionsForCategory;
 		})
-
 		return questionsByCategoryObj;
 	}
 
@@ -62,72 +59,12 @@ class Questions extends Component {
 			return (
 				questionsByCategory[category].map(question =>
 					<React.Fragment key={question.id}>
-						<li data-testid="question-item">{this.formatQuestion(question.content)}</li>
+						<li data-testid="question-item">{formatQuestion(question.content)}</li>
 					</React.Fragment>
 				)
 			)
 		}
-
 		return (<div></div>)
-	}
-
-	formatQuestion(str) {
-
-		let threeHatAr = [];
-		let oneHatAr = [];
-
-		//handle 3 cases
-		// only has '^^^'
-		// only has '^'
-		// has both '^^^' and '^'
-
-		if (str.indexOf('^^^') > -1 && str.indexOf('^') > -1) {
-			threeHatAr = str.split('^^^');
-			return (
-				<span>
-					{threeHatAr.map((subStr, idx) => {
-						if (subStr.indexOf('^')) {
-							subStr = this.formatQuestion(subStr);
-						}
-
-						if (idx % 2 === 1) {
-							return (<span key={idx} className={styles.code}>{subStr}<br/></span>)
-						} else {
-							return (<span key={idx} >{subStr}</span>)
-						}
-					})}
-				</span>
-			)
-		} else if (str.indexOf('^^^') > -1) {
-			threeHatAr = str.split('^^^');
-			return (
-				<span>
-					{threeHatAr.map((subStr, idx) => {
-						if (idx % 2 === 1) {
-							return (<span key={idx} className={styles.code}><br>{subStr}</br></span>)
-						} else {
-							return (<span key={idx} >{subStr}</span>)
-						}
-					})}
-				</span>
-			)
-		} else if (str.indexOf('^') > -1) {
-			oneHatAr = str.split('^')
-			return (
-				<span>
-					{oneHatAr.map((subStr, idx) => {
-						if (idx % 2 === 1) {
-							return (<span key={idx} className={styles.code}>{subStr}</span>)
-						} else {
-							return (<span key={idx} >{subStr}</span>)
-						}
-					})}
-				</span>
-			)
-		} else {
-			return (<span>{str}</span>);
-		}
-
 	}
 
 	render() {
@@ -145,7 +82,6 @@ class Questions extends Component {
 						{this.renderQuestionsByCategory(category, questionsByCategory)}
 					</div>)
 				)}
-
 			</div>
 		)
 	}

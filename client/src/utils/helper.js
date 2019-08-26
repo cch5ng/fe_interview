@@ -1,3 +1,6 @@
+import React from 'react';
+import styles from '../containers/App.css';
+
 export function	getPrettyTime(timeMs) {
 	let curTimeMs = timeMs;
 	let hourStr = '';
@@ -144,4 +147,98 @@ export function arToDict(ar) {
 	const obj = ar.reduce(objArReducer, {});
 
 	return obj;
+}
+
+export function getPrettyQuestion(qStr) {
+	let strAr = [];
+	let resultStr = '';
+	if (qStr.indexOf('^^^') > -1) {
+		strAr = qStr.split('^^^');
+		resultStr = strAr.join('\n');
+	}
+	if (resultStr.length === 0) {
+		resultStr = qStr;
+	}
+	if (resultStr.indexOf('^') > -1) {
+		let regex = /\^/g
+		resultStr = resultStr.replace(regex, '"');
+	}
+	return resultStr;
+}
+
+export function formatQuestion(str) {
+	let threeHatAr = [];
+	let oneHatAr = [];
+
+	//handle 3 cases
+	// only has '^^^'
+	// only has '^'
+	// has both '^^^' and '^'
+
+	if (str.indexOf('^^^') > -1 && str.indexOf('^') > -1) {
+		threeHatAr = str.split('^^^');
+		return (
+			<span>
+				{threeHatAr.map((subStr, idx) => {
+					if (subStr.indexOf('^')) {
+						subStr = formatQuestion(subStr);
+					}
+
+					if (idx % 2 === 1) {
+						return (<span key={idx} className={styles.code}>{parseLineBreak(subStr)}<br/></span>)
+					} else {
+						return (<span key={idx} >{subStr}</span>)
+					}
+				})}
+			</span>
+		)
+	} else if (str.indexOf('^^^') > -1) {
+		threeHatAr = str.split('^^^');
+		return (
+			<span>
+				{threeHatAr.map((subStr, idx) => {
+					if (idx % 2 === 1) {
+						return (<span key={idx} className={styles.code}><br>{parseLineBreak(subStr)}</br></span>)
+					} else {
+						return (<span key={idx} >{subStr}</span>)
+					}
+				})}
+			</span>
+		)
+	} else if (str.indexOf('^') > -1) {
+		oneHatAr = str.split('^')
+		return (
+			<span>
+				{oneHatAr.map((subStr, idx) => {
+					if (idx % 2 === 1) {
+						return (<span key={idx} className={styles.code}>{parseLineBreak(subStr)}</span>)
+					} else {
+						return (<span key={idx} >{subStr}</span>)
+					}
+				})}
+			</span>
+		)
+	} else {
+		return (<span>{parseLineBreak(str)}</span>);
+	}
+
+}
+
+export function parseLineBreak(str) {
+	if (typeof str === 'string') {
+		if (str.indexOf('\n') > -1) {
+			let lineBreakAr = str.split('\n');
+			let newStr;
+			return (
+				<div>
+					{lineBreakAr.map((subStr, idx) => {
+						if (idx !== lineBreakAr.length - 1) {
+							return (<div>{subStr}</div>)
+						}
+					})}
+				</div>
+			)
+		}		
+	}
+	return str;
 }

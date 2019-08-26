@@ -3,7 +3,7 @@ import { Redirect } from 'react-router';
 import { Link, withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUpdateTestQuestion } from './TestActions';
-import { getPrettyTime } from '../../utils/helper';
+import { getPrettyTime, formatQuestion } from '../../utils/helper';
 import globalStyles from '../App.css';
 import testStyles from './Tests.css';
 
@@ -26,7 +26,6 @@ class TestQuestion extends Component {
 		this.submitQuestion = this.submitQuestion.bind(this);
 		this.skipQuestion = this.skipQuestion.bind(this);
 		this.handleInputUpdate = this.handleInputUpdate.bind(this);
-		this.formatQuestion = this.formatQuestion.bind(this);
 		this.getQuestionIdFromHistory = this.getQuestionIdFromHistory.bind(this);
 	}
 
@@ -35,7 +34,6 @@ class TestQuestion extends Component {
 		let response = ev.target.value;
 		let name = ev.target.name;
 		this.setState({[name]: response})
-
 	}
 
 	submitQuestion(ev) {
@@ -49,7 +47,6 @@ class TestQuestion extends Component {
 
 		//update redux (question id and response)
 		this.props.dispatch(fetchUpdateTestQuestion(questionData));
-	
 		this.props.history.push('/tests/current');
 	}
 
@@ -68,66 +65,6 @@ class TestQuestion extends Component {
 		this.props.history.push('/tests/current');
 	}
 
-	//not sure how to abstract
-	formatQuestion(str) {
-
-		let threeHatAr = [];
-		let oneHatAr = [];
-
-		//handle 3 cases
-		// only has '^^^'
-		// only has '^'
-		// has both '^^^' and '^'
-
-		if (str.indexOf('^^^') > -1 && str.indexOf('^') > -1) {
-			threeHatAr = str.split('^^^');
-			return (
-				<span>
-					{threeHatAr.map((subStr, idx) => {
-						if (subStr.indexOf('^')) {
-							subStr = this.formatQuestion(subStr);
-						}
-
-						if (idx % 2 === 1) {
-							return (<span key={idx} className={styles.code}>{subStr}<br/></span>)
-						} else {
-							return (<span key={idx} >{subStr}</span>)
-						}
-					})}
-				</span>
-			)
-		} else if (str.indexOf('^^^') > -1) {
-			threeHatAr = str.split('^^^');
-			return (
-				<span>
-					{threeHatAr.map((subStr, idx) => {
-						if (idx % 2 === 1) {
-							return (<span key={idx} className={styles.code}><br>{subStr}</br></span>)
-						} else {
-							return (<span key={idx} >{subStr}</span>)
-						}
-					})}
-				</span>
-			)
-		} else if (str.indexOf('^') > -1) {
-			oneHatAr = str.split('^')
-			return (
-				<span>
-					{oneHatAr.map((subStr, idx) => {
-						if (idx % 2 === 1) {
-							return (<span key={idx} className={styles.code}>{subStr}</span>)
-						} else {
-							return (<span key={idx} >{subStr}</span>)
-						}
-					})}
-				</span>
-			)
-		} else {
-			return (<span>{str}</span>);
-		}
-
-	}
-
 	// added for test purpose
 	getQuestionIdFromHistory() {
 		let questionId;
@@ -136,7 +73,6 @@ class TestQuestion extends Component {
 			let pathAr = this.props.history.location.pathname.split('/')
 			questionId = pathAr[pathAr.length - 1];
 		}
-
 		return questionId;
 	}
 
@@ -155,7 +91,12 @@ class TestQuestion extends Component {
 		let curQuestionStatus = curQuestion && curQuestion.status ? curQuestion.status : 'not visited';
 		let curQuestionResponse = curQuestion && curQuestion.response ? curQuestion.response : '';
 		let curQuestionContent = curQuestion && curQuestion.content ? curQuestion.content : '';
+		console.log('curQuestionContent', curQuestionContent)
+		let breakCntAr = curQuestionContent.split('\n');
+		console.log('breakCntAr', breakCntAr)
     let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
+
+    //							<h2 data-testid="questionDetailContent"></h2>
 
 		return (
 			<div className={styles.testQuestionContainer}>
@@ -173,7 +114,7 @@ class TestQuestion extends Component {
 						</div>
 					
 						<div>
-							<h2 data-testid="questionDetailContent">{this.formatQuestion(curQuestionContent)}</h2>
+							{formatQuestion(curQuestionContent)}
 
 							<textarea
 								name="curQuestionResponse"
@@ -191,7 +132,8 @@ class TestQuestion extends Component {
 
 				{curTestStatus === 'completed' && (
 					<div>
-						<h2>{curQuestionContent}</h2>
+						{formatQuestion(curQuestionContent)}
+
 						<textarea
 							name="curQuestionResponse"
 							value={this.state.curQuestionResponse}
@@ -203,7 +145,6 @@ class TestQuestion extends Component {
 						</div>
 					</div>
 				)}
-
 			</div>
 		)
 	}
