@@ -55,26 +55,8 @@ module.exports = {
     },
     "Coding Questions10": {
         "id": "Coding Questions10",
-        "content": "Question: What is the difference between these four promises?\n^^^javascript\ndoSomething().then(function () {\n  return doSomethingElse();\n});",
+        "content": "Question: What is the difference between these four promises?\n^^^javascript\ndoSomething().then(function () {\n  return doSomethingElse();\n});\ndoSomething().then(function () {\n  doSomethingElse();\n});\ndoSomething().then(doSomethingElse());\ndoSomething().then(doSomethingElse);\n^^^",
         "category": "Coding Questions",
         "sort_order": 10
-    },
-    "Coding Questions11": {
-        "id": "Coding Questions11",
-        "content": "doSomething().then(function () {\n  doSomethingElse();\n});",
-        "category": "Coding Questions",
-        "sort_order": 11
-    },
-    "Coding Questions12": {
-        "id": "Coding Questions12",
-        "content": "doSomething().then(doSomethingElse());",
-        "category": "Coding Questions",
-        "sort_order": 12
-    },
-    "Coding Questions13": {
-        "id": "Coding Questions13",
-        "content": "doSomething().then(doSomethingElse);\n^^^",
-        "category": "Coding Questions",
-        "sort_order": 13
     }
 }
