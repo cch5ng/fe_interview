@@ -184,6 +184,7 @@ function parseCodingQuestions(syntaxTree, category) {
     let questionObj = {};
     let id;
     let questionText = '';
+
     // skip category
     if (idx !== 0) {
       qObj.content.forEach(inObj => {
@@ -192,12 +193,10 @@ function parseCodingQuestions(syntaxTree, category) {
         }
       })
       id = `${category}${idx}`;
-      //id = `${questionText.slice(0, 10)}${questionText.slice(questionText.length - 11)}`;
       questionObj.id = id;
       questionObj.content = questionText;
       questionObj.category = category;
       questionObj.sort_order = idx;
-
       questionDict[id] = questionObj;
     }
   });
