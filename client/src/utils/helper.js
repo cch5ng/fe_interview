@@ -2,49 +2,49 @@ import React from 'react';
 import styles from '../containers/App.css';
 
 export function	getPrettyTime(timeMs) {
+	if (timeMs === 0) {
+		return '00:00';
+	}
+
 	let curTimeMs = timeMs;
 	let hourStr = '';
 	let connectorStr = '';
 	let connectorStr2 = '';
 	let minuteStr = '';
 	let secondStr = '';
-
 	let hour = Math.floor(curTimeMs / (60 * 60 * 1000));
 
 	if (hour === 1) {
-		hourStr = `${hour}`; // hr
+		hourStr = `${hour}`;
 	} else if (hour > 1) {
-		hourStr = `${hour}`; // hr
+		hourStr = `${hour}`;
 	}
 
 	curTimeMs = curTimeMs - (hour * (60 * 60 * 1000));
 	let minute = Math.floor(curTimeMs / (60 * 1000));
 
 	if (minute === 1) {
-		minuteStr = `${minute}`; // min
+		minuteStr = `${minute}`;
 	} else if (minute < 10) {
 		minuteStr = `0${minute}`;
-	} else { //if (minute > 1)
-		minuteStr = `${minute}`; // min
+	} else {
+		minuteStr = `${minute}`;
 	}
 
 	curTimeMs = curTimeMs - (minute * (60 * 1000));
 	let second = Math.floor(curTimeMs / 1000);
 
 	if (second === 1) {
-		secondStr = `${second}`; //  sec
+		secondStr = `${second}`;
 	} else if (second < 10) {
 		secondStr = `0${second}`;
-	} else { //if (second > 1) 
-		secondStr = `${second}`; //  sec
+	} else {
+		secondStr = `${second}`;
 	}
-
-	if (hour >= 1) { //&& minute >= 1
+	if (hour >= 1) {
 		connectorStr = `:`;
 	}
-	if (minute >= 1) { //&& second >= 1
-		connectorStr2 = `:`;
-	}
+	connectorStr2 = `:`;
 	// TODO improve things like 0 value, singular/plural display
 	let prettyTimeStr = `${hourStr}${connectorStr}${minuteStr}${connectorStr2}${secondStr}`;
 
@@ -132,7 +132,6 @@ export function objRandomArReducer(accum, curVal, curIdx) {
 // return an object where keys are object id's and values are objects
 export function randomArToDict(ar) {
 	const obj = ar.reduce(objRandomArReducer, {});
-
 	return obj;
 }
 
@@ -145,7 +144,6 @@ export function objArReducer(accum, curVal) {
 // return an object where keys are object id's and values are objects
 export function arToDict(ar) {
 	const obj = ar.reduce(objArReducer, {});
-
 	return obj;
 }
 
@@ -170,11 +168,6 @@ export function formatQuestion(str) {
 	let threeHatAr = [];
 	let oneHatAr = [];
 
-	//handle 3 cases
-	// only has '^^^'
-	// only has '^'
-	// has both '^^^' and '^'
-
 	if (str.indexOf('^^^') > -1 && str.indexOf('^') > -1) {
 		threeHatAr = str.split('^^^');
 		return (
@@ -183,7 +176,6 @@ export function formatQuestion(str) {
 					if (subStr.indexOf('^')) {
 						subStr = formatQuestion(subStr);
 					}
-
 					if (idx % 2 === 1) {
 						return (<span key={idx} className={styles.code}>{parseLineBreak(subStr)}<br/></span>)
 					} else {
@@ -221,7 +213,6 @@ export function formatQuestion(str) {
 	} else {
 		return (<span>{parseLineBreak(str)}</span>);
 	}
-
 }
 
 export function parseLineBreak(str) {
