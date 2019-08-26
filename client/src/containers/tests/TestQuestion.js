@@ -91,7 +91,12 @@ class TestQuestion extends Component {
 		let curQuestionStatus = curQuestion && curQuestion.status ? curQuestion.status : 'not visited';
 		let curQuestionResponse = curQuestion && curQuestion.response ? curQuestion.response : '';
 		let curQuestionContent = curQuestion && curQuestion.content ? curQuestion.content : '';
+		console.log('curQuestionContent', curQuestionContent)
+		let breakCntAr = curQuestionContent.split('\n');
+		console.log('breakCntAr', breakCntAr)
     let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
+
+    //							<h2 data-testid="questionDetailContent"></h2>
 
 		return (
 			<div className={styles.testQuestionContainer}>
@@ -109,7 +114,7 @@ class TestQuestion extends Component {
 						</div>
 					
 						<div>
-							<h2 data-testid="questionDetailContent">{formatQuestion(curQuestionContent)}</h2>
+							{formatQuestion(curQuestionContent)}
 
 							<textarea
 								name="curQuestionResponse"
@@ -127,7 +132,8 @@ class TestQuestion extends Component {
 
 				{curTestStatus === 'completed' && (
 					<div>
-						<h2>{curQuestionContent}</h2>
+						{formatQuestion(curQuestionContent)}
+
 						<textarea
 							name="curQuestionResponse"
 							value={this.state.curQuestionResponse}
