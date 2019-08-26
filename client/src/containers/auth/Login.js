@@ -47,7 +47,6 @@ class Login extends Component {
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.submitForm = this.submitForm.bind(this);
 		this.resetState = this.resetState.bind(this);
-
 	}
 
 	handleInputChange(ev) {
@@ -81,15 +80,11 @@ class Login extends Component {
 			)
 		}
 
-		//							<div className={styles.leftButtonGroup}>
-		//							</div>
-
 		return (
 			<div className={styles.loginContainer}>
 				<BackgroundImage />
 
 				<div className={styles.formContainer}>
-
 					{loginError && (
 						<div className={styles.errorMessage}>
 							{loginError}
