@@ -47,7 +47,9 @@ class TestSummary extends Component {
 		let firstQuestionUrl = randomQuestAr.length ? `/tests/question/${randomQuestAr[0].id}` : null;
 
 		this.props.dispatch(startTest());
-		this.props.startCountdownTimer(curTestTimeTotal);
+		if (curTestTimeTotal > 0) {
+			this.props.startCountdownTimer(curTestTimeTotal);
+		}
 
 		if (firstQuestionUrl) {
 			this.props.history.push(firstQuestionUrl);
@@ -56,9 +58,12 @@ class TestSummary extends Component {
 
 	submitTest(ev) {
 		ev.preventDefault();
+		let curTest = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null ;
+		let curTestTimeTotal = curTest && curTest.time_total ? curTest.time_total : 0;
 
 		const test_id = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest.id : null;
 		// stop timer (delete timer instance)
+
 		this.props.stopCountdownTimer({test_id, status: 'completed'});
 		// make sure all changes are saved - redux and BE
 	}
@@ -144,9 +149,11 @@ class TestSummary extends Component {
 				{status === 'active' && (
 					<div className={styles.testSummaryHeading}>
 						<h1>Test Summary</h1>
-						<div className={displayAlarm ? [styles.countdownDisplay, styles.countdownAlarm].join(' ') : styles.countdownDisplay}>
-							<p>{getPrettyTime(this.props.remainingTime)}</p>
-						</div> 
+						{this.props.remainingTime > 0 && (
+							<div className={displayAlarm ? [styles.countdownDisplay, styles.countdownAlarm].join(' ') : styles.countdownDisplay}>
+								<p>{getPrettyTime(this.props.remainingTime)}</p>
+							</div> 
+						)}
 					</div>
 				)}
 
@@ -162,7 +169,6 @@ class TestSummary extends Component {
 					const displayOrder = question.sort_order + 1;
 					let curQuestionUrl = `/tests/question/${question.id}`;
 					let questionStatusIconClass;
-					//let prettyQuestion = getPrettyQuestion(question.content);
 
 					return (
 						<div key={displayOrder} className={styles.question}>
