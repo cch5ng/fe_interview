@@ -91,12 +91,8 @@ class TestQuestion extends Component {
 		let curQuestionStatus = curQuestion && curQuestion.status ? curQuestion.status : 'not visited';
 		let curQuestionResponse = curQuestion && curQuestion.response ? curQuestion.response : '';
 		let curQuestionContent = curQuestion && curQuestion.content ? curQuestion.content : '';
-		console.log('curQuestionContent', curQuestionContent)
 		let breakCntAr = curQuestionContent.split('\n');
-		console.log('breakCntAr', breakCntAr)
     let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
-
-    //							<h2 data-testid="questionDetailContent"></h2>
 
 		return (
 			<div className={styles.testQuestionContainer}>
@@ -108,9 +104,11 @@ class TestQuestion extends Component {
 					<React.Fragment>
 						<div className={styles.testSummaryHeading}>
 							<h1>Question {curTestObj.questions[curQuestionId].sort_order + 1}</h1>
-							<div className={displayAlarm ? [styles.countdownDisplay, styles.countdownAlarm].join(' ') : styles.countdownDisplay}>
-								<p>{getPrettyTime(this.props.remainingTime)}</p>
-							</div> 
+							{this.props.remainingTime > 0 && (
+								<div className={displayAlarm ? [styles.countdownDisplay, styles.countdownAlarm].join(' ') : styles.countdownDisplay}>
+									<p>{getPrettyTime(this.props.remainingTime)}</p>
+								</div> 
+							)}
 						</div>
 					
 						<div>

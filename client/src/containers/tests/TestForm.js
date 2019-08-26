@@ -27,7 +27,7 @@ const initState = {
 	formSubmitted: false,
 	inputTestName: '',
 	inputQuestionCount: 0,
-	selectTimePerQuestion: 'no limit',
+	selectTimePerQuestion: 0,
 	"Coding Questions": 0,
 	"CSS Questions": 0,
 	"Fun Questions": 0,
@@ -184,7 +184,7 @@ class TestForm extends Component {
 							value={this.state.selectTimePerQuestion}
 							onChange={this.handleInputChange} 							
 						>
-							<option value="no limit">no time limit</option>
+							<option value="0">no time limit</option>
 							<option value="300000">5</option>
 							<option value="480000">8</option>
 							<option value="600000">10</option>
