@@ -91,6 +91,7 @@ class TestQuestion extends Component {
 		let curQuestionStatus = curQuestion && curQuestion.status ? curQuestion.status : 'not visited';
 		let curQuestionResponse = curQuestion && curQuestion.response ? curQuestion.response : '';
 		let curQuestionContent = curQuestion && curQuestion.content ? curQuestion.content : '';
+		let curQuestionChild = curQuestion && curQuestion.child_content ? curQuestion.child_content : null;
 		let breakCntAr = curQuestionContent.split('\n');
     let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
 
@@ -112,7 +113,7 @@ class TestQuestion extends Component {
 						</div>
 					
 						<div>
-							{formatQuestion(curQuestionContent)}
+							{formatQuestion(curQuestionContent, curQuestionChild)}
 
 							<textarea
 								name="curQuestionResponse"
@@ -130,7 +131,7 @@ class TestQuestion extends Component {
 
 				{curTestStatus === 'completed' && (
 					<div>
-						{formatQuestion(curQuestionContent)}
+						{formatQuestion(curQuestionContent, curQuestionChild)}
 
 						<textarea
 							name="curQuestionResponse"
