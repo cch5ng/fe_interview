@@ -42,9 +42,8 @@
 	margin-bottom: 16px;
 }
 
-.questionStatusIconClass {
-	font-size: 1.2em;
-	padding: 0 5px 0 10px;
+svg {
+	padding-top: 2.5px;
 }
 
 .btnTestSummary {
