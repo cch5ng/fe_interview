@@ -164,12 +164,12 @@ export function getPrettyQuestion(qStr) {
 	return resultStr;
 }
 
-export function formatQuestion(str) {
+export function formatQuestion(mainStr, childStr) {
 	let threeHatAr = [];
 	let oneHatAr = [];
 
-	if (str.indexOf('^^^') > -1 && str.indexOf('^') > -1) {
-		threeHatAr = str.split('^^^');
+	if (mainStr.indexOf('^^^') > -1 && mainStr.indexOf('^') > -1) {
+		threeHatAr = mainStr.split('^^^');
 		return (
 			<span>
 				{threeHatAr.map((subStr, idx) => {
@@ -182,10 +182,11 @@ export function formatQuestion(str) {
 						return (<span key={idx} >{subStr}</span>)
 					}
 				})}
+				{childStr && (childStr)}
 			</span>
 		)
-	} else if (str.indexOf('^^^') > -1) {
-		threeHatAr = str.split('^^^');
+	} else if (mainStr.indexOf('^^^') > -1) {
+		threeHatAr = mainStr.split('^^^');
 		return (
 			<span>
 				{threeHatAr.map((subStr, idx) => {
@@ -195,10 +196,11 @@ export function formatQuestion(str) {
 						return (<span key={idx} >{subStr}</span>)
 					}
 				})}
+				{childStr && (childStr)}
 			</span>
 		)
-	} else if (str.indexOf('^') > -1) {
-		oneHatAr = str.split('^')
+	} else if (mainStr.indexOf('^') > -1) {
+		oneHatAr = mainStr.split('^')
 		return (
 			<span>
 				{oneHatAr.map((subStr, idx) => {
@@ -208,15 +210,16 @@ export function formatQuestion(str) {
 						return (<span key={idx} >{subStr}</span>)
 					}
 				})}
+				{childStr && (childStr)}
 			</span>
 		)
 	} else {
-		return (<span>{parseLineBreak(str)}</span>);
+		return (<span>{parseLineBreak(mainStr)}<br/>{childStr}</span>);
 	}
 }
 
 export function parseLineBreak(str) {
-	if (typeof str === 'string') {
+	if (typeof mainStr === 'string') {
 		if (str.indexOf('\n') > -1) {
 			let lineBreakAr = str.split('\n');
 			let newStr;
