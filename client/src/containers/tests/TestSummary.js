@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React, {ReactComponent, Component } from 'react';
 import { Redirect } from 'react-router';
 import { Link, withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { startTest, fetchUpdateTest, fetchTestById } from './TestActions';
 import { dictToRandomAr, getPrettyTime, getPrettyQuestion, formatQuestion } from '../../utils/helper';
+import CheckedBox from './checked_box_24px.svg';
+import EmptyBox from './empty_box_24px.svg';
+import Warning from './warning_24px.svg';
 import globalStyles from '../App.css';
 import testStyles from './Tests.css';
 
@@ -26,6 +29,7 @@ class TestSummary extends Component {
 		this.getQuestionsCountByStatus = this.getQuestionsCountByStatus.bind(this);
 		this.getQuestionStatusIconClass = this.getQuestionStatusIconClass.bind(this);
 		this.getQuestionIdFromHistory = this.getQuestionIdFromHistory.bind(this);
+		this.renderIcon = this.renderIcon.bind(this);
 	}
 
 	componentDidMount() {
@@ -127,6 +131,44 @@ class TestSummary extends Component {
 		return questionId;
 	}
 
+
+// 					
+//					
+//					
+//			    height="24px"
+//			    width="24px"
+
+
+	renderIcon(status) {
+		if (status === 'not_visited') {
+			return (
+				<EmptyBox
+					name="unchecked box"
+					height="24px"
+			    width="24px"
+				/>
+			)
+		}
+		if (status === 'skipped') {
+			return (
+				<Warning
+					name="warning"
+					height="24px"
+			    width="24px"
+				/>
+			)
+		}
+		if (status === 'completed') {
+			return (
+				<CheckedBox 
+					name="checked box"
+					height="24px"
+			    width="24px"
+				/>
+			)
+		}
+	}
+
 	render() {
 		let curTestObj = this.props.tests && this.props.tests.curTest ? this.props.tests.curTest : null;
 		let status = curTestObj && curTestObj.status ? curTestObj.status : 'initialized';
@@ -139,6 +181,9 @@ class TestSummary extends Component {
 		let timeTaken = curTestObj ? curTestObj.time_total - timeRemaining : null;
 		let curTestQuestionsCount = curTestObj && curTestObj.questions ? Object.keys(curTestObj.questions).length : 0;
     let displayAlarm = this.props.remainingTime <= 300000 ? true : false;
+
+    //{this.renderIcon(question.status)}
+    //{this.renderIcon(question.status)}
 
 		return (
 			<div className={styles.testSummaryContainer}>
@@ -172,7 +217,7 @@ class TestSummary extends Component {
 
 					return (
 						<div key={displayOrder} className={styles.question}>
-							Q{displayOrder} {formatQuestion(question.content, question.child_content)}
+							Q{displayOrder} {this.renderIcon(question.status)} {formatQuestion(question.content, question.child_content)}
 						</div>
 					)
 				})}
@@ -193,7 +238,7 @@ class TestSummary extends Component {
 
 					return (
 						<div key={displayOrder}
-							className={styles.question}>Q{displayOrder} {formatQuestion(question.content, question.child_content)}
+							className={styles.question}>Q{displayOrder} {this.renderIcon(question.status)} {formatQuestion(question.content, question.child_content)}
 								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
 						</div>								
 					)
