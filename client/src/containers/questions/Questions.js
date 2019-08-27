@@ -59,7 +59,7 @@ class Questions extends Component {
 			return (
 				questionsByCategory[category].map(question =>
 					<React.Fragment key={question.id}>
-						<li data-testid="question-item">{formatQuestion(question.content)}</li>
+						<li data-testid="question-item">{formatQuestion(question.content, question.child_content)}</li>
 					</React.Fragment>
 				)
 			)

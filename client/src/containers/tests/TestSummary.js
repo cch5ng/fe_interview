@@ -172,7 +172,7 @@ class TestSummary extends Component {
 
 					return (
 						<div key={displayOrder} className={styles.question}>
-							Q{displayOrder} {formatQuestion(question.content)}
+							Q{displayOrder} {formatQuestion(question.content, question.child_content)}
 						</div>
 					)
 				})}
@@ -193,7 +193,7 @@ class TestSummary extends Component {
 
 					return (
 						<div key={displayOrder}
-							className={styles.question}>Q{displayOrder} {formatQuestion(question.content)}
+							className={styles.question}>Q{displayOrder} {formatQuestion(question.content, question.child_content)}
 								<span className={styles.linkButton}><NavLink to={curQuestionUrl}>Go</NavLink></span>
 						</div>								
 					)
