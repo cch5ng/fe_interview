@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { REQUEST_ALL_QUESTIONS, RECEIVE_ALL_QUESTIONS } from './QuestionActions';
 
 export function questions(state = {}, action) {

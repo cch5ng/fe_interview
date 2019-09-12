@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router';

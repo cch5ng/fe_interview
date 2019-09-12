@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import React from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
 import {Provider, connect} from 'react-redux';

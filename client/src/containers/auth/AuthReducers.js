@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { REQUEST_REGISTRATION, RECEIVE_REGISTRATION,
 	REQUEST_LOGIN, RECEIVE_LOGIN, LOGOUT, CLEAR_LOGIN_ERROR } from './AuthActions';
 

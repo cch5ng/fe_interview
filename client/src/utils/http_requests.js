@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 const API_ROOT = process.env.API_ROOT;
 const QUESTIONS_ALL = 'question/all';
 const QUESTIONS_RANDOM = 'question/random';

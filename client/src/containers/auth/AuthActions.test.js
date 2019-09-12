@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { REQUEST_REGISTRATION, RECEIVE_REGISTRATION, fetchRegister,

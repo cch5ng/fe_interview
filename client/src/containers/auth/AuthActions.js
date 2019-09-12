@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import http_requests from '../../utils/http_requests';
 
 // registration

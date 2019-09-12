@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { fetchQuestions, REQUEST_ALL_QUESTIONS, RECEIVE_ALL_QUESTIONS } from './QuestionActions';

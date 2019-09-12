@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import { getPrettyTime, getPrettyDate, getRandomlyOrderedList } from './helper'; 
 
 describe('helper getPrettyTime()', () => {
