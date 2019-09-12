@@ -30,7 +30,6 @@ class Registration extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.resetState = this.resetState.bind(this);
-    //this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
     this.submitForm2 = this.submitForm2.bind(this);
   }
@@ -102,9 +101,6 @@ class Registration extends Component {
       this.resetState();
     }
   }
-
-  // validateEmail() {
-  // }
 
   validatePassword() {
     let { password } = this.state;
