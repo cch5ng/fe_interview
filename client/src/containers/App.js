@@ -1,5 +1,14 @@
+/**
+ * @prettier
+ */
+
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, NavLink } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  NavLink,
+} from 'react-router-dom';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import Tests from '../containers/tests/Tests';
@@ -19,7 +28,6 @@ import styles from './App.css';
 let cx = classNames.bind(styles);
 
 class App extends Component {
-
   constructor(props) {
     super(props);
 
@@ -29,9 +37,10 @@ class App extends Component {
     const tests = props.tests && props.tests.tests ? props.tests.tests : null;
 
     this.state = {
-      remainingTime: tests && tests.curTest.time_total ? tests.curTest.time_total : 0,
+      remainingTime:
+        tests && tests.curTest.time_total ? tests.curTest.time_total : 0,
       mobileNavMenuDisplay: false,
-    }
+    };
 
     this.startCountdownTimer = this.startCountdownTimer.bind(this);
     this.stopCountdownTimer = this.stopCountdownTimer.bind(this);
@@ -39,37 +48,45 @@ class App extends Component {
     this.toggleNavMenuDisplay = this.toggleNavMenuDisplay.bind(this);
     this.createMarkupPlusIcon = this.createMarkupPlusIcon.bind(this);
     this.logout = this.logout.bind(this);
-    this.logoutToggleNavMenuDisplay = this.logoutToggleNavMenuDisplay.bind(this);
+    this.logoutToggleNavMenuDisplay = this.logoutToggleNavMenuDisplay.bind(
+      this
+    );
   }
 
-// EVENT HANDLERS
+  // EVENT HANDLERS
   startCountdownTimer(remainingTime) {
     this.setState({ remainingTime });
-    this.counterIntervalId = window.setInterval(this.updateCountdownStore, 1000)
+    this.counterIntervalId = window.setInterval(
+      this.updateCountdownStore,
+      1000
+    );
   }
 
   updateCountdownStore() {
     if (this.startTime > 0) {
-      this.setState((curState) => {
-        return { remainingTime: curState.remainingTime - 1000 }
-      })
+      this.setState(curState => {
+        return { remainingTime: curState.remainingTime - 1000 };
+      });
     }
     if (this.state.remainingTime <= 0) {
       this.setState({ remainingTime: 0 }, () => {
-        this.stopCountdownTimer({test_id: this.props.tests.curTest.id, status: 'completed'});
+        this.stopCountdownTimer({
+          test_id: this.props.tests.curTest.id,
+          status: 'completed',
+        });
       });
     }
   }
 
-  stopCountdownTimer({test_id, status}) {
+  stopCountdownTimer({ test_id, status }) {
     window.clearInterval(this.counterIntervalId);
     const time_remaining = this.state.remainingTime;
-    this.props.dispatch(fetchUpdateTest({test_id, status, time_remaining}))
+    this.props.dispatch(fetchUpdateTest({ test_id, status, time_remaining }));
   }
 
   toggleNavMenuDisplay() {
     this.setState((state, props) => ({
-      mobileNavMenuDisplay: !state.mobileNavMenuDisplay
+      mobileNavMenuDisplay: !state.mobileNavMenuDisplay,
     }));
   }
 
@@ -84,27 +101,27 @@ class App extends Component {
   }
 
   createMarkupPlusIcon() {
-    return {__html: '&#8853;'};
+    return { __html: '&#8853;' };
   }
 
   render() {
     let headerClass = cx({
-      [styles.fullHeight]: this.state.mobileNavMenuDisplay
+      [styles.fullHeight]: this.state.mobileNavMenuDisplay,
     });
 
     let dropDownMenuClass = cx({
       [styles.dropDownMenu]: true,
-      [styles.hidden]: !this.state.mobileNavMenuDisplay
+      [styles.hidden]: !this.state.mobileNavMenuDisplay,
     });
 
     let navAddTestIconClass = cx({
       [styles.navAddTestIcon]: true,
-      [styles.hidden2]: this.state.mobileNavMenuDisplay
+      [styles.hidden2]: this.state.mobileNavMenuDisplay,
     });
 
     let loggedIn = this.props.auth && this.props.auth.email ? true : false;
 
-//                {/* <Questions /> */}
+    //                {/* <Questions /> */}
 
     return (
       <Router>
@@ -112,58 +129,80 @@ class App extends Component {
           <header className={headerClass}>
             <nav>
               <div className={styles.navRow}>
-                <div onClick={this.toggleNavMenuDisplay} className={styles.hamburger}>
+                <div
+                  onClick={this.toggleNavMenuDisplay}
+                  className={styles.hamburger}>
                   ☰
                 </div>
                 <div className={styles.logo}>
-                  <NavLink to="/questions" className={styles.navLogo}>Front End Interview</NavLink>
+                  <NavLink to="/questions" className={styles.navLogo}>
+                    Front End Interview
+                  </NavLink>
                 </div>
                 <div className={styles.navLinksList}>
-                  <NavLink to="/questions" className={styles.navLink}>Questions</NavLink>
-                  <NavLink to="/tests" className={styles.navLink}>Tests</NavLink>
-                  <NavLink to="/tests/new" className={styles.navLink}>New Test</NavLink>
+                  <NavLink to="/questions" className={styles.navLink}>
+                    Questions
+                  </NavLink>
+                  <NavLink to="/tests" className={styles.navLink}>
+                    Tests
+                  </NavLink>
+                  <NavLink to="/tests/new" className={styles.navLink}>
+                    New Test
+                  </NavLink>
                   {loggedIn && (
-                    <NavLink to="/login" onClick={this.logout} className={styles.navLink}>Logout</NavLink>
+                    <NavLink
+                      to="/login"
+                      onClick={this.logout}
+                      className={styles.navLink}>
+                      Logout
+                    </NavLink>
                   )}
                   {!loggedIn && (
-                    <NavLink to="/login" className={styles.navLink}>Login</NavLink>
+                    <NavLink to="/login" className={styles.navLink}>
+                      Login
+                    </NavLink>
                   )}
                 </div>
                 <NavLink to="/tests/new">
-                  <div className={navAddTestIconClass}
-                    dangerouslySetInnerHTML={this.createMarkupPlusIcon()}>
-                  </div>
+                  <div
+                    className={navAddTestIconClass}
+                    dangerouslySetInnerHTML={this.createMarkupPlusIcon()}></div>
                 </NavLink>
               </div>
               <div className={dropDownMenuClass}>
-                <NavLink to="/questions"
+                <NavLink
+                  to="/questions"
                   onClick={this.toggleNavMenuDisplay}
                   className={styles.navLinkCol}>
-                    Questions
+                  Questions
                 </NavLink>
-                <NavLink to="/tests"
+                <NavLink
+                  to="/tests"
                   onClick={this.toggleNavMenuDisplay}
                   className={styles.navLinkCol}>
-                    Tests
+                  Tests
                 </NavLink>
-                <NavLink to="/tests/new"
+                <NavLink
+                  to="/tests/new"
                   onClick={this.toggleNavMenuDisplay}
                   className={styles.navLinkCol}>
-                    New Test
+                  New Test
                 </NavLink>
                 {loggedIn && (
-                  <NavLink to="/login"
+                  <NavLink
+                    to="/login"
                     onClick={this.logoutToggleNavMenuDisplay}
                     className={styles.navLinkCol}>
-                      Logout
-                  </NavLink>                
+                    Logout
+                  </NavLink>
                 )}
                 {!loggedIn && (
-                  <NavLink to="/login"
+                  <NavLink
+                    to="/login"
                     onClick={this.toggleNavMenuDisplay}
                     className={styles.navLinkCol}>
-                      Login
-                  </NavLink>                
+                    Login
+                  </NavLink>
                 )}
               </div>
             </nav>
@@ -171,48 +210,47 @@ class App extends Component {
 
           <main>
             <Switch>
-              <Route exact path="/questions" render={() => (
-                <Questions />
-              )} />
+              <Route exact path="/questions" render={() => <Questions />} />
 
-              <Route exact path="/tests" render={() => (
-                <Tests />
-              )} />
+              <Route exact path="/tests" render={() => <Tests />} />
 
-              <Route exact path="/tests/question/:id" render={({ match }) => (
-                <TestQuestion match={match}
-                  remainingTime={this.state.remainingTime}
-                />
-              )} />
+              <Route
+                exact
+                path="/tests/question/:id"
+                render={({ match }) => (
+                  <TestQuestion
+                    match={match}
+                    remainingTime={this.state.remainingTime}
+                  />
+                )}
+              />
 
-              <Route exact path="/tests/new" render={() => (
-                <TestForm />
-              )} />
+              <Route exact path="/tests/new" render={() => <TestForm />} />
 
-              <Route exact path="/tests/current" render={() => (
-                <TestSummary startCountdownTimer={this.startCountdownTimer}
-                  remainingTime={this.state.remainingTime}
-                  stopCountdownTimer={this.stopCountdownTimer}
-                />
-              )} />
-     
-              <Route exact path="/tests/:test_id" render={({ match }) => (
-                <TestSummary match={match} />
-              )} />
+              <Route
+                exact
+                path="/tests/current"
+                render={() => (
+                  <TestSummary
+                    startCountdownTimer={this.startCountdownTimer}
+                    remainingTime={this.state.remainingTime}
+                    stopCountdownTimer={this.stopCountdownTimer}
+                  />
+                )}
+              />
 
-              <Route exact path="/register" render={() => (
-                <Registration />
-              )} />
+              <Route
+                exact
+                path="/tests/:test_id"
+                render={({ match }) => <TestSummary match={match} />}
+              />
 
-              <Route exact path="/login" render={() => (
-                <Login />
-              )} />
+              <Route exact path="/register" render={() => <Registration />} />
 
-              <Route exact path="/" render={() => (
-                <Login />
-              )} />
+              <Route exact path="/login" render={() => <Login />} />
 
-            </Switch> 
+              <Route exact path="/" render={() => <Login />} />
+            </Switch>
           </main>
 
           {/* 
@@ -227,7 +265,6 @@ class App extends Component {
           */}
         </div>
       </Router>
-
     );
   }
 }
@@ -236,7 +273,7 @@ function mapStateToProps(state) {
   return {
     tests: state.tests,
     auth: state.auth,
-  }
+  };
 }
 
 export default connect(mapStateToProps)(App);

@@ -1,89 +1,91 @@
+/**
+ * @prettier
+ */
+
 /* TESTS */
 
 .testSummaryContainer,
 .testsContainer,
 .testQuestionContainer {
-	margin: 12px;
+  margin: 12px;
 }
 
 /* TestSummary */
 
 .testSummary {
-	/*color: #4c4c4c;*/
+  /*color: #4c4c4c;*/
 }
 
 .testSummaryHeading {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-between;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 .countdownDisplay {
-	background-color: #93d78b;
-	border-radius: 5px;
-	padding: 6px 8px 0 8px;
-	height: 40px;
-	min-width: 60px;
-	font-size: 1.4em;
-	text-align: center;
+  background-color: #93d78b;
+  border-radius: 5px;
+  padding: 6px 8px 0 8px;
+  height: 40px;
+  min-width: 60px;
+  font-size: 1.4em;
+  text-align: center;
 }
 
 .countdownAlarm {
-	background-color: #d97f7f;
+  background-color: #d97f7f;
 }
 
 .question {
-	margin-top: 8px;
-	padding-top: 8px;
-	border-top: 1px dashed #52b5b5;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #52b5b5;
 }
 
 .question:last-of-type {
-	margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 svg {
-	padding-top: 2.5px;
+  padding-top: 2.5px;
 }
 
 .btnTestSummary {
-	margin-top: 8px;
+  margin-top: 8px;
 }
 
 .btnTestSummaryBack {
-	text-align: center;
-	margin-top: 16px;
+  text-align: center;
+  margin-top: 16px;
 }
 
 /* Question Detail */
 
 .btnQuestion {
-	margin-right: 8px;
+  margin-right: 8px;
 }
 
 /* All Tests list */
 
 .test {
-	border: 1px dashed #52b5b5;
-	border-radius: 5px;
-	padding: 8px;
-	margin-bottom: 5px;
+  border: 1px dashed #52b5b5;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 5px;
 }
 
 .testsListDetail {
-	list-style: none;
+  list-style: none;
 }
 
 .testName {
-	font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 @media (min-width: 900px) {
-	.testsContainer,
-	.testSummaryContainer,
-	.testQuestionContainer {
-		margin: 30px 5%;
-	}
-
+  .testsContainer,
+  .testSummaryContainer,
+  .testQuestionContainer {
+    margin: 30px 5%;
+  }
 }
-

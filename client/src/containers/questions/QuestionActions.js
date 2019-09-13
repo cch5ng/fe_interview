@@ -1,3 +1,7 @@
+/**
+ * @prettier
+ */
+
 import http_requests from '../../utils/http_requests';
 
 // action types
@@ -8,23 +12,23 @@ export const RECEIVE_ALL_QUESTIONS = 'RECEIVE_ALL_QUESTIONS';
 const API_GET_QUESTIONS = 'http://localhost:3000/question/all';
 
 export function requestAllQuestions() {
-	return {
-		type: REQUEST_ALL_QUESTIONS,
-		retrieving: true
-	}
+  return {
+    type: REQUEST_ALL_QUESTIONS,
+    retrieving: true,
+  };
 }
 
 export function receiveAllQuestions(questions) {
-	return {
-		type: RECEIVE_ALL_QUESTIONS,
-		questions,
-		retrieving: false
-	}
+  return {
+    type: RECEIVE_ALL_QUESTIONS,
+    questions,
+    retrieving: false,
+  };
 }
 
 export const fetchQuestions = () => dispatch => {
-	dispatch(requestAllQuestions());
-	return http_requests.Questions.getAll()
-		.then(json => dispatch(receiveAllQuestions(json)))
-		.catch(err => console.error('fetch error', err));
-} 
+  dispatch(requestAllQuestions());
+  return http_requests.Questions.getAll()
+    .then(json => dispatch(receiveAllQuestions(json)))
+    .catch(err => console.error('fetch error', err));
+};

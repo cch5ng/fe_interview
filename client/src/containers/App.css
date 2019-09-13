@@ -1,325 +1,324 @@
+/**
+ * @prettier
+ */
+
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-	font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 header {
-	background-color: #28a3a3;
-	padding: 10px 12px 12px 12px;
+  background-color: #28a3a3;
+  padding: 10px 12px 12px 12px;
 }
 
 .navRow {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-between;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 .navLinksList {
-	display: none;
+  display: none;
 }
 
 .navLogo {
-	font-family: 'Marvel', sans-serif;
-	font-size: 1.3em;
+  font-family: 'Marvel', sans-serif;
+  font-size: 1.3em;
 }
 
 .navLink {
-	padding: 0 8px;
+  padding: 0 8px;
 }
 
 .hamburger {
-	margin-top: 2px;
+  margin-top: 2px;
 }
 
 .navAddTestIcon {
-	margin-top: -3px;
-	font-size: 1.5em;
+  margin-top: -3px;
+  font-size: 1.5em;
 }
 
 .dropDownMenu {
-	display: flex;
-	flex-flow: column wrap;
-	margin-left: 16px;
+  display: flex;
+  flex-flow: column wrap;
+  margin-left: 16px;
 }
 
 a:link,
 a:visited {
-	text-decoration: none;
-	color: #000000;
+  text-decoration: none;
+  color: #000000;
 }
 
 a:hover,
 a:active {
-	text-decoration: none;
-	color: #666666;
+  text-decoration: none;
+  color: #666666;
 }
 
 footer {
-	text-align: center;
-	margin-top: 45px;
-	padding: 12px;
-	background-color: #def1f1;
-	min-height: 150px;
+  text-align: center;
+  margin-top: 45px;
+  padding: 12px;
+  background-color: #def1f1;
+  min-height: 150px;
 }
 
 /* global section */
 
 .hidden {
-	display: none;
+  display: none;
 }
 
 .hidden2 {
-	visibility: hidden;
+  visibility: hidden;
 }
 
 .fullHeight {
-	height: 100vh;
+  height: 100vh;
 }
 
 .linkButton {
-	width: 80px;
-	background-color: #bee3e3;
-	border-radius: 5px;
-	padding: 5px 8px;
-	margin-left: 6px;
+  width: 80px;
+  background-color: #bee3e3;
+  border-radius: 5px;
+  padding: 5px 8px;
+  margin-left: 6px;
 }
 
 .linkButton:hover,
 .linkButton:active {
-	text-decoration: none;
-	background-color: #93d1d1;
+  text-decoration: none;
+  background-color: #93d1d1;
 }
 
 h1 {
-	margin-bottom: 18px;
-	font-size: 1.5em;
+  margin-bottom: 18px;
+  font-size: 1.5em;
 }
 
 h2 {
-	font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 .bold {
-	font-weight: bolder;
+  font-weight: bolder;
 }
 
 .green {
-	color: #669661;
+  color: #669661;
 }
 
 .red {
-	color: #ad6565; 
+  color: #ad6565;
 }
 
 .errorMessage {
-	font-size: 1.2em;
-	color: #ad6565; 	
+  font-size: 1.2em;
+  color: #ad6565;
 }
 
 .code {
-	font-family: 'Source Code Pro', monospace;
-	background-color: #e5e5e5;
-	font-size: 0.9em;
-	padding: 0 3px;
+  font-family: 'Source Code Pro', monospace;
+  background-color: #e5e5e5;
+  font-size: 0.9em;
+  padding: 0 3px;
 }
 
 /* Question */
 
 .questionsContainer {
-	margin: 12px;
+  margin: 12px;
 }
 
 .questionContainer {
-	margin: 22px 0;
+  margin: 22px 0;
 }
 
 .h3Question {
-	margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 /* Login */
 
 .heroContainer {
-	width: 100%;
-	z-index: -5;
-	position: absolute;
-	left: 0;
-	top: 48px;
+  width: 100%;
+  z-index: -5;
+  position: absolute;
+  left: 0;
+  top: 48px;
 }
 
 .heroImg {
-	max-width: 100%;
+  max-width: 100%;
 }
 
 .heroCaption {
-	position: relative;
-	left: 12px;
-	bottom: 35px;
-	color: #666666;
-	font-size: 0.85em;
+  position: relative;
+  left: 12px;
+  bottom: 35px;
+  color: #666666;
+  font-size: 0.85em;
 }
 
 .loginContainer {
-	margin-top: 18px;
+  margin-top: 18px;
 }
 
 .formContainer {
-	margin: 12px;
-	padding: 12px;
-	border-radius: 5px;
-	background-color: #ffffff;
-	opacity: 0.9;
+  margin: 12px;
+  padding: 12px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  opacity: 0.9;
 }
 
 .buttonGroup {
-	display: flex;
-	flex-flow: row wrap;
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .registrationText,
 .loginText {
-	margin-top: 8px;
-	margin: 7px 0 0 8px;
-	font-size: 0.9em;
+  margin-top: 8px;
+  margin: 7px 0 0 8px;
+  font-size: 0.9em;
 }
 
 /* REGISTRATION */
 
 .registrationContainer {
-	margin: 12px;
+  margin: 12px;
 }
 
 .requirements {
-	font-size: 0.85em;
-	color: #7f7f7f;
+  font-size: 0.85em;
+  color: #7f7f7f;
 }
 
 /* form styling */
 
 .formGroup {
-	display: flex;
-	flex-flow: column wrap;
-	margin-bottom: 8px;
+  display: flex;
+  flex-flow: column wrap;
+  margin-bottom: 8px;
 }
 
 label {
-	color: #666666;
-	/*color: #7f7f7f;*/
-	/*color: #4c4c4c;*/
+  color: #666666;
+  /*color: #7f7f7f;*/
+  /*color: #4c4c4c;*/
 }
 
 input,
 select,
 textarea {
-	border: 1px solid #7f7f7f;
-	border-radius: 5px;
-	height: 28px;
-	padding-left: 5px;
-	font-size: 0.9em;
-	color: #999999;
+  border: 1px solid #7f7f7f;
+  border-radius: 5px;
+  height: 28px;
+  padding-left: 5px;
+  font-size: 0.9em;
+  color: #999999;
 }
 
 textarea {
-	width: 100%;
-	height: 200px;
-	margin: 12px 0;
+  width: 100%;
+  height: 200px;
+  margin: 12px 0;
 }
 
 button {
-	width: 80px;
-	height: 32px;
-	border: 2px solid #28a3a3;
-	border-radius: 5px;
-	font-size: 0.9em;
+  width: 80px;
+  height: 32px;
+  border: 2px solid #28a3a3;
+  border-radius: 5px;
+  font-size: 0.9em;
 }
 
 button:hover,
 button:active {
-	background-color: #bee3e3;
+  background-color: #bee3e3;
 }
 
-
 @media (min-width: 768px) {
+  .navRow {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
 
-	.navRow {
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: center;
-	}
+  .hamburger {
+    display: none;
+  }
 
-	.hamburger {
-		display: none;
-	}
+  .logo {
+  }
 
-	.logo {
+  .navLogo {
+    padding-right: 24px;
+  }
 
-	}
+  .navLinksList {
+    display: flex;
+    padding-top: 3px;
+  }
 
-	.navLogo {
-		padding-right: 24px;
-	}
+  .navLink {
+    padding: 0 16px;
+  }
 
-	.navLinksList {
-		display: flex;
-		padding-top: 3px;
-	}
+  .navAddTestIcon,
+  .dropDownMenu {
+    display: none;
+  }
 
-	.navLink {
-		padding: 0 16px;
-	}
+  /* LOGIN */
 
-	.navAddTestIcon,
-	.dropDownMenu {
-		display: none;
-	}
+  .loginContainer {
+    width: 65%;
+    margin: 30px auto;
+  }
 
-	/* LOGIN */
+  /* REGISTRATION */
 
-	.loginContainer {
-		width: 65%;
-		margin: 30px auto;
-	}
+  .registrationContainer {
+    width: 65%;
+    margin: 30px auto;
+  }
 
-	/* REGISTRATION */
+  /* FORM */
 
-	.registrationContainer {
-		width: 65%;
-		margin: 30px auto;
-	}
-
-
-	/* FORM */
-
-	.formGroup,
-	.buttonGroup {
-		/*display: flex;
+  .formGroup,
+  .buttonGroup {
+    /*display: flex;
 		flex-flow: row wrap;*/
-	}
+  }
 
-	.buttonGroup {
-		margin-top: 26px;
-	}
+  .buttonGroup {
+    margin-top: 26px;
+  }
 
-	input[type="text"],
-	input[type="email"],
-	input[type="password"],
-	textarea {
-		width: 100%;
-	}
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  textarea {
+    width: 100%;
+  }
 
-	input[type="number"] {
-		width: 70px;
-	}
+  input[type='number'] {
+    width: 70px;
+  }
 }
 
 @media (min-width: 900px) {
-	.questionsContainer {
-		margin: 30px 5%;
-	}
-
+  .questionsContainer {
+    margin: 30px 5%;
+  }
 }
