@@ -3,7 +3,6 @@ const readline = require('readline');
 var SimpleMarkdown = require("simple-markdown");
 
 var mdParse = SimpleMarkdown.defaultBlockParse;
-//let writeStream = fs.createWriteStream('clean_javascript_questions.md');
 let readFile = fs.readFile;
 let writeFile = fs.writeFile;
 const questionFileSrcList = [
@@ -18,6 +17,11 @@ const questionFileSrcList = [
   'testing-questions.md'
 ];
 
+/**
+ * @param {string} fileName
+ * @return none
+ * Used to convert a set of questions in markdown to a JSON formatted files
+ */
 async function markdownToStr(fileName) {
   const srcPathPrefix = `./question_src/`;
   const fileStream = fs.createReadStream(`${srcPathPrefix}${fileName}`);
@@ -46,24 +50,24 @@ async function markdownToStr(fileName) {
   })
 }
 
+/**
+ * @param {string} mdStr
+ * @param {string} fileName
+ * Given a string containing a group of questions, parses questions and outputs a JSON formatted file.
+ * Result is in object format, with question categories used as keys.
+ */
 function strToJson(mdStr, fileName) {
   // dictionary of questions for this category
-  let questionDict; // = {};
+  let questionDict;
   let questionCategory;
   var syntaxTree = mdParse(mdStr);
 
   let syntaxTreeStr = JSON.stringify(syntaxTree, null, 4);
-  
-  //console.log('syntaxTreeStr', syntaxTreeStr);
-
   let categoryContent = syntaxTree[0];
   let categoryStr = parseCategoryContent(categoryContent);
 
   const outputPathPrefix = `./question_output/`;
   const outputFileName = updateFileExtension(fileName);
-
-  //TODO starting here to around line 82, branch coding questions vs remaining questions
-  //let messyQuestions = JSON.stringify(syntaxTree[1], null, 4);
 
   if (categoryStr === 'Coding Questions') {
     questionDict = parseCodingQuestions(syntaxTree, categoryStr);
@@ -71,14 +75,11 @@ function strToJson(mdStr, fileName) {
     questionDict = parseGeneralQuestions(syntaxTree, categoryStr);
   }
 
-  //console.log('questionDict', questionDict);
-
   let fileStr = JSON.stringify(questionDict, null, 4);
   fileStr = `module.exports = ${fileStr}`
 
   writeFile(`${outputPathPrefix}${outputFileName}`, fileStr, (err) => {
     if (err) throw err;
-
     console.log(`${outputPathPrefix}${outputFileName} file created`);
   })
 }
@@ -87,10 +88,8 @@ questionFileSrcList.forEach(qFile => {
   markdownToStr(qFile);
 })
 
-//markdownToJS();
-
 /**
- * @param {obj} khan lib syntax tree for category content
+ * @param {obj} syntaxTree - khan lib syntax tree for category content
  * @return {str} string version of current questions category
  *
  */
@@ -109,8 +108,12 @@ function parseCategoryContent(syntaxTree) {
   return categoryShortStr;
 }
 
-// for one parent question, gets all content for its child questions (0 - many)
-// parses that into one long string, delimiter '\n' for multiple questions
+/**
+ * @param {array of strings} childArray
+ * @return {string} longChildStr
+ * For the current question (parent), gets all content for its child questions (0 - many)
+ * and parses that into one long string, delimiter '\n' for multiple questions
+ */
 function parseChildQuestionsStr(childArray) {
   let longChildStr = '';
 
@@ -126,21 +129,23 @@ function parseChildQuestionsStr(childArray) {
   return longChildStr;
 }
 
-// replaces "`" with "^"; and adds \n char
-// function reformatQuestionStr(str) {
-
-// }
-
-// helper which updates original file extension from md to js
+/**
+ * @param {string} fileName
+ * @return {string} new file name (JS format)
+ * Given a filename (markdown source) outputs a new filename (same name, JS extension)
+ */
 function updateFileExtension(fileName) {
   let fileNameAr = fileName.split('.');
 
   return `${fileNameAr[0]}.js`;
 }
 
-// all questions except coding
-// input syntax tree
-// output question dict
+/**
+ * @param {obj} syntaxTree - data format output by Khan academy library for markdown to JS conversion
+ * @param {string} category - type of question being parsed
+ * @return {obj} dictionary of questions by category
+ * Parsing logic for all question types except coding questions.
+ */
 function parseGeneralQuestions(syntaxTree, category) {
   let allQuestions = syntaxTree[1].items;
   let questionDict = {};
@@ -173,9 +178,11 @@ function parseGeneralQuestions(syntaxTree, category) {
   return questionDict;
 }
 
-// only coding questions
-// input syntax tree
-// output question dict
+/**
+ * @param {obj} syntaxTree - data format output by Khan academy library for markdown to JS conversion
+ * @param {string} category - type of question being parsed
+ * @return {obj} Dictionary of questions for coding category
+ */
 function parseCodingQuestions(syntaxTree, category) {
 
   let questionDict = {};
@@ -203,4 +210,3 @@ function parseCodingQuestions(syntaxTree, category) {
 
   return questionDict;
 }
-
