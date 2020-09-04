@@ -24,7 +24,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pg": "^7.8.0",
-    "simple-markdown": "^0.4.2"
+    "simple-markdown": "^0.5.2"
   },
   "devDependencies": {
     "jest": "^24.1.0",
